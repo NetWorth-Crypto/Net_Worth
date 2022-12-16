@@ -1,5 +1,7 @@
 package com.example.networth.controllers;
 
+import com.example.networth.models.Comment;
+import com.example.networth.models.Post;
 import com.example.networth.models.User;
 import com.example.networth.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -7,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class ProfileController
@@ -17,6 +21,33 @@ public class ProfileController
     {
         this.userDao = userDao;
     }
+
+
+
+    /****************PRODUCTION MAPPING CODE****************/
+    @GetMapping("/userProfile")
+    public String userProfile(Model model)
+    {
+        //Get logged-in user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get logged-in user's posts
+        List<Post> posts = user.getPosts();
+
+        //Add attributes for page
+        model.addAttribute("user", user);
+        model.addAttribute("posts",posts);
+        model.addAttribute("newComment",new Comment());
+        return "userProfile";
+    }
+
+    /****************TEST MAPPING CODE****************/
 
     @GetMapping("/profile")
     public String profile(Model model)
