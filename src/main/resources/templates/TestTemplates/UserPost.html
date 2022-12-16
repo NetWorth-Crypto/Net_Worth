@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--BootStrap Link-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!--FontAwesome script-->
+    <script src="https://kit.fontawesome.com/27b1eac4bf.js" crossorigin="anonymous"></script>
+
+    <!--Custom style sheet-->
+    <link href="css/post.css" rel="stylesheet">
+
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<div th:each="post: ${posts}">
+    <!--//Post Card item-->
+    <div class="card w-25">
+
+        <!--Card header START-->
+        <div class="card-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <!--Avatar-->
+                    <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3" style="width: 50px;"
+                         alt="Avatar"/>
+                    <!--Info-->
+                    <!--                <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
+                    <div>
+                        <div class="nav nav-divider">
+                            <!--INPUT USER PROFILE LINK-->
+                            <h6 class="nav-item card-title mb-0"><a href="#!"> <strong
+                                    th:text="${post.getUser().firstName}"></strong> <strong
+                                    th:text="${post.getUser().lastName}"></strong> </a></h6>
+                        </div>
+                        <p class="mb-0 small">Web Developer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Card header END-->
+
+        <!--Card body START-->
+        <div class="card-body">
+            <!--Post Description-->
+            <p class="card-text" th:text="${post.description}"></p>
+
+            <!--Post image-->
+            <!--MAKE IMAGE AND VIDEO CONDITIONAL UPON NULL CHECK-->
+            <img src="images/logo.png" class="card-img-top" alt="logoImage">
+
+            <!--Post Reaction Items START-->
+            <div class="d-flex align-items-center justify-content-between">
+                <form th:action="@{/like/testpost}" th:method="post">
+                    <input hidden th:value="${post.id}">
+
+                    <button class="btn" type="submit">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>
+                    </button>
+
+                </form>
+
+                <form th:action="@{/dislike/testpost}" th:method="post">
+                    <input hidden th:value="${post.id}">
+                    <button class="btn" type="submit">
+                        <i class="fa-solid fa-thumbs-down"></i>
+                        <span class="badge bg-secondary" th:text="${post.dislikes.size()}"></span>
+                    </button>
+
+                </form>
+
+                <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <!--PUT total comment data in badge-->
+                    Comment
+                    <span class="badge bg-secondary">14</span>
+                </button>
+
+            </div>
+            <!--Post Reaction Items END-->
+
+            <!-- Add comment START-->
+            <div class="d-flex mb-3">
+                <!-- Avatar -->
+                <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
+                <div class="avatar avatar-xs me-2">
+                    <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
+                </div>
+                <!-- Comment box  -->
+                <form class="w-100">
+                    <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>
+                    <input type="submit" hidden>
+                </form>
+            </div>
+            <!-- Add comment END-->
+
+            <!-- Comment wrap START -->
+            <div class="collapse" id="collapseExample">
+            <ul class="comment-wrap list-unstyled">
+                <li class="comment-item">
+                    <div class="d-flex position-relative">
+                        <!-- Avatar -->
+                        <!--GET COMMENT USER IMAGE-->
+                        <div class="avatar avatar-xs">
+                            <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
+                        </div>
+                        <div class="ms-2">
+                            <!-- Comment by -->
+                            <div class="bg-light rounded-start-top-0 p-3 rounded">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="mb-1"> <a href="#!"> Anthony Stevens </a></h6>
+                                </div>
+                                <p class="small mb-0">No more Comment.comment</p>
+                            </div>
+                            <!-- Comment react -->
+                            <!-- PUT THIS IF TIME IS ALLOTED-->
+<!--                            <ul class="nav nav-divider py-2 small">-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link" href="#!"> Reply</a>-->
+<!--                                </li>-->
+<!--                                <li class="nav-item">-->
+<!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+            <!-- Comment wrap END -->
+
+        </div>
+        <!--Card body END-->
+
+    </div>
+    <!--Post Card Item END-->
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <title>Home</title>
+</head>
+
+<body>
+
+<div th:replace="fragments :: portfolio-navbar"></div>
+<!--            -->
+
+<div class="user-area">
+
+</div>
+<div class="row main">
+    <div class="col-2  sidebar">
+        <div class="row d-flex flex-column">
+
+            <div class="col w-100">
+
+                <a style="width: 10em" th:href="@{/createPortfolio}" class="btn btn-dark ">Create a portfolio</a>
+
+            </div>
+
+            <hr style="width: 15em" class="m-2">
+            <div class="col w-100">
+                <a style="width: 10em" th:href="@{/viewAll}" class="btn btn-dark ">view all asset</a>
+            </div>
+            <hr style="width: 15em" class="m-2">
+            <div class="col w-100">
+                <button style="width: 10em" class="btn btn-dark ">3</button>
+            </div>
+            <hr style="width: 15em" class="m-2">
+        </div>
+    </div>
+    <div class="col-10 main-content">
+        <div class="row content">
+            <div class="col left-side">
+
+                <div class="row left">
+
+                    <div class="col network">
+
+                    </div>
+                    <div class="col st-balance">
+
+                    </div>
+
+                    <div class="col t-balance">
+
+                    </div>
+
+                    <div class="col 24h-change">
+
+                    </div>
+
+
+                    <div class="col profit">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!--    ******************************************************-->
+            <div class="col main-center">
+                <div class="row center">
+
+                    <div class="col graph-balance">
+
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary"></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col graph-holding">
+
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <p class="card-text"></p>
+                                <a href="#" class="btn btn-primary"></a>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!--    *****************************************************-->
+            <div class="col right-side">
+                <div class="row d-flex flex-column">
+                    <div class="col myportfplio">
+                        <div th:each="portfolio: ${portfolios}" class="card mt-2  portfolio">
+
+                            <div class="row row-cols-2 bg-light w-100">
+
+                                <div class="col-4">
+                                    <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
+                                </div>
+                                <div class="col col-8">
+                                    <h3 th:text="${portfolio.name}"></h3>
+                                    <p th:text="${portfolio.dollarLimit}"></p>
+                                </div>
+                            </div>
+
+                            <div>
+
+                                <a th:href="@{/asset/{id}(id=${portfolio.id})}" class="btn btn-primary">view</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col trending">
+
+                        <div class=" card table-container mt-4">
+                            <h2 class="card-header">24 Hour Trending Crypto</h2>
+                            <div class="card-body ">
+
+                                <table class="table table-light table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Symbol</th>
+                                        <th>market cap rank</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody id="trending-stock">
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--            -->
+
+
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>

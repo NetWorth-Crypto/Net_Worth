@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Search Post</title>
+</head>
+<body>
+<form th:action="@{/post/searchPost}" th:method="get">
+    <input name="keyword" type="text"  placeholder="Search Posts">
+    <button type="submit">Search</button>
+</form>
+<!--<form th:action="@{/searchPost}" th:method="post">-->
+<!--    <input name="keyword" type="text" th:value="${keyword}" placeholder="Search Posts">-->
+<!--    <button type="submit">Search</button>-->
+<!--</form>-->
+
+
+</body>
+</html>

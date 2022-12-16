@@ -1,0 +1,49 @@
+:root{
+    --bg-color: #1f2833;
+    --box-color:#151f28;
+    --text-color: #FAF7F2;
+    --main-color: #66fcf1;
+    --accent-color:#c5c6c7;
+    --accent-color2:#45a29e;
+}
+
+
+/*Nav Styling*/
+.navbar-img{
+    height: 150px;
+}
+
+/*Body Styling*/
+a{
+    color: var(--text-color);
+}
+
+
+/*Card Styling*/
+.card{
+    color: var(--text-color);
+    border: none;
+}
+.card-header{
+    background-color: var(--box-color);
+}
+
+.card-body{
+    background-color:var(--box-color) ;
+
+}
+
+body{
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+/*Thumbs up and down styling*/
+.fa-thumbs-up{
+    color: var(--text-color);
+}
+
+.fa-thumbs-down{
+    color: var(--text-color);
+}

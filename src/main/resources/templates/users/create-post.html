@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: css"></div>
+    <meta charset="UTF-8"/>
+    <title>Create Post</title>
+</head>
+<body>
+<section id="create-post">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="#" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <input type="text" class="card-title" placeholder="Title here.">
+                <p class="card-text">What do you want to share?</p>
+                <input class="card-text" placeholder="Write here.">
+                <br>
+                <br>
+                <button>
+                    <a href="profile" class="btn btn-primary">Submit Worth</a>
+                </button>
+            </div>
+        </div>
+</section>
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>
+
+<!--Put <input> tags inside form-->

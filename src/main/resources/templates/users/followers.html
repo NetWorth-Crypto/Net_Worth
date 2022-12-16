@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Network</title>
+</head>
+<body>
+<!-- follower -->
+<div class="card" align="center" style="width: 18rem;">
+    <div class="card-body">
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Followers
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" th:text="${follower.follower_user_id}" th:href="${follower.user}"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

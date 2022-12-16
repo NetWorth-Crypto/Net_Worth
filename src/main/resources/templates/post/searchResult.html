@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <meta charset="UTF-8"/>
+    <title>Search Result</title>
+</head>
+<body>
+
+<div>
+    <div th:each="lists : ${list}" class="card mt-2">
+        <div  class="row row-cols-2 bg-light w-100">
+
+            <div class="col-4">
+                <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
+            </div>
+
+            <div class="col col-8">
+
+                <p th:text="${lists}"></p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+    <div th:replace="fragments :: jsFile"> </div>
+</body>
+</html>

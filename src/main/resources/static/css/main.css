@@ -1,0 +1,161 @@
+
+
+
+*{
+    box-sizing: border-box;
+    font-family:'Poppins', sans-serif;
+
+}
+
+
+
+/*Navbar*/
+.navbar{
+    background-color: #66fcf1;
+}
+.nav-item{
+    font-size: 1.5em;
+    margin-left: 2em;
+}
+
+
+
+
+/*landing cards staggered*/
+.landing-row{
+    margin-top: 80px;
+}
+.card1{
+    margin-top: 8em;
+}
+
+
+.card3{
+    margin-top: 12em;
+}
+
+
+/*******************************************************/
+/* ABOUT PAGE */
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column
+{
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after
+{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px)
+{
+    .column
+    {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/* Style the counter cards */
+.card
+{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #f1f1f1;
+}
+/*******************************************************/
+/* Profile Page */
+.btn button
+{
+    background-color: #04AA6D; /* Green background */
+    border: 1px solid green; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 100%; /* Set a width if needed */
+    display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child)
+{
+    border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover
+{
+    background-color: #3e8e41;
+}
+.search-user-posts
+{
+    cursor: pointer;
+}
+
+/*******************************************************/
+/* Create Post (currently as Bootstrap) */
+#create-post
+{
+
+    position: absolute;
+    top: 35%;
+    left: 39%;
+}
+
+{
+    text-decoration: none;
+}
+
+/*******************************************************/
+/* Update User Info */
+
+
+
+/*search cryto style*/
+
+.search-item{
+color: royalblue;
+}
+
+
+
+
+
+/********** tables**************************************************/
+
+
+
+ table td,
+ table th {
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     overflow: hidden;
+ }
+
+.card {
+    border-radius: .5rem;
+}
+
+/*SideBar********************************************/
+

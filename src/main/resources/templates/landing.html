@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="fragments :: landing-navbar"></div>
+
+<div class="row  landing-row">
+
+<div class="col-md-4 card1">
+    <div class="card">
+        <img th:src="@{images/CryptoLandingCard.jpg}" class="card-img-top" alt="Crypto roller coaster">
+        <div class="card-body">
+            <h5 class="card-title">Cryptocurrencies</h5>
+            <p class="card-text">Explore cryptocurrencies, get up-to-date trends, and share with your network your portfolio and interests.</p>
+        </div>
+
+        <div class="card-body">
+            <!-- Add Sign-up page as href when user is not logged in. When logged in, user will be sent to Crypto page -->
+            <a href="#" class="card-link">View More</a>
+<!--            <a href="#" class="card-link">Another link</a>-->
+        </div>
+    </div>
+
+</div>
+
+    <div class="col-md-4 card2">
+        <div class="card" >
+            <img th:src="@{images/NetworkCard.png}" class="card-img-top" alt="Network Links">
+            <div class="card-body">
+                <h5 class="card-title">Network with Others</h5>
+                <p class="card-text">Connect with friends, family, co-workers, etc., share your portfolio,</p>
+            </div>
+
+            <div class="card-body">
+                <!-- Add Sign-up page as href when user is not logged in. When logged in, user will be sent to User Profile to access My Network page -->
+                <a href="#" class="card-link">View More</a>
+<!--                <a href="#" class="card-link">Another link</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>

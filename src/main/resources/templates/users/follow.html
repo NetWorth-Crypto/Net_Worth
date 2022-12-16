@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Network-follow</title>
+</head>
+<body>
+    <form th:action="@{/following/users}" th:method="post" th:object="${following}">
+        <input hidden th:field="*{id}">
+        <button  type="submit">Follow</button>
+    </form>
+</body>
+</html>

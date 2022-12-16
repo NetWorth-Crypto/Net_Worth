@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <meta charset="UTF-8"/>
+    <title>Update Profile</title>
+</head>
+<body>
+<div th:replace="fragments :: landing-navbar"></div>
+<section class="col-md-4">
+    <div class="update-profile">
+        <img src="/images/CryptoLandingCard.jpg"
+             alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+             style="width: 150px; z-index: 1">
+        <h1>DogeKing</h1>
+        <div class="btn">
+            <button><a href="#">Update Profile Picture</a></button>
+            <br>
+            <button><a href="#">Delete Account</a></button>
+            <br>
+            <button><a href="#">Deactivate Account</a></button>
+        </div>
+    </div>
+</section>
+
+<div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <h3>Update Info</h3>
+            <div class="card">
+                <h5 class="text-center mb-4">Complete all items before submitting.</h5>
+                <form class="form-card" onsubmit="event.preventDefault()">
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" onblur="validate(1)">
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)">
+                        </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label> <input type="text" id="email" name="email" placeholder="" onblur="validate(3)">
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex">
+                            <label class="form-control-label px-3">Password Update<span class="text-danger"> *</span></label> <input type="text" id="mob" name="mob" placeholder="" onblur="validate(4)">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-end">
+                        <div class="form-group col-sm-6">
+                            <button type="submit" class="btn-block btn-primary"><a href="profile">Submit Changes</a></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>

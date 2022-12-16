@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <meta charset="UTF-8"/>
+    <title>About</title>
+</head>
+<body>
+<div th:replace="fragments :: landing-navbar"></div>
+
+<section>
+    <h1>About NetWorth</h1>
+    <p>Describe why NetWorth was created.</p>
+</section>
+
+<!-- Haskell Student Cards -->
+<div class="row landing-row">
+    <div class="column">
+        <div class="card">
+            <img src="#" alt="Profile Pic">
+            <h3>Anthony Stevens</h3>
+            <p>Some text</p>
+            <p>Some text</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="#" alt="Profile Pic">
+            <h3>Yogesh Adhikari</h3>
+            <p>Some text</p>
+            <p>Some text</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="#" alt="Profile Pic">
+            <h3>Amida Fombutu</h3>
+            <p>Some text</p>
+            <p>Some text</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <img src="#" alt="Profile Pic">
+            <h3>Casanova Geary</h3>
+            <p>Some text</p>
+            <p>Some text</p>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>

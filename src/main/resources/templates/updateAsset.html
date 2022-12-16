@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+    <div th:replace="fragments :: css"></div>
+
+    <title>Add asset</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+
+<hr class="mb-4">
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+
+
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0">Update asset</h3>
+            </div>
+
+            <div class="card-body">
+                <form th:action="@{/updating}" th:method="post"  class="form">
+                    <div class="form-group">
+                        <label for="name">Asset name</label>
+                        <input class="form-control" id="name" name="name" required="" readonly type="text" th:value="${asset.name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="ticker">Ticker</label>
+                        <input  class="form-control" id="ticker" required="" type="text" readonly name="ticker" th:value="${asset.ticker}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" >Price</label>
+                        <input id="price" name="price" class="form-control" type="text" readonly th:value="${asset.currentPrice}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input class="form-control" id="quantity" name="quantity" required="" type="number"/>
+                    </div>
+
+                    <div  class="form-group invisible">
+
+                        <input type="text" name="id" th:value="${asset.id}">
+
+                    </div>
+
+                    <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">submit</button>
+                </form>
+            </div><!--/card-block-->
+        </div><!-- /form card login -->
+    </div>
+</div>
+
+
+
+
+
+
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>
