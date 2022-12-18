@@ -15,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +59,7 @@ if(portfolios.isEmpty()){
    return "redirect:/createPortfolio";
 }
 
-        return "/addAsset";
+        return "addAsset";
     }
 
     @RequestMapping(value = "/add_crypto", method = RequestMethod.POST)
@@ -74,11 +72,21 @@ if(portfolios.isEmpty()){
     RedirectAttributes redirectAttrs) {
 
         Portfolio newPortfolio = portfolioService.findById(portfolio);
+        double availableBalance = newPortfolio.getDollarLimit();
+        double totalPrice = price*quantity;
 
         if (assetService.findByName(name) != null || pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio) != null) {
             redirectAttrs.addFlashAttribute("red", "Ticker already Exist in Portfolio");
             return "redirect:/crypto";
         }
+        if(totalPrice>availableBalance){
+            model.addAttribute("lowBalance","your available balance is not enough for "+quantity+" "+name );
+            model.addAttribute("price",price);
+            model.addAttribute("name",name);
+            model.addAttribute("ticker",ticker);
+return "addAsset";
+        }
+
             assetService.addAsset(new Asset(ticker, name, price));
             Asset asset = assetService.findByName(name);
 

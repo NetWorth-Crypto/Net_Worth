@@ -4,7 +4,6 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
-import com.example.networth.repositories.PortfolioAssetRepository;
 import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
@@ -56,21 +55,37 @@ public class UserFinancePortfolioCtl {
 
     @GetMapping("/createPortfolio")
     public String createPortfolio() {
-        return "createPortfolio";
+        return "portfolio/createPortfolio";
     }
 
     @PostMapping("/addPortfolio")
     public String addPortfolio(@RequestParam("name") String name,
                                @RequestParam("dollarLimit") int dollarLimit,
-                               @RequestParam("type") String type
+                               @RequestParam("type") String type,
+                               Model model,
+                               RedirectAttributes attributes
     ) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
+        List<Portfolio> portfolios = portfolioService.findByUser((User) auth.getPrincipal());
+
+        for(Portfolio portfolio:portfolios) {
+            if (portfolio.getName().equals(name)) {
+                attributes.addFlashAttribute("rename", "A portfolio with this name already exist");
+                return "redirect:/createPortfolio";
+            }
+        }
         Portfolio portfolio = new Portfolio((User) auth.getPrincipal(), name, isDefault, dollarLimit, isPrivate);
 
         portfolioService.addPortfolio(portfolio);
         return "redirect:/userFinance";
+    }
+
+
+    @GetMapping("/editPortfolio/{id}")
+    public String editPortfolio(@PathVariable int id,Model model){
+       return "portfolio/editPortfolio";
     }
 
 
@@ -92,7 +107,7 @@ public class UserFinancePortfolioCtl {
         model.addAttribute("assets", assets);
 
 
-        return "viewAssets";
+        return "portfolio/viewAssets";
     }
 
 
@@ -121,7 +136,7 @@ public class UserFinancePortfolioCtl {
         model.addAttribute("portfolioAssets", total);
 
         model.addAttribute("assets", assets);
-        return "viewAssets";
+        return "portfolio/viewAssets";
     }
 
 
