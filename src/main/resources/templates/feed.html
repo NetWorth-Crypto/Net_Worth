@@ -235,8 +235,8 @@
                                 <img th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
                             </div>
                             <!--video image-->
-                            <div th:if="${post.videoUrl} == 'null'">
-                                <video width="540" height="320" controls>
+                            <div th:if="${post.videoUrl} != 'null'">
+                                <video class="card-img-top"  controls>
                                     <source th:src="${post.videoUrl}" type="video/mp4">
                                 </video>
                             </div>
