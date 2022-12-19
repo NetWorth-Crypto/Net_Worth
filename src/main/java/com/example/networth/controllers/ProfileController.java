@@ -47,6 +47,20 @@ public class ProfileController
         return "userProfile";
     }
 
+    @GetMapping("/userProfile/{id}")
+    public String userProfileOther(@PathVariable long id, Model model){
+        //Get user
+        User user = userDao.getReferenceById(id);
+
+        //Get Post
+        List<Post> posts = user.getPosts();
+
+        model.addAttribute("user",user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("newComment",new Comment());
+        return "userProfile";
+    }
+
     /****************TEST MAPPING CODE****************/
 
     @GetMapping("/profile")
