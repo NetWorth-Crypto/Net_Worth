@@ -32,6 +32,7 @@ public class UserFinancePortfolioCtl {
         this.portAssetDao = portAssetDao;
         this.assetService = assetService;
     }
+    
 
     //****************************VIEW USERFINANCE PAGE IF LOGIN************************************
     @GetMapping("/userFinance")
@@ -40,7 +41,7 @@ public class UserFinancePortfolioCtl {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth.getPrincipal() == "anonymousUser") {
-            redirectAttrs.addFlashAttribute("login", "login to continue");
+            redirectAttrs.addFlashAttribute("login", "login.html to continue");
             return "redirect:/login";
         }
         User user = (User) auth.getPrincipal();
@@ -79,17 +80,60 @@ public class UserFinancePortfolioCtl {
         Portfolio portfolio = new Portfolio((User) auth.getPrincipal(), name, isDefault, dollarLimit, isPrivate);
 
         portfolioService.addPortfolio(portfolio);
+
         return "redirect:/userFinance";
     }
 
 
+
+
+//    ******************************Edit Portfolio***************************************
     @GetMapping("/editPortfolio/{id}")
     public String editPortfolio(@PathVariable int id,Model model){
-       return "portfolio/editPortfolio";
+        Portfolio portfolio = portfolioService.findById(id);
+        model.addAttribute("id",id);
+        model.addAttribute("name",portfolio.getName());
+        model.addAttribute("dollarLimit",portfolio.getDollarLimit());
+
+        return "portfolio/editPortfolio";
+    }
+
+    @PostMapping("/saveEdit")
+    public String saveEdit(@RequestParam("name")String name,
+                           @RequestParam("dollarLimit")double dollarLimit,
+                           @RequestParam("id")long id,
+                           @RequestParam("type")String type,
+                           Model model,
+                           RedirectAttributes attributes){
+
+
+Portfolio portfolio = portfolioService.findById(id);
+  if(portfolioService.findByNameAndUser(name,(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal())!=null){
+      model.addAttribute("exist", "you already have a portfolio with this name");
+      model.addAttribute("id",id);
+      model.addAttribute("name",portfolio.getName());
+      model.addAttribute("dollarLimit",portfolio.getDollarLimit());
+
+      return "portfolio/editPortfolio";
+  }
+  if(type.equals("Private")){
+      portfolio.setPrivate(true);
+  }else {portfolio.setDefault(true);}
+  portfolio.setName(name);
+        portfolio.setDollarLimit(dollarLimit);
+portfolioService.addPortfolio(portfolio);
+       return"redirect:/userFinance";
     }
 
 
-    //    *****************************VIW PORTFOLIO ASSET*********************************
+//    *******************************************************************
+
+
+
+
+
+
+    //    *****************************VIW PORTFOLIO ASSET IN Single Portfolio*********************************
     @GetMapping(path = "/asset/{id}")
     public String getAsset(@PathVariable long id, Model model) {
         System.out.println(id);
@@ -99,8 +143,8 @@ public class UserFinancePortfolioCtl {
         model.addAttribute("portfolioAssets", portfolioAssets);
 
         List<Asset> assets = new ArrayList<>();
-        for (PortfolioAsset ass : portfolioAssets) {
-            Asset asset = assetService.findById(ass.getAsset().getId());
+        for (PortfolioAsset portfolioAsset : portfolioAssets) {
+            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
             assets.add(asset);
 
         }
@@ -111,7 +155,11 @@ public class UserFinancePortfolioCtl {
     }
 
 
-//    VIEW ALL ASSET*************************************************
+
+
+
+
+//    VIEW ALL ASSET that belongs to a user*************************************************
 
     @GetMapping("/viewAll")
     public String viewAll(Model model) {
@@ -127,8 +175,8 @@ public class UserFinancePortfolioCtl {
         }
 
         List<Asset> assets = new ArrayList<>();
-        for (PortfolioAsset ass : total) {
-            Asset asset = assetService.findById(ass.getAsset().getId());
+        for (PortfolioAsset portfolioAsset : total) {
+            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
             assets.add(asset);
 
         }

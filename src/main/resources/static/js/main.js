@@ -37,7 +37,7 @@ getCrypto().then(data => {
 
 
 const cryptoList = async () => {
-    const request = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h\n");
+    const request = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h");
     const data = await request.json();
     return data;
 };
@@ -84,7 +84,7 @@ cryptoList().then(data => {
 //    Search Crypto**********************************************************************************
 
 
-const searchCrypto = document.querySelector(".crypto-search")
+const searchCrypto = document.querySelector("#crypto-search")
 
 
 const searchBtn = document.querySelector("#searchBtn")
@@ -156,6 +156,4 @@ searchBtn.addEventListener("click", function () {
 
 
 })
-
-
 

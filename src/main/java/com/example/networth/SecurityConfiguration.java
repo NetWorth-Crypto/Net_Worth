@@ -41,14 +41,14 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login.html")
                 .defaultSuccessUrl("/") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                .permitAll() // Anyone can go to the login.html page
 
                 /* Logout configuration */
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login?logout") // append a query string value
+                .logoutSuccessUrl("/login.html?logout") // append a query string value
 
                 /* Pages that can be viewed without having to log in */
                 .and()

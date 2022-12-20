@@ -43,7 +43,7 @@ public class CrytoController {
 
        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth.getPrincipal()=="anonymousUser"){
-    redirectAttrs.addFlashAttribute("login", "login To access Portfolio");
+    redirectAttrs.addFlashAttribute("login", "login.html To access Portfolio");
     return "redirect:/login";}
 
         model.addAttribute("price",price);
