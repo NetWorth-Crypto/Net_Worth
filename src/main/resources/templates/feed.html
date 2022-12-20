@@ -116,7 +116,7 @@
 
                                 </form>
 
-                                <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                <button class="btn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${post.id}"
                                         aria-expanded="false" aria-controls="collapseExample">
                                     Comment
                                     <span class="badge bg-secondary" th:text="${post.getComments().size()}"></span>
@@ -131,7 +131,9 @@
                                 <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
                                 <div class="avatar avatar-xs me-2">
                                     <a href="#!"> <img class="avatar-img rounded-circle"
-                                                       src="assets/images/avatar/12.jpg" alt=""> </a>
+                                                       style="width: 50px;"
+                                                       th:src="${user.profilePicture}"
+                                                        alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
                                 <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
@@ -144,7 +146,7 @@
 
                             <!-- Comment wrap START -->
                             <div th:each="comment: ${post.getComments()}">
-                            <div class="collapse" id="collapseExample">
+                            <div class="collapse" th:id="'collapse'+${post.id}">
                                 <ul class="comment-wrap list-unstyled">
                                     <li class="comment-item">
                                         <div class="d-flex position-relative">
