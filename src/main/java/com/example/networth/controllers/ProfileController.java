@@ -84,7 +84,9 @@ public class ProfileController
     }
     @PostMapping("/update")
     public String updateProfile
-            (@RequestParam("username")String username)
+            (@RequestParam("username")String username,
+             @RequestParam("firstname") String firstname,
+             @RequestParam("lastname") String lastname)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
@@ -93,7 +95,13 @@ public class ProfileController
 
 
         user.setUsername(username);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+//        user.setEmail(email);
+//        user.setPassword(password);
+
         userDao.save(user);
+
 
         return "redirect:/userProfile";
     }
