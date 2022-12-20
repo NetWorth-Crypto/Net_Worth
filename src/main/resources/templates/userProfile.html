@@ -18,13 +18,13 @@
             <div th:replace="partials::sideNavbar"/>
             <!-- Sidenav END -->
 
-<!--            <div sec:authorize="isAuthenticated()">-->
-<!--                This content is only shown to authenticated users.-->
+            <!--            <div sec:authorize="isAuthenticated()">-->
+            <!--                This content is only shown to authenticated users.-->
 
-<!--                User ID: <span th:text="${#authentication.principal.id}"/>-->
-<!--                Username: <span th:text="${#authentication.principal.username}"/>-->
-<!--                Email: <span th:text="${#authentication.principal.email}"/>-->
-<!--            </div>-->
+            <!--                User ID: <span th:text="${#authentication.principal.id}"/>-->
+            <!--                Username: <span th:text="${#authentication.principal.username}"/>-->
+            <!--                Email: <span th:text="${#authentication.principal.email}"/>-->
+            <!--            </div>-->
 
 
             <!-- Main content START -->
@@ -68,7 +68,7 @@
                                 <!--Card body START-->
                                 <div class="card-body">
                                     <!--Post Description-->
-                                    <p class="card-text"  th:text="${post.description}"></p>
+                                    <p class="card-text" th:text="${post.description}"></p>
 
                                     <!--Post image-->
                                     <div th:if="${post.imgUrl} != 'null'">
@@ -97,54 +97,81 @@
                                             <input hidden name="postId" th:value="${post.id}">
                                             <button class="btn" type="submit">
                                                 <i class="fa-solid fa-thumbs-down"></i>
-                                                <span class="badge bg-secondary" th:text="${post.dislikes.size()}"></span>
+                                                <span class="badge bg-secondary"
+                                                      th:text="${post.dislikes.size()}"></span>
                                             </button>
 
                                         </form>
 
-                                        <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                                aria-expanded="false" aria-controls="collapseExample">
+                                        <button class="btn" data-bs-toggle="collapse"
+                                                th:attr="data-bs-target='#collapse'+${post.id}"
+                                                aria-expanded="false" aria-controls="collapseExample" >
                                             Comment
-                                            <span class="badge bg-secondary" th:text="${post.getComments().size()}"></span>
+                                            <span class="badge bg-secondary"
+                                                  th:text="${post.getComments().size()}"></span>
                                         </button>
 
                                     </div>
                                     <!--Post Reaction Items END-->
 
-                                    <!-- Add comment START-->
-                                    <div class="d-flex mb-3">
-                                        <!-- Avatar -->
-                                        <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
-                                        <div class="avatar avatar-xs me-2">
-                                            <a href="#!"> <img class="avatar-img rounded-circle"
-                                                               src="assets/images/avatar/12.jpg" alt=""> </a>
+                                    <!--Edit and Delete buttons START-->
+                                    <div sec:authorize="isAuthenticated()">
+                                        <div th:if="${#authentication.principal.id} == ${user.id}">
+                                            <button class="btn" type="submit">
+                                                Edit
+                                            </button>
+                                            <button class="btn" type="submit">
+                                                Delete
+                                            </button>
                                         </div>
-                                        <!-- Comment box  -->
-                                        <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
-                                            <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
-                                                      placeholder="Add a comment..."></textarea>
-                                            <button class="btn btn-outline-light" type="submit" >comment</button>
-                                        </form>
                                     </div>
-                                    <!-- Add comment END-->
+                                    <!--Edit and Delete buttons END-->
 
                                     <!-- Comment wrap START -->
                                     <div th:each="comment: ${post.getComments()}">
-                                        <div class="collapse" id="collapseExample">
+                                        <div class="collapse" th:id="'collapse'+${post.id}">
+
+                                            <!-- Add comment START-->
+                                            <div class="d-flex mb-3">
+                                                <!-- Avatar -->
+                                                <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
+                                                <div class="avatar avatar-xs me-2">
+                                                    <a href="#!"> <img class="avatar-img rounded-circle"
+                                                                       style="width: 50px;"
+                                                                       th:src="${user.profilePicture}" alt=""> </a>
+                                                </div>
+                                                <!-- Comment box  -->
+                                                <form class="w-75 d-flex justify-content-center"
+                                                      th:action="@{/posts/{id}/create/comment(id=${post.id})}"
+                                                      th:method="post"
+                                                      th:object="${newComment}">
+                                            <textarea th:field="*{message}" name="commentSection" data-autoresize=""
+                                                      class="form-control pe-4 bg-light" rows="1"
+                                                      placeholder="Add a comment..."></textarea>
+                                                    <button class="btn btn-outline-light" type="submit">comment</button>
+                                                </form>
+                                            </div>
+                                            <!-- Add comment END-->
+
+                                            <!--All Comments for Post START-->
                                             <ul class="comment-wrap list-unstyled">
                                                 <li class="comment-item">
                                                     <div class="d-flex position-relative">
                                                         <!-- Avatar -->
                                                         <!--GET COMMENT USER IMAGE-->
                                                         <div class="avatar avatar-xs">
-                                                            <a href=""><img style="width: 50px;" class="avatar-img rounded-circle"
-                                                                            th:src="${comment.user.profilePicture}" alt=""></a>
+                                                            <a href=""><img style="width: 50px;"
+                                                                            class="avatar-img rounded-circle"
+                                                                            th:src="${comment.user.profilePicture}"
+                                                                            alt=""></a>
                                                         </div>
                                                         <div class="ms-2">
                                                             <!-- Comment by -->
                                                             <div class=" rounded-start-top-0 p-3 rounded">
                                                                 <div class="d-flex justify-content-between">
-                                                                    <h6 class="mb-1"><a href="#!" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
+                                                                    <h6 class="mb-1"><a href="#!"
+                                                                                        th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a>
+                                                                    </h6>
                                                                 </div>
                                                                 <p class="small mb-0" th:text="${comment.message}"></p>
                                                             </div>
@@ -165,6 +192,8 @@
                                                     </div>
                                                 </li>
                                             </ul>
+                                            <!--All Comments for Post END-->
+
                                         </div>
                                     </div>
                                     <!-- Comment wrap END -->
