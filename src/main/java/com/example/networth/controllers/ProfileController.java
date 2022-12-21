@@ -84,11 +84,7 @@ public class ProfileController
     }
     @PostMapping("/update")
     public String updateProfile
-            (@RequestParam("username")String username,
-             @RequestParam("firstname") String firstname,
-             @RequestParam("lastname") String lastname,
-             @RequestParam("email") String email,
-             @RequestParam("password") String password)
+            (@RequestParam("username")String username)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
@@ -97,15 +93,9 @@ public class ProfileController
 
 
         user.setUsername(username);
-        user.setFirstName(firstname);
-        user.setLastName(lastname);
-        user.setEmail(email);
-        user.setPassword(password);
-        System.out.println(username);
         userDao.save(user);
-        System.out.println(user);
 
-        return "redirect:/profile";
+        return "redirect:/userProfile";
     }
 
     @PostMapping("/delete")
