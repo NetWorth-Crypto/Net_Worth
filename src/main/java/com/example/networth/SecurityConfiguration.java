@@ -60,6 +60,9 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+
+//        Add the endpoint u dont want users to access unless they are login bellow ...
+
                         "/addAsset",
                         "/userFinance",
                         "/posts", //only authenticated users can create ads
