@@ -41,14 +41,16 @@ public class UserFinancePortfolioCtl {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth.getPrincipal() == "anonymousUser") {
-            redirectAttrs.addFlashAttribute("login", "login.html to continue");
-            return "redirect:/login";
-        }
         User user = (User) auth.getPrincipal();
         System.out.println(user);
         List<Portfolio> portfolios = portfolioService.findByUser(user);
         model.addAttribute("portfolios", portfolios);
+
+// ***************************************************
+
+
+// **************************************************
+
         return "users/userFinance";
     }
 
@@ -147,12 +149,6 @@ public String deletePortfolio(@PathVariable long id, Model model){
         portfolioService.delete(portfolio);
 
 
-        for (PortfolioAsset portfolioAsset : portfolioAssets) {
-            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
-assetService.delete(asset);
-        }
-
-
         return "redirect:/userFinance";
 }
 
@@ -227,7 +223,7 @@ assetService.delete(asset);
         PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
         System.out.println(portfolioAsset.toString());
         portAssetDao.delete(portfolioAsset);
-        assetService.delete(asset);
+
 
         return "redirect:/viewAll";
     }
@@ -241,7 +237,7 @@ assetService.delete(asset);
         PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
         System.out.println(portfolioAsset.toString());
         portAssetDao.delete(portfolioAsset);
-        assetService.delete(asset);
+
 
         return "redirect:/viewAll";
     }

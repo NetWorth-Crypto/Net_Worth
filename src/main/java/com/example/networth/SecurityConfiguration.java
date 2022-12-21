@@ -48,12 +48,12 @@ public class SecurityConfiguration {
                 /* Logout configuration */
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login.html?logout") // append a query string value
+                .logoutSuccessUrl("/login?logout") // append a query string value
 
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/signup","/js/**", "/css/**") // anyone can see the home and the ads pages
+                .antMatchers("/", "/signup","/js/**", "/css/**","/crypto") // anyone can see the home and the ads pages
                 .permitAll()
 
                 /* Pages that require authentication */
@@ -61,11 +61,17 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(
                         "/addAsset",
-                        " /userFinance/**",
-                        "/posts/**", //only authenticated users can create ads
-                        "/userProfile/**"// only authenticated users can edit ads
+                        "/userFinance",
+                        "/posts", //only authenticated users can create ads
+                        "/userProfile"// only authenticated users can edit ads
                 )
                 .authenticated()
+
+//                *****************************************************************************
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
         ;
 
 
