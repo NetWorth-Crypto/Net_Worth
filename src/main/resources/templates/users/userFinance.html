@@ -23,7 +23,7 @@
 
             <div class="col w-100">
 
-                <a style="width: 10em" th:href="@{/createPortfolio}" class="btn btn-dark ">Create a portfolio</a>
+                <a th:href="@{/createPortfolio}"  style="width: 10em"  class="btn btn-dark " >Create a portfolio</a>
 
             </div>
 
@@ -38,6 +38,8 @@
             <hr style="width: 15em" class="m-2">
         </div>
     </div>
+
+
     <div class="col-10 main-content">
         <div class="row content">
             <div class="col left-side">
@@ -121,8 +123,10 @@
                             </div>
 
                             <div>
-
                                 <a th:href="@{/asset/{id}(id=${portfolio.id})}" class="btn btn-primary">view</a>
+                                <a th:href="@{/editPortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Edit</a>
+
+                                <a th:href="@{/deletePortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Delete</a>
                             </div>
                         </div>
 
@@ -159,9 +163,12 @@
     </div>
 </div>
 
-<!--            -->
+<!-- *************************           -->
 
 
+
+
+<!--*********************-->
 <div th:replace="fragments :: jsFile"></div>
 </body>
 </html>

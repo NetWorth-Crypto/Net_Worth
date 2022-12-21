@@ -20,6 +20,8 @@
 
 
         <div class="card card-outline-secondary">
+            <div class="alert alert-danger" role="alert" th:text="${lowBalance}" th:if="${lowBalance}"></div>
+
             <div class="card-header">
                 <h3 class="mb-0">Add asset</h3>
             </div>
@@ -56,7 +58,7 @@
                     <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">submit</button>
                 </form>
             </div><!--/card-block-->
-        </div><!-- /form card login -->
+        </div><!-- /form card login.html -->
     </div>
 </div>
 
