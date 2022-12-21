@@ -29,11 +29,6 @@ public class ProfileController
     public String userProfile(Model model)
     {
         //Get logged-in user
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
-            return "redirect:login";
-        }
         User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getReferenceById(loggedinUser.getId());
 
@@ -66,11 +61,7 @@ public class ProfileController
     @GetMapping("/profile")
     public String profile(Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
-            return "redirect:login";
-        }
+
         User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userDao.getReferenceById(loggedinUser.getId());
@@ -82,11 +73,7 @@ public class ProfileController
     @GetMapping("/update-profile")
     public String updateProfile(Model model)
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
-            return "redirect:login";
-        }
+
         User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         User user = userDao.getReferenceById(loggedinUser.getId());
