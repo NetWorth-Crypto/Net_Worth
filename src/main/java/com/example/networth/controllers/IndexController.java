@@ -11,4 +11,9 @@ public class IndexController {
         return "landing";
     }
 
+    @GetMapping("/new")
+    public String newIndex(){
+        return "newLandingPage";
+    }
+
 }

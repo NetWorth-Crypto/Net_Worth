@@ -22,16 +22,17 @@ a{
 /*Card Styling*/
 .card{
     color: var(--text-color);
+    background-color: var(--box-color) ;
     border: none;
 }
-.card-header{
-    background-color: var(--box-color);
-}
+/*.card-header{*/
+/*    background-color: var(--box-color);*/
+/*}*/
 
-.card-body{
-    background-color:var(--box-color) ;
+/*.card-body{*/
+/*    background-color:var(--box-color) ;*/
 
-}
+/*}*/
 
 body{
     background: var(--bg-color);
