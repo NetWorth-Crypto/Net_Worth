@@ -10,4 +10,8 @@ public interface PortfolioRepository extends JpaRepository<Portfolio,Long> {
     List<Portfolio> findByUser(User user);
 
    Portfolio findByName(String name);
+
+    Portfolio findByNameAndUser(String name, User user);
+
+    public void delete(Portfolio portfolio);
 }

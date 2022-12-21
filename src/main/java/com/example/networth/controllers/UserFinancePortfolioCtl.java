@@ -4,7 +4,6 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
-import com.example.networth.repositories.PortfolioAssetRepository;
 import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -33,6 +33,7 @@ public class UserFinancePortfolioCtl {
         this.portAssetDao = portAssetDao;
         this.assetService = assetService;
     }
+    
 
     //****************************VIEW USERFINANCE PAGE IF LOGIN************************************
     @GetMapping("/userFinance")
@@ -40,14 +41,16 @@ public class UserFinancePortfolioCtl {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth.getPrincipal() == "anonymousUser") {
-            redirectAttrs.addFlashAttribute("login", "login to continue");
-            return "redirect:/login";
-        }
         User user = (User) auth.getPrincipal();
         System.out.println(user);
         List<Portfolio> portfolios = portfolioService.findByUser(user);
         model.addAttribute("portfolios", portfolios);
+
+// ***************************************************
+
+
+// **************************************************
+
         return "users/userFinance";
     }
 
@@ -56,25 +59,104 @@ public class UserFinancePortfolioCtl {
 
     @GetMapping("/createPortfolio")
     public String createPortfolio() {
-        return "createPortfolio";
+        return "portfolio/createPortfolio";
     }
 
     @PostMapping("/addPortfolio")
     public String addPortfolio(@RequestParam("name") String name,
                                @RequestParam("dollarLimit") int dollarLimit,
-                               @RequestParam("type") String type
+                               @RequestParam("type") String type,
+                               Model model,
+                               RedirectAttributes attributes
     ) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
+        List<Portfolio> portfolios = portfolioService.findByUser((User) auth.getPrincipal());
+
+        for(Portfolio portfolio:portfolios) {
+            if (portfolio.getName().equals(name)) {
+                attributes.addFlashAttribute("rename", "A portfolio with this name already exist");
+                return "redirect:/createPortfolio";
+            }
+        }
         Portfolio portfolio = new Portfolio((User) auth.getPrincipal(), name, isDefault, dollarLimit, isPrivate);
 
         portfolioService.addPortfolio(portfolio);
+
         return "redirect:/userFinance";
     }
 
 
-    //    *****************************VIW PORTFOLIO ASSET*********************************
+
+
+//    ******************************Edit Portfolio***************************************
+    @GetMapping("/editPortfolio/{id}")
+    public String editPortfolio(@PathVariable int id,Model model){
+        Portfolio portfolio = portfolioService.findById(id);
+        model.addAttribute("id",id);
+        model.addAttribute("name",portfolio.getName());
+        model.addAttribute("dollarLimit",portfolio.getDollarLimit());
+
+        return "portfolio/editPortfolio";
+    }
+
+    @PostMapping("/saveEdit")
+    public String saveEdit(@RequestParam("name")String name,
+                           @RequestParam("dollarLimit")double dollarLimit,
+                           @RequestParam("id")long id,
+                           @RequestParam("type")String type,
+                           Model model,
+                           RedirectAttributes attributes){
+
+
+Portfolio portfolio = portfolioService.findById(id);
+  if(portfolioService.findByNameAndUser(name,(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal())!=null && !Objects.equals(name, portfolio.getName())){
+      model.addAttribute("exist", "you already have a portfolio with this name");
+      model.addAttribute("id",id);
+      model.addAttribute("name",portfolio.getName());
+      model.addAttribute("dollarLimit",portfolio.getDollarLimit());
+
+      return "portfolio/editPortfolio";
+  }
+  if(type.equals("Private")){
+      portfolio.setPrivate(true);
+  }else {portfolio.setDefault(true);}
+  portfolio.setName(name);
+        portfolio.setDollarLimit(dollarLimit);
+portfolioService.addPortfolio(portfolio);
+       return"redirect:/userFinance";
+    }
+
+
+//    ***************************Delete Portfolio and all its assets****************************************
+
+    @GetMapping("/deletePortfolio/{id}")
+public String deletePortfolio(@PathVariable long id, Model model){
+
+
+
+        System.out.println(id);
+        Portfolio portfolio = portfolioService.findById(id);
+        System.out.println(portfolio.getName());
+        List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
+        model.addAttribute("portfolioAssets", portfolioAssets);
+
+
+        for(PortfolioAsset portfolioAsset: portfolioAssets){
+            portAssetDao.delete(portfolioAsset);
+        }
+        portfolioService.delete(portfolio);
+
+
+        return "redirect:/userFinance";
+}
+
+
+
+
+
+    //    *****************************VIW PORTFOLIO ASSET IN Single Portfolio*********************************
     @GetMapping(path = "/asset/{id}")
     public String getAsset(@PathVariable long id, Model model) {
         System.out.println(id);
@@ -84,19 +166,23 @@ public class UserFinancePortfolioCtl {
         model.addAttribute("portfolioAssets", portfolioAssets);
 
         List<Asset> assets = new ArrayList<>();
-        for (PortfolioAsset ass : portfolioAssets) {
-            Asset asset = assetService.findById(ass.getAsset().getId());
+        for (PortfolioAsset portfolioAsset : portfolioAssets) {
+            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
             assets.add(asset);
 
         }
         model.addAttribute("assets", assets);
 
 
-        return "viewAssets";
+        return "portfolio/viewAssets";
     }
 
 
-//    VIEW ALL ASSET*************************************************
+
+
+
+
+//    VIEW ALL ASSET that belongs to a user*************************************************
 
     @GetMapping("/viewAll")
     public String viewAll(Model model) {
@@ -112,8 +198,8 @@ public class UserFinancePortfolioCtl {
         }
 
         List<Asset> assets = new ArrayList<>();
-        for (PortfolioAsset ass : total) {
-            Asset asset = assetService.findById(ass.getAsset().getId());
+        for (PortfolioAsset portfolioAsset : total) {
+            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
             assets.add(asset);
 
         }
@@ -121,7 +207,7 @@ public class UserFinancePortfolioCtl {
         model.addAttribute("portfolioAssets", total);
 
         model.addAttribute("assets", assets);
-        return "viewAssets";
+        return "portfolio/viewAssets";
     }
 
 
@@ -137,7 +223,7 @@ public class UserFinancePortfolioCtl {
         PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
         System.out.println(portfolioAsset.toString());
         portAssetDao.delete(portfolioAsset);
-        assetService.delete(asset);
+
 
         return "redirect:/viewAll";
     }
@@ -151,7 +237,7 @@ public class UserFinancePortfolioCtl {
         PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
         System.out.println(portfolioAsset.toString());
         portAssetDao.delete(portfolioAsset);
-        assetService.delete(asset);
+
 
         return "redirect:/viewAll";
     }
@@ -166,7 +252,7 @@ public class UserFinancePortfolioCtl {
         System.out.println(id);
         Asset asset = new Asset(id,ticker,name,price);
         model.addAttribute("asset",asset);
-        return "updateAsset";
+        return "portfolio/updateAsset";
     }
 
     @PostMapping("/updating")

@@ -1,57 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
     <div th:replace="fragments :: myheader"></div>
-
     <div th:replace="fragments :: css"></div>
 
-    <title>Login</title>
+    <title>posts</title>
 </head>
 <body>
 <div th:replace="fragments :: navbar"></div>
+        <!-- form card register -->
+        <hr class="mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="alert alert-danger m-3" role="alert" th:text="${login}" th:if="${login}"></div>
 
+                <div th:if="${param.error}">
+                    Invalid Username and Password.
+                </div>
+                <div th:if="${param.logout}">
+                    You have been logged out.
+                </div>
+                <span class="anchor" id="formLogin1"></span>
+                <!-- form card login.html -->
 
-<hr class="mb-4">
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="alert alert-danger m-3" role="alert" th:text="${login}" th:if="${login}"></div>
+                <div style="flex-direction: row;"  class="card card-outline-secondary">
+                    <img style="width: 30%" th:src="@{/images/logo.png}" class="card-img-top" alt="...">
 
-        <div th:if="${param.error}">
-            Invalid Username and Password.
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <span class="anchor" id="formLogin1"></span>
-        <!-- form card login -->
-        <div class="card card-outline-secondary">
-            <div class="card-header">
-                <h3 class="mb-0">Login</h3>
+                    <div class="card-body">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
+                        </div>
+                        <form th:action="@{login.html}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
+                            <div class="form-group">
+                                <label for="uname1">Username</label>
+                                <input class="form-control" id="uname1" name="username" required="" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd1">Password</label>
+                                <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
+                            </div>
+
+                            <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
+                        </form>
+                    </div><!--/card-block-->
+                </div><!-- /form card login.html -->
             </div>
-            <div class="card-body">
-                <form th:action="@{login}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
-                    <div class="form-group">
-                        <label for="uname1">Username</label>
-                        <input class="form-control" id="uname1" name="username" required="" type="text"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd1">Password</label>
-                        <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
-                    </div>
-
-                    <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
-                </form>
-            </div><!--/card-block-->
-        </div><!-- /form card login -->
-    </div>
-</div>
+        </div>
 
 
 
-
-
-
-<div th:replace="fragments :: jsFile"></div>
 </body>
 </html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials::head"/>
+<body>
+
+<!--Main NavBar START-->
+<nav th:replace="partials:: mainNavbar"/>
+<!--Main NavBar END-->
+
+<!--Welcome Section START-->
+<section class="pt-4 pt-md-11">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-5 col-lg-6 order-md-2">
+
+                <!-- Image -->
+                <img src="/images/blueBitcoin.png"
+                     class="img-fluid mw-md-150 mw-lg-130 mb-6 mb-md-0 aos-init aos-animate" alt="..."
+                     data-aos="fade-up" data-aos-delay="100">
+
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate" data-aos="fade-up">
+
+                <!-- Heading -->
+                <h1 class="display-3 text-center text-md-start">
+                    Welcome to <span class="text-primary">Networth</span> <br>
+                    Social Meets Finance.
+                </h1>
+
+                <!-- Text -->
+                <p class="lead text-center text-md-start text-muted mb-6 mb-lg-8">
+                    Where Your Network is Your Networth
+                </p>
+
+                <!-- Buttons -->
+                <div class="text-center text-md-start">
+                    <a th:href= "@{/sign-up}" class="btn btn-primary shadow lift me-4">
+                        Create Account <i class="fe fe-arrow-right d-none d-md-inline ms-3"></i>
+                    </a>
+                    <a th:href= "@{/login}" class="btn btn-primary lift">
+                        Login
+                    </a>
+                </div>
+
+            </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+</section>
+<!--Welcome Section END-->
+
+<!--Information Cards START-->
+<div class="container p-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100 text-center">
+                <img src="/images/multiCoins.png" class="card-img-top p-2" alt="Hollywood Sign on The Hill" style="width: 100%;
+            object-fit: cover;"/>
+                <div class="card-body">
+                    <h5 class="card-title">Portfolio Tracking</h5>
+                    <p class="card-text">
+                        Monitor your current crypto portfolio or track price action your favorite crypto.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 text-center">
+                <img src="/images/dogecoin.png" class="card-img-top mx-auto" alt="Palm Springs Road" style="width: 50%;
+            object-fit: cover;"/>
+                <div class="card-body">
+                    <h5 class="card-title">Connect</h5>
+                    <p class="card-text">
+                        Connect with friends and community members. Share financial experience and insight.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Information Cards END-->
+
+<!--    Javascript files for image upload-->
+<div th:replace="partials::scriptTags"/>
+</body>
+</html>

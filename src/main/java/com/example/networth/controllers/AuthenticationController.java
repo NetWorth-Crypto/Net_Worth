@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "users/login";
+        return "users/login.html";
     }
     }
 
