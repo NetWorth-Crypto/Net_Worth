@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -108,7 +109,7 @@ public class UserFinancePortfolioCtl {
 
 
 Portfolio portfolio = portfolioService.findById(id);
-  if(portfolioService.findByNameAndUser(name,(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal())!=null){
+  if(portfolioService.findByNameAndUser(name,(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal())!=null && !Objects.equals(name, portfolio.getName())){
       model.addAttribute("exist", "you already have a portfolio with this name");
       model.addAttribute("id",id);
       model.addAttribute("name",portfolio.getName());
@@ -126,8 +127,34 @@ portfolioService.addPortfolio(portfolio);
     }
 
 
-//    *******************************************************************
+//    ***************************Delete Portfolio and all its assets****************************************
 
+    @GetMapping("/deletePortfolio/{id}")
+public String deletePortfolio(@PathVariable long id, Model model){
+
+
+
+        System.out.println(id);
+        Portfolio portfolio = portfolioService.findById(id);
+        System.out.println(portfolio.getName());
+        List<PortfolioAsset> portfolioAssets = portAssetDao.findByPortfolio(portfolio);
+        model.addAttribute("portfolioAssets", portfolioAssets);
+
+
+        for(PortfolioAsset portfolioAsset: portfolioAssets){
+            portAssetDao.delete(portfolioAsset);
+        }
+        portfolioService.delete(portfolio);
+
+
+        for (PortfolioAsset portfolioAsset : portfolioAssets) {
+            Asset asset = assetService.findById(portfolioAsset.getAsset().getId());
+assetService.delete(asset);
+        }
+
+
+        return "redirect:/userFinance";
+}
 
 
 
@@ -229,7 +256,7 @@ portfolioService.addPortfolio(portfolio);
         System.out.println(id);
         Asset asset = new Asset(id,ticker,name,price);
         model.addAttribute("asset",asset);
-        return "updateAsset";
+        return "portfolio/updateAsset";
     }
 
     @PostMapping("/updating")

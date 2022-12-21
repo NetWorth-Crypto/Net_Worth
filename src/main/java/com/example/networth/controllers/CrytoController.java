@@ -5,6 +5,7 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
+import com.example.networth.repositories.AssetRepository;
 import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
@@ -26,10 +27,13 @@ public class CrytoController {
     private final AssetService assetService;
     private final PortfolioAssetService pAservice;
 
-    public CrytoController(PortfolioService portfolioService, AssetService assetService, PortfolioAssetService pAservice) {
+
+    public CrytoController(PortfolioService portfolioService, AssetService assetService, PortfolioAssetService pAservice,
+                           AssetRepository assetRepository) {
         this.portfolioService = portfolioService;
         this.assetService = assetService;
         this.pAservice = pAservice;
+
     }
 
 
@@ -43,7 +47,7 @@ public class CrytoController {
 
        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth.getPrincipal()=="anonymousUser"){
-    redirectAttrs.addFlashAttribute("login", "login.html To access Portfolio");
+    redirectAttrs.addFlashAttribute("login", "login To access Portfolio");
     return "redirect:/login";}
 
         model.addAttribute("price",price);
@@ -59,7 +63,7 @@ if(portfolios.isEmpty()){
    return "redirect:/createPortfolio";
 }
 
-        return "addAsset";
+        return "portfolio/addAsset";
     }
 
     @RequestMapping(value = "/add_crypto", method = RequestMethod.POST)
@@ -74,20 +78,36 @@ if(portfolios.isEmpty()){
         Portfolio newPortfolio = portfolioService.findById(portfolio);
         double availableBalance = newPortfolio.getDollarLimit();
         double totalPrice = price*quantity;
+        Asset newAsset = new Asset(ticker,name,price);
 
-        if (assetService.findByName(name) != null || pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio) != null) {
+        if (assetService.findByName(name) == null ) {
+            assetService.addAsset(newAsset);
+
+        }
+        else
+        {
+            Asset asset = assetService.findByName(name);
+            asset.setCurrentPrice(price);
+            assetService.addAsset(asset);
+        }
+        if(pAservice.findByAssetAndPortfolio(assetService.findByName(name),newPortfolio) != null){
             redirectAttrs.addFlashAttribute("red", "Ticker already Exist in Portfolio");
+
             return "redirect:/crypto";
         }
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Portfolio> portfolios =portfolioService.findByUser(user);
         if(totalPrice>availableBalance){
             model.addAttribute("lowBalance","your available balance is not enough for "+quantity+" "+name );
             model.addAttribute("price",price);
             model.addAttribute("name",name);
             model.addAttribute("ticker",ticker);
-return "addAsset";
+            model.addAttribute("portfolios",portfolios);
+
+return "portfolio/addAsset";
         }
 
-            assetService.addAsset(new Asset(ticker, name, price));
             Asset asset = assetService.findByName(name);
 
             Portfolio portfolio1 = portfolioService.findById(portfolio);
@@ -95,8 +115,8 @@ return "addAsset";
 
             Date date = new Date();
             pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
-
-            return "redirect:/userFinance";
+redirectAttrs.addFlashAttribute("added",quantity+" "+ name+" has been added to "+ portfolio1.getName());
+            return "redirect:/crypto";
 
         }
 
