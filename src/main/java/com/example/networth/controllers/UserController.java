@@ -1,5 +1,6 @@
 package com.example.networth.controllers;
 
+import com.example.networth.models.Post;
 import com.example.networth.models.User;
 import com.example.networth.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
+import java.util.List;
 
 
 @Controller
@@ -50,6 +51,20 @@ public class UserController {
 //    public String following(){
 //        return "users/following";
 //    }
+
+    @GetMapping("searchUser")
+    public String search(Model model, String user) {
+        System.out.println(user);
+
+//        if (keyword != null){
+        List<User> lists = userService.getByUser(user);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+//        }else {
+//            List<Post> list = searchPostService.getByKeyword(keyword);
+//            model.addAttribute("list", list);}
+        return "users/searchUser";
+    }
 
 
 

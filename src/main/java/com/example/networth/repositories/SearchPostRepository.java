@@ -15,4 +15,3 @@ public interface SearchPostRepository extends JpaRepository<Post,String>{
     @Query(value = "SELECT * FROM post p WHERE p.title LIKE %:keyword% OR p.description LIKE %:keyword%",nativeQuery = true)
     List<Post> findByKeyword(@Param("keyword") String keyword);
 }
-

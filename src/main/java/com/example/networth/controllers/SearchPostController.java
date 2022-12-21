@@ -1,3 +1,5 @@
+
+
 package com.example.networth.controllers;
 
 import com.example.networth.models.Post;
@@ -18,9 +20,9 @@ public class SearchPostController {
         System.out.println(keyword);
 
 //        if (keyword != null){
-            List<Post> lists = searchPostService.getByKeyword(keyword);
-            model.addAttribute("lists", lists);
-            System.out.println(lists);
+        List<Post> lists = searchPostService.getByKeyword(keyword);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
 //        }else {
 //            List<Post> list = searchPostService.getByKeyword(keyword);
 //            model.addAttribute("list", list);}
