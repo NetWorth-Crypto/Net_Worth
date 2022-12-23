@@ -4,6 +4,8 @@ import com.example.networth.models.Asset;
 import com.example.networth.repositories.AssetRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AssetService {
     public final AssetRepository assetDao;
@@ -25,5 +27,9 @@ public class AssetService {
 
     public void delete(Asset asset) {
         assetDao.delete(asset);
+    }
+
+    public List<Asset> findAll(){
+        return assetDao.findAll();
     }
 }
