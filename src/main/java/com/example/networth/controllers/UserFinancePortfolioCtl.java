@@ -33,17 +33,24 @@ public class UserFinancePortfolioCtl {
         this.portAssetDao = portAssetDao;
         this.assetService = assetService;
     }
-    
+
+
+    public  User loginUser(){
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+
+
+
+
+
 
     //****************************VIEW USERFINANCE PAGE IF LOGIN************************************
     @GetMapping("/userFinance")
     public String userFinancePage(Model model, RedirectAttributes redirectAttrs) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = (User) auth.getPrincipal();
-        System.out.println(user);
-        List<Portfolio> portfolios = portfolioService.findByUser(user);
+        List<Portfolio> portfolios = portfolioService.findByUser(loginUser());
         model.addAttribute("portfolios", portfolios);
 
 // ***************************************************
@@ -69,10 +76,9 @@ public class UserFinancePortfolioCtl {
                                Model model,
                                RedirectAttributes attributes
     ) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
-        List<Portfolio> portfolios = portfolioService.findByUser((User) auth.getPrincipal());
+        List<Portfolio> portfolios = portfolioService.findByUser(loginUser());
 
         for(Portfolio portfolio:portfolios) {
             if (portfolio.getName().equals(name)) {
@@ -80,7 +86,7 @@ public class UserFinancePortfolioCtl {
                 return "redirect:/createPortfolio";
             }
         }
-        Portfolio portfolio = new Portfolio((User) auth.getPrincipal(), name, isDefault, dollarLimit, isPrivate);
+        Portfolio portfolio = new Portfolio(loginUser(), name, isDefault, dollarLimit, isPrivate);
 
         portfolioService.addPortfolio(portfolio);
 
@@ -187,9 +193,8 @@ public String deletePortfolio(@PathVariable long id, Model model){
     @GetMapping("/viewAll")
     public String viewAll(Model model) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) auth.getPrincipal();
-        List<Portfolio> portfolios = portfolioService.findByUser(currentUser);
+
+        List<Portfolio> portfolios = portfolioService.findByUser(loginUser());
 
         List<PortfolioAsset> total = new ArrayList<>();
         for (Portfolio portfolio : portfolios) {

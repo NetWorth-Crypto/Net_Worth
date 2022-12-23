@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,55 @@ public class CrytoController {
     private final PortfolioService portfolioService;
     private final AssetService assetService;
     private final PortfolioAssetService pAservice;
+
+
+
+
+//    ************************FUNCTION GETS SESSION USER *******************************************
+    public  User loginUser(){
+       return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+
+//    ********************Function to get total dollar limit of a user**********************************************
+    public double totalDollarLimit(User user){
+        double total = 0;
+        List<Portfolio> portfolios = portfolioService.findByUser(user);
+        for(Portfolio portfolio: portfolios){
+            total += portfolio.getDollarLimit();
+        }
+        return total;
+    }
+
+
+
+//    **************************Function to get total invested by a user***************************************
+    public double totalInvested(User user){
+
+        List<Portfolio> portfolios = portfolioService.findByUser(user);
+        double total = 0;
+        for(Portfolio portfolio: portfolios){
+         total += portfolioBalance(portfolio);
+        }
+return total;
+    }
+
+
+
+//    *******************************THIS FUNCTION CHECKS AVAILABLE BALANCE IN A PORTFOLIO***********************************
+
+    public double portfolioBalance(Portfolio portfolio){
+        List<PortfolioAsset>portfolioAssets = pAservice.findByPortfolio(portfolio);
+        double dollarLimit = portfolio.getDollarLimit();
+      double total = 0;
+      for(PortfolioAsset portfolioAsset: portfolioAssets){
+       double product = portfolioAsset.getPurchasePrice()*portfolioAsset.getQuantity();
+       total += product;
+      }
+      return dollarLimit-total;
+    }
+
+
 
 
     public CrytoController(PortfolioService portfolioService, AssetService assetService, PortfolioAssetService pAservice,
@@ -45,18 +95,15 @@ public class CrytoController {
     @GetMapping(path = "/addCrypto/{price}/{name}/{ticker}")
     public String addCrypto(@PathVariable String name,@PathVariable String ticker,@PathVariable float price, Model model,RedirectAttributes redirectAttrs){
 
-       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth.getPrincipal()=="anonymousUser"){
-    redirectAttrs.addFlashAttribute("login", "login To access Portfolio");
-    return "redirect:/login";}
+
 
         model.addAttribute("price",price);
         model.addAttribute("name",name);
         model.addAttribute("ticker",ticker);
 
-        User user = (User)auth.getPrincipal();
-        System.out.println(user);
-        List<Portfolio> portfolios =portfolioService.findByUser(user);
+
+        System.out.println(loginUser());
+        List<Portfolio> portfolios =portfolioService.findByUser(loginUser());
         model.addAttribute("portfolios",portfolios);
 if(portfolios.isEmpty()){
    redirectAttrs.addFlashAttribute("needPortfolio","Creat a portfolio in order to add assets");
@@ -76,7 +123,7 @@ if(portfolios.isEmpty()){
     RedirectAttributes redirectAttrs) {
 
         Portfolio newPortfolio = portfolioService.findById(portfolio);
-        double availableBalance = newPortfolio.getDollarLimit();
+        double availableBalance = portfolioBalance(newPortfolio);
         double totalPrice = price*quantity;
         Asset newAsset = new Asset(ticker,name,price);
 
@@ -96,8 +143,8 @@ if(portfolios.isEmpty()){
             return "redirect:/crypto";
         }
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Portfolio> portfolios =portfolioService.findByUser(user);
+
+        List<Portfolio> portfolios =portfolioService.findByUser(loginUser());
         if(totalPrice>availableBalance){
             model.addAttribute("lowBalance","your available balance is not enough for "+quantity+" "+name );
             model.addAttribute("price",price);
@@ -116,6 +163,9 @@ return "portfolio/addAsset";
             Date date = new Date();
             pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
 redirectAttrs.addFlashAttribute("added",quantity+" "+ name+" has been added to "+ portfolio1.getName());
+
+
+
             return "redirect:/crypto";
 
         }

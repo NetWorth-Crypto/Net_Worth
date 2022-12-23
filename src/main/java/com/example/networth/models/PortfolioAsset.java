@@ -62,6 +62,14 @@ public class PortfolioAsset {
         this.quantity = quantity;
     }
 
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(double purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
+
     @Override
     public String toString() {
         return "PortfolioAsset{" +
