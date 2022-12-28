@@ -7,38 +7,40 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long role_id;
+    private long id;
 
 
     @Column(nullable = false,unique = true)
     private String type;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
-    private List<User> users;
+    @Column
+  private String  details;
+
 
 
     //Constructors
     public Role() {
     }
 
-    public Role(long role_id, String type) {
-        this.role_id = role_id;
+    public Role(long id, String type, String details) {
+        this.id = id;
         this.type = type;
+        this.details = details;
     }
 
-    public Role(long role_id, String type, List<User> users) {
-        this.role_id = role_id;
+    public Role(String details, String type) {
+        this.details = details;
         this.type = type;
-        this.users = users;
+
     }
 
     //Getters and Setters
-    public long getRole_id() {
-        return role_id;
+    public long getId() {
+        return id;
     }
 
-    public void setRole_id(long role_id) {
-        this.role_id = role_id;
+    public void setId(long role_id) {
+        this.id = role_id;
     }
 
     public String getType() {
