@@ -20,6 +20,8 @@
 
 
         <div class="card card-outline-secondary">
+            <div class="alert alert-danger" role="alert" th:text="${lowBalance}" th:if="${lowBalance}"></div>
+
             <div class="card-header">
                 <h3 class="mb-0">Update asset</h3>
             </div>

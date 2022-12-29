@@ -111,25 +111,30 @@
                     <div class="col myportfplio">
                         <div th:each="portfolio: ${portfolios}" class="card mt-2  portfolio">
 
-                            <div class="row row-cols-2 bg-light w-100">
+                            <div  class="row row-cols-3 bg-light w-100">
 
                                 <div class="col-4">
                                     <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
                                 </div>
                                 <div class="col col-8">
                                     <h3 th:text="${portfolio.name}"></h3>
-                                    <p th:text="${portfolio.dollarLimit}"></p>
-                                </div>
-                            </div>
+                                    <p>Initial Deposit: <span th:text="${portfolio.dollarLimit}"></span></p>
+                                    <p>:Available Balance <span th:text="${portfolio.getAvailableBalance()}"></span></p>
 
-                            <div>
+
+
+
+
+                                </div>
+
+                            <div class="col-12">
                                 <a th:href="@{/asset/{id}(id=${portfolio.id})}" class="btn btn-primary">view</a>
                                 <a th:href="@{/editPortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Edit</a>
 
                                 <a th:href="@{/deletePortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Delete</a>
                             </div>
                         </div>
-
+</div>
 
                     </div>
 

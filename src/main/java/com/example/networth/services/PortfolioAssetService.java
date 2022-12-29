@@ -3,6 +3,7 @@ package com.example.networth.services;
 import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
+import com.example.networth.repositories.AssetRepository;
 import com.example.networth.repositories.PortfolioAssetRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,12 @@ import java.util.List;
 
 @Service
 public class PortfolioAssetService {
-    public final PortfolioAssetRepository pADao;
 
-    public PortfolioAssetService(PortfolioAssetRepository pADao) {
+    private final AssetRepository assetDao;
+    private final PortfolioAssetRepository pADao;
+
+    public PortfolioAssetService(AssetRepository assetDao, PortfolioAssetRepository pADao) {
+        this.assetDao = assetDao;
         this.pADao = pADao;
     }
 
@@ -39,4 +43,6 @@ public class PortfolioAssetService {
     public void save(PortfolioAsset portfolioAsset) {
         pADao.save(portfolioAsset);
     }
+
+
 }
