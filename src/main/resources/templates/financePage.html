@@ -19,7 +19,23 @@
 
                 <!--Card Header START-->
                 <div class="card-header">
-                    <h5 class="card-heading">Portfolio Name</h5>
+                    <div class="row">
+                    <h5 class="card-heading col" th:text="${selectedPortfolio.name}" >Portfolio Name</h5>
+
+                        <form th:action="@{/finance/portfolioSelection}"  method="post" class="col">
+                            <div class="input-group mb-3">
+<!--                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">-->
+                                <select name="portfolioId" class="form-select" aria-label="Default select example" aria-describedby="button-addon2">
+<!--                                    <option selected>Select Portfolio</option>-->
+                                    <div th:each="portfolio: ${portfolios}">
+                                        <option th:text="${portfolio.name}" th:value="${portfolio.id}"></option>
+                                    </div>
+                                </select>
+                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Select</button>
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
                 <!--Card Header END-->
 
@@ -30,7 +46,7 @@
                         <!--Total Balance Section START-->
                         <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">
                             <h3 class="subtitle text-gray-500">Total Balance</h3>
-                            <div class="h1 text-primary">$19,200</div>
+                            <div th:text="'$'+${totalPrice}" class="h1 text-primary"></div>
                             <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span></p>
                         </div>
                         <!--Total Balance Section END-->

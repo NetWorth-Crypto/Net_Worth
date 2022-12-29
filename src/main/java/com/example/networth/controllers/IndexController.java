@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
-    @Autowired
-    UserRepository userDao;
 
     @GetMapping("/")
     public String index(){
@@ -22,12 +20,6 @@ public class IndexController {
         return "newLandingPage";
     }
 
-    @GetMapping("/finance")
-    public String finance(Model model){
-        User user = userDao.getReferenceById(1l);
 
-        model.addAttribute("user",user);
-        return "financePage";
-    }
 
 }
