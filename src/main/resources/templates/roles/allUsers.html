@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
@@ -10,7 +12,7 @@
 </head>
 <body>
 <div th:replace="fragments :: navbar"></div>
-<div></div>
+
 
 
 
@@ -28,9 +30,9 @@
                                     <table class="table table-striped mb-0">
                                         <thead style="background-color: #002d72;">
                                         <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Details</th>
+                                            <th scope="col">Firstname</th>
+                                            <th scope="col">Lastname</th>
+                                            <th scope="col">Username</th>
                                             <th scope="col">Action</th>
 
                                         </tr>
@@ -38,11 +40,25 @@
                                         <tbody>
 
 
-                                        <tr th:each="role : ${roles}">
-                                            <td th:text="${role.id}"></td>
-                                            <td th:text="${role.type}"></td>
-                                            <td th:text="${role.details}"></td>
-                                            <td></td>
+                                        <tr th:each="user : ${users}">
+                                            <td th:text="${user.firstName}"></td>
+                                            <td th:text="${user.lastName}"></td>
+                                            <td th:text="${user.username}"></td>
+
+                                            <td>
+                                                <a  th:href="@{'/user/Edit/'+${user.id}}"
+                                                    class="btn btn-primary"><i class="icon_pencil-edit"></i>Manage Roles</a>
+                                            </td>
+
+
+                                            <td>
+                                             <div>
+
+
+
+
+                                             </div>
+                                            </td>
 
                                         </tr>
 

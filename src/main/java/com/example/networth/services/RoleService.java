@@ -42,4 +42,11 @@ public class RoleService {
     }
 
 
+    public Object findAll() {
+        return roleDao.findAll();
+    }
+
+    public List<Role> getUserNotRoles(User user){
+        return roleDao.getUserNotRoles(user.getId());
+    }
 }

@@ -38,4 +38,7 @@ public class UserService {
         return roleDao.getUserNotRoles(user.getId());
     }
 
+    public List<User> findAll() {
+        return  userDao.findAll();
+    }
 }
