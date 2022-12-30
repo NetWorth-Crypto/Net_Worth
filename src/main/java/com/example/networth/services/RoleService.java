@@ -49,4 +49,8 @@ public class RoleService {
     public List<Role> getUserNotRoles(User user){
         return roleDao.getUserNotRoles(user.getId());
     }
+
+    public void save(Role role) {
+        roleDao.save(role);
+    }
 }

@@ -78,6 +78,7 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        roles = copy.roles;
     }
 
     public User(long id, String firstName, String lastName, String email, String password,String username) {

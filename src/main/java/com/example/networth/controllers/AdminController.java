@@ -29,8 +29,8 @@ public class AdminController
     }
 
 
-    @GetMapping("/user/Edit/{id}")
-    public String editEmployee(@PathVariable Integer id, Model model){
+    @GetMapping("/userRoles/edit/{id}")
+    public String editUser(@PathVariable Integer id, Model model){
         User user = userService.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("userRoles", roleService.getUserRoles(user));
@@ -38,7 +38,9 @@ public class AdminController
         return "roles/userEdit";
     }
 
-
+public String EdituserDetail(){
+return "redirect:/getUsers";
+}
 
 
 }

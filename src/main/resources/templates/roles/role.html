@@ -10,7 +10,51 @@
 </head>
 <body>
 <div th:replace="fragments :: navbar"></div>
-<div></div>
+<div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="AddRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form th:ACTION="addRole" th:method="POST">
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="description" class="form-control" name="type" />
+                            <label class="form-label" for="description">Description</label>
+                        </div>
+
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="details" class="form-control" name="details"/>
+                            <label class="form-label" for="details">Details</label>
+                        </div>
+
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 
 
 
@@ -25,6 +69,13 @@
                         <div class="card">
                             <div class="card-body p-0">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+<div class="text-center m-1">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddRoleModal">
+                                       Add New
+                                    </button>
+</div>
+
                                     <table class="table table-striped mb-0">
                                         <thead style="background-color: #002d72;">
                                         <tr>
@@ -42,7 +93,9 @@
                                             <td th:text="${role.id}"></td>
                                             <td th:text="${role.type}"></td>
                                             <td th:text="${role.details}"></td>
-                                            <td></td>
+                                            <td>
+
+                                            </td>
 
                                         </tr>
 
