@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+
+
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+
+
+
+
+
+        <!-- page start-->
+        <div class="container mt-3" style="width: 70%">
+
+
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-lg-6 mt-3">
+                        <div class="card">
+
+                            <div class="card-header text-center"><h5> User Details</h5></div>
+
+                            <div class="form-group row w-100">
+                                <label class="col-form-label col-sm-4 text-center">Id</label>
+                                <div class="col-8">
+                                    <input name="id" th:value="${user.id}" disabled type="text" size="16"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row w-100">
+                                <label class="col-form-label col-sm-4 text-center">Firstname</label>
+                                <div class="col-8">
+                                    <input name="firstname" th:value="${user.firstName}" class="form-control" size="16"
+                                           type="text">
+                                </div>
+                            </div>
+                            <div class="form-group row w-100">
+                                <label class="col-form-label col-sm-4 text-center"> Lastname</label>
+                                <div class="col-8">
+                                    <input name="lastname" th:value="${user.lastName}" type="text"
+                                           class=" form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group row w-100">
+                                <label class="col-form-label col-sm-4 text-center">Username</label>
+                                <div class="col-8">
+                                    <input name="username" th:value="${user.username}" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 mt-3">
+
+
+                        <div class="card ">
+                            <div class="card-header text-center">
+                                <h5>Assigned User Roles</h5>
+                            </div>
+                            <table class="table table-striped table-advance table-hover">
+                                <tbody>
+                                <tr>
+                                    <th></th>
+                                    <th><i class="icon_profile"></i> Description</th>
+                                    <th><i class="icon_cogs"></i> Action</th>
+                                </tr>
+                                <tr th:each="userRole:${userRoles}">
+                                    <td><i class="fa fa-table"></i></td>
+                                    <td th:text="${userRole.type}"></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a onclick="return confirm('Are you sure you want delete?')"
+                                               th:href="@{'/role/unassign/'+${user.id}+'/' +${userRole.id}}"
+                                               class="btn btn-danger"><i class="icon_close_alt2"></i>Unassign</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card mt-5">
+
+                    <div class="card-header">
+                        Roles currents user is not assigned
+                    </div>
+
+                    <table class="table table-striped table-advance table-hover">
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <th><i class="icon_profile"></i> Description</th>
+                            <th><i class="icon_calendar"></i> Details</th>
+                            <th><i class="icon_cogs"></i> Action</th>
+                        </tr>
+                        <tr th:each="userNotRole:${userNotRoles}">
+                            <td><i class="fa fa-table"></i></td>
+                            <td th:text="${userNotRole.type}"></td>
+                            <td th:text="${userNotRole.details}"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a onclick="return confirm('Are you sure you want delete?')"
+                                       th:href="@{'/role/assign/'+${user.id}+'/' +${userNotRole.id}}"
+                                       class="btn btn-success">Assign</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+
+
+
+
+
+
+<div th:replace="fragments :: jsFile"></div>
+
+</body>
+</html>
+
+
+

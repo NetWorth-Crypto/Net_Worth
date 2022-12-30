@@ -1,14 +1,16 @@
+USE networth_db;
+
 insert into role(type)
 values('user1'),('admin1');
 
-insert into user(email,user_name, first_name, last_name, password, role_id, profile_picture, user_title)
-values ('aastevens1126@gmail.com', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2,'https://cdn.filestackcontent.com/2HFPxlUsQxu6uhgAoVNp','web-dev'),
-       ('casanovageary@gmail.com', 'dogeking','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2,'https://ca.slack-edge.com/T029BRGN0-U03QXQ9L54L-bf7b21a56847-512', 'gamestop'),
-       ('amida@gmail.com', 'midostar','Amida','Fombutu','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2,'https://ca.slack-edge.com/T029BRGN0-U03QNP4B8RL-6f9c5581b866-512','web-dev'),
-       ('yogesh@gmail.com', 'yogesha','Yogesh','Adhikari','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2,'https://ca.slack-edge.com/T029BRGN0-U03QV9Q0ZM1-8feba9612cf0-512','web-dev');
-insert into user(email,user_name, first_name, last_name, password, role_id)
-values('aastevens1126', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2),
-       ('casanovageary@gmail.com', 'cgeary','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy',2);
+insert into user(email,user_name, first_name, last_name, password,  profile_picture, user_title)
+values ('aastevens1126@gmail.com', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://cdn.filestackcontent.com/2HFPxlUsQxu6uhgAoVNp','web-dev'),
+       ('casanovageary@gmail.com', 'dogeking','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QXQ9L54L-bf7b21a56847-512', 'gamestop'),
+       ('amida@gmail.com', 'midostar','Amida','Fombutu','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QNP4B8RL-6f9c5581b866-512','web-dev'),
+       ('yogesh@gmail.com', 'yogesha','Yogesh','Adhikari','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QV9Q0ZM1-8feba9612cf0-512','web-dev');
+insert into user(email,user_name, first_name, last_name, password)
+values('aastevens1126', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy'),
+       ('casanovageary@gmail.com', 'cgeary','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy');
 
 insert into follower(user_id,follower_user_id)
 values (1,2),(2,1);
