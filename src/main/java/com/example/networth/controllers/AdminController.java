@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AdminController
@@ -38,9 +39,22 @@ public class AdminController
         return "roles/userEdit";
     }
 
-public String EdituserDetail(){
-return "redirect:/getUsers";
-}
+
+    @RequestMapping("/role/assign/{userId}/{roleId}")
+    public String assignRole(@PathVariable Integer userId,
+                             @PathVariable Integer roleId){
+        roleService.assignUserRole(userId, roleId);
+        return "redirect:/userRoles/edit/"+userId;
+    }
+
+
+    @RequestMapping("/role/unassign/{userId}/{roleId}")
+    public String unassignRole(@PathVariable Integer userId,
+                               @PathVariable Integer roleId){
+        roleService.unassignUserRole(userId, roleId);
+        return "redirect:/userRoles/edit/"+userId;
+    }
+
 
 
 }

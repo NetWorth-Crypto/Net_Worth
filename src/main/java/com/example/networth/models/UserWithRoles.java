@@ -1,5 +1,6 @@
 package com.example.networth.models;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,9 +15,8 @@ public class UserWithRoles extends User implements UserDetails {
     }
 
     @Override
-    public List<SimpleGrantedAuthority> getAuthorities() {
-      List<Role>  roles = getRoles();
-      List<SimpleGrantedAuthority>authorities = new ArrayList<>();
+    public List<GrantedAuthority> getAuthorities() {
+      List<GrantedAuthority>authorities = new ArrayList<>();
       for (Role role: roles){
           authorities.add(new SimpleGrantedAuthority(role.getType()));
       }
@@ -46,5 +46,6 @@ public class UserWithRoles extends User implements UserDetails {
         return true;
     }
 
+public boolean hasRole(String roleName){return hasRole(roleName);}
 
 }

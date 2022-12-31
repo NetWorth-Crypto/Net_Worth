@@ -9,7 +9,7 @@
     <title>Home</title>
 </head>
 <body>
-<div th:replace="fragments :: navbar"></div>
+<div th:replace="fragments :: Admin-navbar"></div>
 <div>
 
 
@@ -94,6 +94,12 @@
                                             <td th:text="${role.type}"></td>
                                             <td th:text="${role.details}"></td>
                                             <td>
+
+                                                <div>
+                                                    <a th:href="@{/admin/editRole/{id}(id=${role.id})}" class="btn btn-warning">Edit</a>
+                                                    <a th:href="@{/admin/deleteRole/{id}(id=${role.id})}" class="btn btn-danger">Delete</a>
+
+                                                </div>
 
                                             </td>
 

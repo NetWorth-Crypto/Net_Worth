@@ -5,10 +5,7 @@ import com.example.networth.models.Role;
 import com.example.networth.services.RoleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class RoleController {
@@ -37,20 +34,27 @@ public class RoleController {
     }
 
 
-    @RequestMapping("/role/assign/{userId}/{roleId}")
-    public String assignRole(@PathVariable Integer userId,
-                             @PathVariable Integer roleId){
-        roleService.assignUserRole(userId, roleId);
-        return "redirect:/userRoles/edit/"+userId;
+    @GetMapping("/admin/editRole/{id}")
+  public String editRole(@PathVariable long id, Model model){
+        Role role = roleService.findById(id);
+        model.addAttribute("id", role.getId());
+        model.addAttribute("type", role.getType());
+        model.addAttribute("details", role.getDetails());
+        return"roles/editRole";
+  }
+
+
+  @PutMapping("Admin/saveEdited")
+  public String saveEdited(Role role){
+        roleService.save(role);
+     return    "redirect:/roles";
+  }
+
+  @RequestMapping("/admin/deleteRole/{id}")
+    public String deleteRole(@PathVariable long id){
+       Role role = roleService.findById(id);
+       roleService.delete(role);
+        return"redirect:/roles";
     }
-
-
-    @RequestMapping("/role/unassign/{userId}/{roleId}")
-    public String unassignRole(@PathVariable Integer userId,
-                               @PathVariable Integer roleId){
-        roleService.unassignUserRole(userId, roleId);
-        return "redirect:/userRoles/edit/"+userId;
-    }
-
 
 }

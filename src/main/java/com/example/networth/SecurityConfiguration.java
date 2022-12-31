@@ -70,8 +70,9 @@ public class SecurityConfiguration {
                 .authenticated()
 
 //                ************************************************************
+
                 .antMatchers("/userRoles/edit/**")
-                .hasRole("ADMIN")
+                .hasAnyAuthority("ADMIN","Admin")
 
 
                 .and()
