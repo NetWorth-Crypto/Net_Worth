@@ -11,7 +11,7 @@
     <title>Home</title>
 </head>
 <body>
-<div th:replace="fragments :: navbar"></div>
+<div th:replace="fragments :: Admin-navbar"></div>
 
 
 
@@ -24,6 +24,9 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12">
+                        <div class="text-center m-3">
+                            <h5>User Management Table</h5>
+                        </div>
                         <div class="card">
                             <div class="card-body p-0">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
@@ -33,6 +36,9 @@
                                             <th scope="col">Firstname</th>
                                             <th scope="col">Lastname</th>
                                             <th scope="col">Username</th>
+
+                                            <th scope="col"></th>
+
                                             <th scope="col">Action</th>
 
                                         </tr>
@@ -46,18 +52,19 @@
                                             <td th:text="${user.username}"></td>
 
                                             <td>
-                                                <a  th:href="@{'/user/Edit/'+${user.id}}"
+                                                <a  th:href="@{'/userRoles/edit/'+${user.id}}"
                                                     class="btn btn-primary"><i class="icon_pencil-edit"></i>Manage Roles</a>
                                             </td>
 
-
                                             <td>
+
                                              <div>
-
-
-
+                                                 <a th:href="@{/admin/viewUser/(id=${user.id})}" class="btn btn-primary">View</a>
+                                                 <a th:href="@{/admin/editUser/(id=${user.id})}" class="btn btn-warning">Edit</a>
+                                                 <a th:href="@{/admin/deleteUser/(id=${user.id})}" class="btn btn-danger">Delete</a>
 
                                              </div>
+
                                             </td>
 
                                         </tr>

@@ -49,4 +49,16 @@ public class RoleService {
     public List<Role> getUserNotRoles(User user){
         return roleDao.getUserNotRoles(user.getId());
     }
+
+    public void save(Role role) {
+        roleDao.save(role);
+    }
+
+    public Role findById(long id) {
+        return roleDao.findById(id).get();
+    }
+
+    public void delete(Role role) {
+        roleDao.delete(role);
+    }
 }

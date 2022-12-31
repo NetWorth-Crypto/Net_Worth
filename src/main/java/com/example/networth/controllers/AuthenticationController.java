@@ -16,7 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "users/login.html";
+        return "users/login";
+    }
+
+
+    @GetMapping("/accessDenied")
+    public String accessDenied(){
+        return "accessDenied";
     }
     }
 

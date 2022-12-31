@@ -56,6 +56,8 @@ public class SecurityConfiguration {
                 .antMatchers("/", "/signup","/js/**", "/css/**","/crypto") // anyone can see the home and the ads pages
                 .permitAll()
 
+
+
                 /* Pages that require authentication */
                 .and()
                 .authorizeRequests()
@@ -67,6 +69,14 @@ public class SecurityConfiguration {
                 )
                 .authenticated()
 
+//                ************************************************************
+
+                .antMatchers("/userRoles/edit/**")
+                .hasAnyAuthority("ADMIN","Admin")
+
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied")
 //                *****************************************************************************
                 .and()
                 .formLogin()

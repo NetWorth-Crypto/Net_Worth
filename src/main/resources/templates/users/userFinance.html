@@ -118,8 +118,8 @@
                                 </div>
                                 <div class="col col-8">
                                     <h3 th:text="${portfolio.name}"></h3>
-                                    <p>Initial Deposit: <span th:text="${portfolio.dollarLimit}"></span></p>
-                                    <p>:Available Balance <span th:text="${portfolio.getAvailableBalance()}"></span></p>
+                                    <p>Initial Deposit: <span th:text="${portfolio.dollarLimit}" class="text-primary"></span></p>
+                                    <p>Available Balance: <span th:text="${portfolio.getAvailableBalance()}" class="text-primary"></span></p>
 
 
 
