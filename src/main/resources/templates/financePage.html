@@ -46,7 +46,7 @@
                         <!--Total Balance Section START-->
                         <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">
                             <h3 class="subtitle text-gray-500">Total Balance</h3>
-                            <div th:text="'$'+${totalPrice}" class="h1 text-primary"></div>
+                            <div th:text="'$'+${totalBalance}" class="h1 text-primary"></div>
                             <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span></p>
                         </div>
                         <!--Total Balance Section END-->
@@ -209,6 +209,7 @@
         </div>
         <!-- Main content END -->
 
+
         <!-- Right sidebar START -->
         <div class="col-lg-3">
             <div class="card">
@@ -299,19 +300,33 @@
     </div>
 </div>
 
+<div th:each="entry: ${portfolioPerformance.entrySet()}">
+    <input hidden class="dates" th:value="${entry.getKey()}"/>
+    <br>
+    <input hidden class="totals" th:value="${entry.getValue()}"/>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('myChart');
-
+    let dates = document.getElementsByClassName('dates');
+    let totals = document.getElementsByClassName('totals');
     let date = new Date();
-    let dates = [];
+    // let dates = [];
 
     //Days of the week
-    console.log(dates);
-    for(let i=6; i > -1; i--){
-        dates.push(date.getDate()-i);
+    // console.log(dates);
+    for (let date of dates) {
+        console.log(date.value);
     }
+
+    for (let total of totals) {
+        console.log(total.value);
+    }
+    // for(let i=6; i > -1; i--){
+    //     dates.push(date.getDate()-i);
+    // }
 
     //Crypto data from Api
     //Containing total value for the past seven days

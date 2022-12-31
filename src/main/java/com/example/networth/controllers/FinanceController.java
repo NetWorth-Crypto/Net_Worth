@@ -23,7 +23,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -41,15 +44,34 @@ public class FinanceController {
     PortfolioRepository portfolioDao;
 
     @GetMapping("/finance")
-    public String finance(Model model){
+    public String finance(Model model) throws ParseException {
         User user = userDao.getReferenceById(1l);
         List<Portfolio> portfolios = user.getPortfolios();
         Portfolio selectedPortfolio = portfolios.get(0);
 
+        Map<String,Double> performance = financeService.getSevenDayPrice(selectedPortfolio);
+
+        //Get todays date
+        long todayUnixTime = Instant.now().getEpochSecond() * 1000;
+        String today = financeService.getDate(todayUnixTime);
+        System.out.println("Today's data is: "+ today);
+
+        //Get current portfolio total
+        double totalBalance = performance.get(today);
+
         model.addAttribute("user",user);
         model.addAttribute("portfolios",portfolios);
         model.addAttribute("selectedPortfolio",selectedPortfolio);
-        model.addAttribute("totalPrice",0);
+        model.addAttribute("totalBalance",totalBalance);
+
+        //Seven day performance of portfolio
+        model.addAttribute("portfolioPerformance", performance);
+
+        for (Map.Entry<String,Double> entry: performance.entrySet()){
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue() );
+        }
+
         return "financePage";
     }
 
@@ -66,41 +88,32 @@ public class FinanceController {
         //Get user's portfolios
         List<Portfolio> portfolios = user.getPortfolios();
 
-        //Total price of all assets
-        double totalPrice = 0;
-        totalPrice = financeService.getTotalPrice(selectedPortfolio);
+
+        Map<String,Double> performance = financeService.getSevenDayPrice(selectedPortfolio);
+
+        //Get todays date
+        long todayUnixTime = Instant.now().getEpochSecond() * 1000;
+        String today = financeService.getDate(todayUnixTime);
+        System.out.println("Today's data is: "+ today);
+
+        //Get current portfolio total
+        double totalBalance = performance.get(today);
 
 
-        //Portfolio Action for past 7 days
-//        RestTemplate restTemplate = new RestTemplate();
-//        String result = restTemplate.getForObject("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=daily", String.class);
-//
-//        JSONObject obj = financeService.getJsonObject(result);
-//        JSONArray days = financeService.getJsonArray(obj.get("prices").toString());
-//
-//        JSONArray day = financeService.getJsonArray(days.get(0).toString());
-//
-//
-//
-//        System.out.println("Time: "+ (long)day.get(0));
-//        System.out.println("Price: "+ (double)day.get(1));
 
-        //Seven day price
-            //Get portfolio price per day
-                //Get selected portfolio
-                //Get Array of totalPrice for seven days(function return array of total price)
-                    //Get price data forEach asset
-                        //Price data should originate from previous dates
-                        //Add price data
-        financeService.assetPriceForDay("bitcoin", financeService.getDate(1671212553000l));
-//       String newDate = financeService.getDate(1672258827);
-//        System.out.println(newDate);
+
 
         model.addAttribute("selectedPortfolio",selectedPortfolio);
         model.addAttribute("user",user);
         model.addAttribute("portfolios",portfolios);
 
-        model.addAttribute("totalPrice",totalPrice);
+        //Total Balance of current portfolio
+        model.addAttribute("totalBalance", totalBalance);
+
+        //Seven day performance of portfolio
+        model.addAttribute("portfolioPerformance", performance);
+
+
         return "financePage";
     }
 

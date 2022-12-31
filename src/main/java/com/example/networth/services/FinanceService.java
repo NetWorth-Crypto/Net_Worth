@@ -44,39 +44,86 @@ public class FinanceService {
 
 
     /**************Functions for past data**************/
-    public void getSevenDayPrice() throws ParseException {
-        RestTemplate restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject("https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=daily", String.class);
+    public Map<String, Double> getSevenDayPrice(Portfolio portfolio) throws ParseException {
 
-        Map<Long,Double>dayTotalPrice = new HashMap<>();
 
-        JSONObject obj = getJsonObject(result);
-        JSONArray days = getJsonArray(obj.get("prices").toString());
+        //Map will contain day and portfolio total value for that day
+        Map<String,Double>sevenDayPerformance = new HashMap<>();
 
-        JSONArray day = getJsonArray(days.get(0).toString());
+        //Get all assets in portfolio
+        List<PortfolioAsset> portfolioAssets = paDao.findAllAssetsByPortfolio(portfolio);
 
-        for(Object currentDay: days){
-            JSONArray dayArray = (JSONArray) currentDay;
-            Long unixTime = (Long) dayArray.get(0);
-            Double coinPrice = (Double) dayArray.get(1);
+        //Portfolio total this iteration
+        double portfolioTotal = 0;
 
-            System.out.println( dayArray.get(0));
-//            System.out.println(dayArray.get(1));
-            dayTotalPrice.put(unixTime,coinPrice);
+        //Get portfolio calculated total
+        for(PortfolioAsset portfolioAsset: portfolioAssets){
+
+            //Asset name
+            String assetName = portfolioAsset.getAsset().getName();
+
+            //Get quantity
+            double assetQuantity = portfolioAsset.getQuantity();
+
+            //Get past seven days of data
+            RestTemplate restTemplate = new RestTemplate();
+            String result = restTemplate.getForObject("https://api.coingecko.com/api/v3/coins/"+assetName+"/market_chart?vs_currency=usd&days=7&interval=daily", String.class);
+
+            for (int i=0; i<8; i++){
+
+                //Parse JSON to get days
+                JSONObject obj = getJsonObject(result);
+                JSONArray days = getJsonArray(obj.get("prices").toString());
+
+                //Get date
+                JSONArray currentDay = (JSONArray) days.get(i);
+                Long unixTime = (Long) currentDay.get(0);
+                System.out.println("Unix time: "+ unixTime);
+
+                //Get price for day
+                Double assetPrice = (Double) currentDay.get(1);
+
+                //Formatted date
+                String formattedDate = getDate(unixTime);
+
+
+                //Get asset total
+                double assetTotal = assetPrice * assetQuantity;
+
+                //Put in map
+                if(sevenDayPerformance.get(formattedDate) == null){
+                    sevenDayPerformance.put(formattedDate,assetTotal);
+                }else {
+                    //Calculate new total
+                    double portfolioTotalForDay = sevenDayPerformance.get(formattedDate) + assetTotal;
+                    portfolioTotalForDay = new BigDecimal(portfolioTotalForDay).setScale(2, RoundingMode.HALF_UP).doubleValue();
+                    //Put
+                    sevenDayPerformance.put(formattedDate,portfolioTotalForDay);
+                }
+
+            }
+
         }
 
-        //Get previous price
-            //Day of price action(iterate through days)
-                //Get price for that day (API)(done)
-                //Use getTotalPrice function
+        //Get portfolio total for each day
+//        for(Object currentDay: days){
+//            JSONArray dayArray = (JSONArray) currentDay;
+//            Long unixTime = (Long) dayArray.get(0);
+//            System.out.println("Unix time: "+ unixTime);
+//
+//            //Formatted date
+//            String formattedDate = getDate(unixTime);
+//
+//
+//
+//            //Assign day and total price to map
+//            sevenDayPerformance.put(formattedDate,portfolioTotal);
+//
+//
+//
+//        }
 
-        //Get portfolio total amount for each day
-            //past seven day
-            //Creat map<day,portfolioTotal>
-                //iterate each day to get portfolio total
-                //PUT day and total in map
-        //return map
-
+        return sevenDayPerformance;
 
     }
 
@@ -90,7 +137,7 @@ public class FinanceService {
         JSONObject resultObj = getJsonObject(result);
         JSONObject marketData = getJsonObject(resultObj.get("market_data").toString());
         JSONObject currentPrice = getJsonObject(marketData.get("current_price").toString());
-//        System.out.println(currentPrice.get("usd"));
+        System.out.println(currentPrice.get("usd"));
 
         return (double) currentPrice.get("usd");
 
