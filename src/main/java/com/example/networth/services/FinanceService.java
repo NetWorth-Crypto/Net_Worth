@@ -15,10 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class FinanceService {
@@ -44,11 +41,11 @@ public class FinanceService {
 
 
     /**************Functions for past data**************/
-    public Map<String, Double> getSevenDayPrice(Portfolio portfolio) throws ParseException {
+    public SortedMap<String, Double> getSevenDayPrice(Portfolio portfolio) throws ParseException {
 
 
         //Map will contain day and portfolio total value for that day
-        Map<String,Double>sevenDayPerformance = new HashMap<>();
+        SortedMap<String,Double> sevenDayPerformance = new TreeMap<>();
 
         //Get all assets in portfolio
         List<PortfolioAsset> portfolioAssets = paDao.findAllAssetsByPortfolio(portfolio);

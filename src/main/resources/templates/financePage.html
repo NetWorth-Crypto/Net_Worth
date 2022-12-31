@@ -310,20 +310,27 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('myChart');
-    let dates = document.getElementsByClassName('dates');
-    let totals = document.getElementsByClassName('totals');
+    let documentDates = document.getElementsByClassName('dates');
+    let documentTotals = document.getElementsByClassName('totals');
+    let dates = [];
+    let totals = [];
     let date = new Date();
+
     // let dates = [];
 
     //Days of the week
     // console.log(dates);
-    for (let date of dates) {
-        console.log(date.value);
-    }
+    for (let date of documentDates) {
 
-    for (let total of totals) {
-        console.log(total.value);
+        dates.push(date.value);
     }
+    console.log(dates);
+
+    for (let total of documentTotals) {
+
+        totals.push(total.value);
+    }
+    console.log(totals);
     // for(let i=6; i > -1; i--){
     //     dates.push(date.getDate()-i);
     // }
@@ -338,14 +345,14 @@
             labels: dates,
             datasets: [{
                 label: 'Portfolio Value',
-                data: [12, 20000, 3, 5, 2, 1000,26000],
+                data: totals,
                 borderWidth: 1
             }]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: false
                 }
             }
         }
