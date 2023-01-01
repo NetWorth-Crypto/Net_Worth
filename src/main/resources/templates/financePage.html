@@ -55,7 +55,7 @@
                         <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">
                             <div>
                                 <h3 class="subtitle text-gray-500 fw-normal">24h Portfolio Change</h3>
-                                <div class="h4 fw-normal ">$19,200</div>
+                                <div class="h4 fw-normal " th:text="'$' +${portfolioChange}"></div>
                                 <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>21.3%</span></p>
                             </div>
                         </div>
@@ -94,109 +94,53 @@
                             <thead class="bg-light">
                             <tr>
                                 <th>Name</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                                <th>Position</th>
-                                <th>Actions</th>
+                                <th>Price</th>
+                                <th>24h</th>
+                                <th>Market Cap</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="asset: ${assets}">
+
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <img
-                                                src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                                                alt=""
-                                                style="width: 45px; height: 45px"
-                                                class="rounded-circle"
-                                        />
-                                        <div class="ms-3">
-                                            <p class="fw-bold mb-1">John Doe</p>
-                                            <p class="text-muted mb-0">john.doe@gmail.com</p>
-                                        </div>
-                                    </div>
+                                    <p th:text="${asset.name}" class="fw-bold mb-1"></p>
                                 </td>
                                 <td>
-                                    <p class="fw-normal mb-1">Software engineer</p>
-                                    <p class="text-muted mb-0">IT department</p>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'price'))}" class="fw-normal mb-1"></p>
                                 </td>
                                 <td>
-                                    <span class="badge badge-success rounded-pill d-inline">Active</span>
-                                </td>
-                                <td>Senior</td>
-                                <td>
-                                    <button type="button" class="btn btn-link btn-sm btn-rounded">
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img
-                                                src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                                                class="rounded-circle"
-                                                alt=""
-                                                style="width: 45px; height: 45px"
-                                        />
-                                        <div class="ms-3">
-                                            <p class="fw-bold mb-1">Alex Ray</p>
-                                            <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                                        </div>
-                                    </div>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'priceChange'))}" class="fw-normal mb-1"></p>
                                 </td>
                                 <td>
-                                    <p class="fw-normal mb-1">Consultant</p>
-                                    <p class="text-muted mb-0">Finance</p>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'marketCap'))}" class="fw-normal mb-1">John Doe</p>
                                 </td>
-                                <td>
-                            <span class="badge badge-primary rounded-pill d-inline"
-                            >Onboarding</span
-                            >
-                                </td>
-                                <td>Junior</td>
-                                <td>
-                                    <button
-                                            type="button"
-                                            class="btn btn-link btn-rounded btn-sm fw-bold"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <img
-                                                src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                                                class="rounded-circle"
-                                                alt=""
-                                                style="width: 45px; height: 45px"
-                                        />
-                                        <div class="ms-3">
-                                            <p class="fw-bold mb-1">Kate Hunington</p>
-                                            <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="fw-normal mb-1">Designer</p>
-                                    <p class="text-muted mb-0">UI/UX</p>
-                                </td>
-                                <td>
-                                    <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-                                </td>
-                                <td>Senior</td>
-                                <td>
-                                    <button
-                                            type="button"
-                                            class="btn btn-link btn-rounded btn-sm fw-bold"
-                                            data-mdb-ripple-color="dark"
-                                    >
-                                        Edit
-                                    </button>
-                                </td>
+<!--                                <td>-->
+<!--                                    <div class="d-flex align-items-center">-->
+<!--                                        <img-->
+<!--                                                src="https://mdbootstrap.com/img/new/avatars/8.jpg"-->
+<!--                                                alt=""-->
+<!--                                                style="width: 45px; height: 45px"-->
+<!--                                                class="rounded-circle"-->
+<!--                                        />-->
+<!--                                        <div class="ms-3">-->
+<!--                                            <p class="fw-bold mb-1">John Doe</p>-->
+<!--                                            <p class="text-muted mb-0">john.doe@gmail.com</p>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <p class="fw-normal mb-1">Software engineer</p>-->
+<!--                                    <p class="text-muted mb-0">IT department</p>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <span class="badge badge-success rounded-pill d-inline">Active</span>-->
+<!--                                </td>-->
+<!--                                <td>Senior</td>-->
+<!--                                <td>-->
+<!--                                    <button type="button" class="btn btn-link btn-sm btn-rounded">-->
+<!--                                        Edit-->
+<!--                                    </button>-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>

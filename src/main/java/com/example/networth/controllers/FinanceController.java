@@ -56,8 +56,24 @@ public class FinanceController {
         String today = financeService.getDate(todayUnixTime);
         System.out.println("Today's data is: "+ today);
 
+        //Get previous day date
+        long yesterdayUnixTime = (Instant.now().getEpochSecond()-86400) * 1000;
+        String yesterday = financeService.getDate(yesterdayUnixTime);
+        System.out.println("Yesterday's data is: "+ yesterday);
+
         //Get current portfolio total
         double totalBalance = performance.get(today);
+
+        //Get 24h portfolio change
+        double yesterdayTotalBalance = performance.get(yesterday);
+        double change = yesterdayTotalBalance -totalBalance;
+        change = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        System.out.println("Yesterday's balance is: "+ yesterdayTotalBalance);
+        System.out.println("total change: "+change);
+
+        //Asset data (price, 24h change, market cap)
+
+        Map<String,Double> portData = financeService.getAssetData(selectedPortfolio);
 
         model.addAttribute("user",user);
         model.addAttribute("portfolios",portfolios);
@@ -67,9 +83,18 @@ public class FinanceController {
         //Seven day performance of portfolio
         model.addAttribute("portfolioPerformance", performance);
 
-        for (Map.Entry<String,Double> entry: performance.entrySet()){
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue() );
+        //24h Portfolio Change
+        model.addAttribute("portfolioChange", change);
+
+        //Asset data (price, 24h change, market cap)
+        model.addAttribute("assetData", portData);
+
+        //Assets in portfolio
+        model.addAttribute("assets", financeService.getAssets(selectedPortfolio));
+
+
+        for (Map.Entry<String,Double> entry: portData.entrySet()){
+            System.out.println("Key: "+entry.getKey()+" Value: "+entry.getValue());
         }
 
         return "financePage";
@@ -96,9 +121,21 @@ public class FinanceController {
         String today = financeService.getDate(todayUnixTime);
         System.out.println("Today's data is: "+ today);
 
-        //Get current portfolio total
-        double totalBalance = performance.get(today);
+        //Get previous day date
+        long yesterdayUnixTime = (Instant.now().getEpochSecond()-86400) * 1000;
+        String yesterday = financeService.getDate(yesterdayUnixTime);
+        System.out.println("Yesterday's data is: "+ yesterday);
 
+        //Get current portfolio total for current day
+        double totalBalance = performance.get(today);
+        System.out.println("Today's balance is: "+ totalBalance);
+
+        //Get 24h portfolio change
+        double yesterdayTotalBalance = performance.get(yesterday);
+        double change = yesterdayTotalBalance -totalBalance;
+        change = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        System.out.println("Yesterday's balance is: "+ yesterdayTotalBalance);
+        System.out.println("total change: "+change);
 
 
 
@@ -112,6 +149,9 @@ public class FinanceController {
 
         //Seven day performance of portfolio
         model.addAttribute("portfolioPerformance", performance);
+
+        //24h Portfolio Change
+        model.addAttribute("portfolioChange", change);
 
 
         return "financePage";
