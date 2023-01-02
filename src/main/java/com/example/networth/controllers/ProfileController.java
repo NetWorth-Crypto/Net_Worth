@@ -84,21 +84,17 @@ public class ProfileController
     }
     @PostMapping("/update")
     public String updateProfile
-            (@RequestParam("username")String username,
-             @RequestParam("firstname") String firstname,
-             @RequestParam("lastname") String lastname)
+            (@ModelAttribute User updatedUser)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
 
         User user = userDao.getReferenceById(loggedinUser.getId());
 
-
-        user.setUsername(username);
-        user.setFirstName(firstname);
-        user.setLastName(lastname);
-//        user.setEmail(email);
-//        user.setPassword(password);
+        user.setUsername(updatedUser.getUsername());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setEmail(updatedUser.getEmail());
 
         userDao.save(user);
 

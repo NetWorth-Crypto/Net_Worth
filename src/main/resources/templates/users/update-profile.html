@@ -13,7 +13,7 @@
 
 <section>
     <!-- Update User Profile Info -->
-    <form th:action="@{/update}" th:method="post">
+    <form th:action="@{/update}" th:method="post" th:object="${updateProfile}">
         <div class="update-profile">
             <img src="/images/CryptoLandingCard.jpg"
                  alt="Generic placeholder image"
@@ -25,23 +25,23 @@
             <br>
             <br>
             <!-- First Name -->
-            <input type="text" id="firstname" name="firstname"
+            <input th:field="*{firstName}" type="text" id="firstname"
                    placeholder="Enter new first name">
             <br>
             <br>
             <!-- Last Name -->
-            <input type="text" id="lastname" name="lastname" placeholder="Enter new last name">
+            <input th:field="*{lastName}" type="text" id="lastname" placeholder="Enter new last name">
             <br>
 <!--            <br>-->
             <!-- Email -->
-<!--            <input type="text" id="email" name="email" placeholder="Enter new email address">-->
+            <input th:field="*{email}" type="text" id="email" placeholder="Enter new email address">
 <!--            <br>-->
 <!--            <br>-->
             <!-- Password -->
 <!--            <input type="password" id="password" name="password" placeholder="Enter new Password">-->
 <!--            <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm new Password">-->
-<!--            <br>-->
-<!--            <br>-->
+            <br>
+            <br>
             <!-- Update Profile Button -->
             <div class="btn">
                 <button type="submit">Save</button>
