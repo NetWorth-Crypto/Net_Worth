@@ -70,9 +70,17 @@ public class SecurityConfiguration {
                 .authenticated()
 
 //                ************************************************************
+                //.and()
+                //.authorizeRequests()
+                //.antMatchers("/admin/**")
+                //.hasAnyAuthority("super-admin","admin")
 
-                .antMatchers("/userRoles/edit/**")
-                .hasAnyAuthority("ADMIN","Admin")
+
+               // .and()
+               // .authorizeRequests()
+                //.antMatchers("/super-admin/**")
+               // .hasAnyAuthority("super-admin")
+
 
 
                 .and()

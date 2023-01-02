@@ -16,7 +16,9 @@ public class Role {
     @Column
   private String  details;
 
-
+    private String name;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
 
     //Constructors
@@ -58,5 +60,13 @@ public class Role {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

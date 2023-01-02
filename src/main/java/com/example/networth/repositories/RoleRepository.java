@@ -15,4 +15,5 @@ public interface RoleRepository extends JpaRepository<Role,Long> {
     )
     List<Role> getUserNotRoles(long userId);
 
+    Role findByType(String type);
 }
