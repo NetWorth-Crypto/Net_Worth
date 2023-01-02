@@ -43,7 +43,7 @@ public class NetworkController {
         follower.setFollower_user_id(follower_user_id);
         //Save new follower to database
 
-        //        System.out.println(follower.getFollower_user_id());
+        //System.out.println(follower.getFollower_user_id());
 
         followerDao.save(follower);
         return "users/followers";

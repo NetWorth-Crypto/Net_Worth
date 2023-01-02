@@ -12,7 +12,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(){
-        return "landing";
+        return "newLandingPage";
     }
 
     @GetMapping("/new")
