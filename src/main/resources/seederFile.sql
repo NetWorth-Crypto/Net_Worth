@@ -1,16 +1,17 @@
 USE networth_db;
 
-insert into role(type)
-values('user1'),('admin1');
+
 
 insert into user(email,user_name, first_name, last_name, password,  profile_picture, user_title)
 values ('aastevens1126@gmail.com', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://cdn.filestackcontent.com/2HFPxlUsQxu6uhgAoVNp','web-dev'),
        ('casanovageary@gmail.com', 'dogeking','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QXQ9L54L-bf7b21a56847-512', 'gamestop'),
        ('amida@gmail.com', 'midostar','Amida','Fombutu','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QNP4B8RL-6f9c5581b866-512','web-dev'),
        ('yogesh@gmail.com', 'yogesha','Yogesh','Adhikari','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QV9Q0ZM1-8feba9612cf0-512','web-dev');
-insert into user(email,user_name, first_name, last_name, password)
-values('aastevens1126', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy'),
-       ('casanovageary@gmail.com', 'cgeary','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy');
+
+
+insert into user(id,email,user_name, first_name, last_name, password)
+values (124,'mido@codeup','mido','mido','mido','$2a$10$H2RhGoEkPhNco43B7.LvEeA1gZDEVqufUaBwuJxsAU0bndlyBzQs6');
+
 
 insert into follower(user_id,follower_user_id)
 values (1,2),(2,1);
@@ -45,6 +46,14 @@ values (1,1),(1,2);
 
 insert into post_dislike(post_id, user_id)
 values (2,1), (2,2);
+
+insert into role(id,type,details)
+values  (1,'admin','edit user\'s info or delete other users'),
+        (2,'super-admin','assign and revoke roles, edit user\'s info or delete other users');
+
+insert into user_role(user_id,role_id)
+values (124,2),(124,1)
+
 
 
 

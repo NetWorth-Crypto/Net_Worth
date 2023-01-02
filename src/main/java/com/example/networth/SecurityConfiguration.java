@@ -70,16 +70,16 @@ public class SecurityConfiguration {
                 .authenticated()
 
 //                ************************************************************
-                //.and()
-                //.authorizeRequests()
-                //.antMatchers("/admin/**")
-                //.hasAnyAuthority("super-admin","admin")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/**")
+                .hasAnyAuthority("super-admin","admin")
 
 
-               // .and()
-               // .authorizeRequests()
-                //.antMatchers("/super-admin/**")
-               // .hasAnyAuthority("super-admin")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/super-admin/**")
+                .hasAnyAuthority("super-admin")
 
 
 
