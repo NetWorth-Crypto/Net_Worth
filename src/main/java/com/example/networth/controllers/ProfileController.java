@@ -6,6 +6,7 @@ import com.example.networth.models.User;
 import com.example.networth.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,12 @@ import java.util.List;
 @Controller
 public class ProfileController
 {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
 
-    public ProfileController(UserRepository userDao)
+    public ProfileController(PasswordEncoder passwordEncoder, UserRepository userDao)
     {
+        this.passwordEncoder = passwordEncoder;
         this.userDao = userDao;
     }
 
@@ -70,7 +73,7 @@ public class ProfileController
         return "users/profile";
     }
 
-    @GetMapping("/update-profile")
+    @GetMapping("/updateProfile")
     public String updateProfile(Model model)
     {
 
@@ -78,22 +81,38 @@ public class ProfileController
 
         User user = userDao.getReferenceById(loggedinUser.getId());
 
-        model.addAttribute("updateProfile", user);
+        model.addAttribute("user", user);
 
-        return "users/update-profile";
+        return "users/updateProfile";
     }
-    @PostMapping("/update")
+    @PostMapping("/updateProfile")
     public String updateProfile
-            (@RequestParam("username")String username)
+            (@ModelAttribute User updatedUser,
+             @RequestParam("id") long id,
+             @RequestParam("username") String username,
+             @RequestParam("firstName") String firstName,
+             @RequestParam("lastName") String lastName,
+             @RequestParam("email") String email,
+             @RequestParam("password") String password)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
 
         User user = userDao.getReferenceById(loggedinUser.getId());
 
-
+        user.setId(id);
         user.setUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        if (!password.isEmpty())
+        {
+            String hash = passwordEncoder.encode(password);
+            user.setPassword(hash);
+        }
+
         userDao.save(user);
+
 
         return "redirect:/userProfile";
     }
