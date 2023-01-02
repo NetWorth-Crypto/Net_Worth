@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--<head>-->
+<!--    <div th:replace="fragments :: myheader"></div>-->
+<!--    <div th:replace="fragments :: css"></div>-->
+
+<!--    <title>posts</title>-->
+<!--</head>-->
+
+<head th:replace="partials::head"/>
+<body>
+<!--<div th:replace="fragments :: pforms-navbar"></div>-->
+<nav th:replace="partials::mainNavbar"/>
+
+<div class="text-center mb-3">
+    <h1>Update Profile Info</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <span class="anchor" id="formRegister"></span>
+        <hr class="mb-5">
+        <!-- form card register -->
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0">Update</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/updateProfile}" method="POST" autocomplete="off" class="form" role="form">
+
+                    <div class="form-group">
+                        <label for="id">User ID</label>
+                        <input th:value="${user.id}" name="id" class="form-control" id="id" placeholder="ID" required="" type="text" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input th:value="${user.firstName}" name="firstName" class="form-control" id="firstName" placeholder="First Name" required="" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input th:value="${user.lastName}" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required="" type="text">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="inputName">UserName</label>
+                        <input th:value="${user.username}" class="form-control" id="inputName" placeholder="username" type="text" name="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3">Email</label>
+                        <input th:value="${user.email}" class="form-control" id="inputEmail3" placeholder="Email" name="email" required="" type="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3">Password</label>
+                        <input class="form-control" id="inputPassword3" placeholder="Password" name="password" required="" type="password">
+                        <small class="form-text text-muted" id="passwordHelpBlock">Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success btn-lg float-right" type="submit">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /form card register -->
+    </div>
+</div>
+
+</body>
+</html>
