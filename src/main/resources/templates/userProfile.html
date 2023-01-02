@@ -29,6 +29,18 @@
 
             <!-- Main content START -->
             <div class="col-md-8 col-lg-6 vstack gap-4">
+                <form class="w-100" th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
+                            <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
+                                      data-autoresize="" placeholder="Share your thoughts..."></textarea>
+                    <input id="imgurl" type="text" name="imgUrl" hidden value="null">
+                    <input id="videourl" type="text" name="videoUrl" hidden value="null">
+                    <button class="btn" id="imageButton" type="button"><i class="fa-regular fa-image"></i>
+                        picture
+                    </button>
+                    <button class="btn" id="videoButton" type="button"><i class="fa-solid fa-video"></i> video
+                    </button>
+                    <button class="btn" type="submit"><i class="fa-solid fa-check"></i> share</button>
+                </form>
 
                 <!-- Card feed item START -->
                 <div class="row row-cols-1 row-cols-md-3 g-4">

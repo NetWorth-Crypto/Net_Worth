@@ -41,6 +41,7 @@ public class ProfileController
         //Add attributes for page
         model.addAttribute("user", user);
         model.addAttribute("posts",posts);
+        model.addAttribute("newPost",new Post());
         model.addAttribute("newComment",new Comment());
         return "userProfile";
     }
