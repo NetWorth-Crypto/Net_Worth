@@ -46,7 +46,7 @@
                         <!--Total Balance Section START-->
                         <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">
                             <h3 class="subtitle text-gray-500">Total Balance</h3>
-                            <div th:text="'$'+${totalBalance}" class="h1 text-primary"></div>
+                            <div th:text="${#numbers.formatCurrency(totalBalance)}" class="h1 text-primary"></div>
                             <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span></p>
                         </div>
                         <!--Total Balance Section END-->
@@ -55,7 +55,7 @@
                         <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">
                             <div>
                                 <h3 class="subtitle text-gray-500 fw-normal">24h Portfolio Change</h3>
-                                <div class="h4 fw-normal " th:text="'$' +${portfolioChange}"></div>
+                                <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(portfolioChange)}"></div>
                                 <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>21.3%</span></p>
                             </div>
                         </div>
@@ -90,29 +90,41 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive scrollbar">
-                        <table class="table align-middle mb-0 bg-white">
-                            <thead class="bg-light">
+                        <table class="table align-middle mb-0">
+                            <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Price</th>
+                                <th>Quantity</th>
                                 <th>24h</th>
                                 <th>Market Cap</th>
+                                <th>Update</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="asset: ${assets}">
+                            <tr th:each="portfolioAsset: ${portfolioAssets}">
 
                                 <td>
-                                    <p th:text="${asset.name}" class="fw-bold mb-1"></p>
+                                    <p th:text="${portfolioAsset.getAsset().name}" class="fw-bold mb-1"></p>
                                 </td>
                                 <td>
-                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'price'))}" class="fw-normal mb-1"></p>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(portfolioAsset.getAsset().name+'price'))}" class="fw-normal mb-1"></p>
                                 </td>
                                 <td>
-                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'priceChange'))}" class="fw-normal mb-1"></p>
+                                    <p th:text="${portfolioAsset.quantity}" class="fw-normal mb-1"></p>
                                 </td>
                                 <td>
-                                    <p th:text="${#numbers.formatCurrency(assetData.get(asset.name+'marketCap'))}" class="fw-normal mb-1">John Doe</p>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(portfolioAsset.getAsset().name+'priceChange'))}" class="fw-normal mb-1"></p>
+                                </td>
+                                <td>
+                                    <p th:text="${#numbers.formatCurrency(assetData.get(portfolioAsset.getAsset().name+'marketCap'))}" class="fw-normal mb-1">John Doe</p>
+                                </td>
+                                <td>
+                                    <a th:href="@{/updateAsset/{id}/{ticker}/{name}/{price}(id=${portfolioAsset.getAsset().id},ticker=${portfolioAsset.getAsset().ticker},name=${portfolioAsset.getAsset().name},price=${portfolioAsset.getAsset().currentPrice})}" class="btn">Update</a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/finance/delete/asset/{id}/{portfolioId}(id=${portfolioAsset.getAsset().id}, portfolioId = ${selectedPortfolio.id})}" class="btn">Delete</a>
                                 </td>
 <!--                                <td>-->
 <!--                                    <div class="d-flex align-items-center">-->

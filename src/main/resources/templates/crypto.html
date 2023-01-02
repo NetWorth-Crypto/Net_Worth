@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<!-- ... --><head>
-    <div th:replace="fragments :: myheader"></div>
+<!--&lt;!&ndash; ... &ndash;&gt;<head>-->
+<!--    <div th:replace="fragments :: myheader"></div>-->
 
 
 
-    <title>Home</title>
-</head>
+<!--    <title>Home</title>-->
+<!--</head>-->
+
+<head th:replace="partials::head"/>
 <body>
-<div th:replace="fragments :: crypto-navbar"></div>
+
+<!--<div th:replace="fragments :: crypto-navbar"></div>-->
+
+
 <div></div>
 
 

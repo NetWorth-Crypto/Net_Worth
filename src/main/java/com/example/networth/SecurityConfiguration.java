@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                 /* Login configuration */
                 .formLogin()
                 .loginPage("/login.html")
-                .defaultSuccessUrl("/") // user's home page, it can be any URL
+                .defaultSuccessUrl("/userProfile") // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login.html page
 
                 /* Logout configuration */
