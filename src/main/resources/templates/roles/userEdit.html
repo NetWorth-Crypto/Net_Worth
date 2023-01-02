@@ -78,7 +78,7 @@
                                     <td>
                                         <div class="btn-group">
                                             <a onclick="return confirm('Are you sure you want delete?')"
-                                               th:href="@{'/role/unassign/'+${user.id}+'/' +${userRole.id}}"
+                                               th:href="@{'/super-admin/role/unassign/'+${user.id}+'/'+${userRole.id}}"
                                                class="btn btn-danger"><i class="icon_close_alt2"></i>Unassign</a>
                                         </div>
                                     </td>
@@ -114,7 +114,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a onclick="return confirm('Are you sure you want Add role?')"
-                                       th:href="@{'/role/assign/'+${user.id}+'/' +${userNotRole.id}}"
+                                       th:href="@{'/super-admin/role/assign/'+${user.id}+'/'+${userNotRole.id}}"
                                        class="btn btn-success">Assign</a>
                                 </div>
                             </td>

@@ -25,7 +25,7 @@
                 <div class="modal-body">
 
 
-                    <form th:ACTION="addRole" th:method="POST">
+                    <form th:action="@{/super-admin/addRole}" method="POST">
                         <!-- Name input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="description" class="form-control" name="type" />
@@ -74,7 +74,8 @@
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddRoleModal">
                                        Add New
                                     </button>
-</div>
+</div>            <div class="alert alert-danger" role="alert" th:text="${exist}" th:if="${exist}"></div>
+
 
                                     <table class="table table-striped mb-0">
                                         <thead style="background-color: #002d72;">
@@ -96,8 +97,8 @@
                                             <td>
 
                                                 <div>
-                                                    <a th:href="@{/admin/editRole/{id}(id=${role.id})}" class="btn btn-warning">Edit</a>
-                                                    <a th:href="@{/admin/deleteRole/{id}(id=${role.id})}" class="btn btn-danger">Delete</a>
+                                                    <a th:href="@{/super-admin/editRole/{id}(id=${role.id})}" class="btn btn-warning">Edit</a>
+                                                    <a th:href="@{/super-admin/deleteRole/{id}(id=${role.id})}" class="btn btn-danger">Delete</a>
 
                                                 </div>
 

@@ -100,8 +100,8 @@
                     </li>
                 </ul>
 
-                    <li sec:authorize="hasAuthority('Admin')" class="nav-item">
-                        <a class="nav-link" th:href="@{/getUsers}">Manage Users</a>
+                    <li sec:authorize="hasAuthority('admin')" class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/getUsers}">Manage Users</a>
                     </li>
 
 
@@ -310,11 +310,11 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/roles">Roles</a>
+                        <a class="nav-link active" aria-current="page" href="/super-admin/roles">Roles</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/getUsers">Manage Users</a>
+                        <a class="nav-link active" aria-current="page" th:href="@{/admin/getUsers}">Manage Users</a>
                     </li>
 
                     <li class="nav-item">

@@ -2,6 +2,8 @@ package com.example.networth.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;

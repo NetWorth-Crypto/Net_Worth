@@ -6,6 +6,7 @@ import com.example.networth.services.RoleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class RoleController {
@@ -18,7 +19,7 @@ public class RoleController {
     }
 
 
-    @GetMapping("/roles")
+    @GetMapping("/super-admin/roles")
     public String roles(Model model){
         model.addAttribute("roles",roleService.findAll());
         return "roles/role";
@@ -26,15 +27,21 @@ public class RoleController {
 
 
 
-    @PostMapping("/addRole")
-    public String addRole(Role role){
+    @PostMapping("/super-admin/addRole")
+    public String addRole(Role role, RedirectAttributes attributes){
+        if(roleService.findByType(role.getType())!= null){
+            attributes.addFlashAttribute("exist","This role already exist");
+            return "redirect:/super-admin/roles";
+        }
+     ;
+
         roleService.save(role);
 
-        return "redirect:roles";
+        return "redirect:/super-admin/roles";
     }
 
 
-    @GetMapping("/admin/editRole/{id}")
+    @GetMapping("/super-admin/editRole/{id}")
   public String editRole(@PathVariable long id, Model model){
         Role role = roleService.findById(id);
         model.addAttribute("id", role.getId());
@@ -44,17 +51,17 @@ public class RoleController {
   }
 
 
-  @PutMapping("Admin/saveEdited")
+  @PostMapping("/super-admin/saveEdited")
   public String saveEdited(Role role){
         roleService.save(role);
-     return    "redirect:/roles";
+     return    "redirect:/super-admin/roles";
   }
 
-  @RequestMapping("/admin/deleteRole/{id}")
+  @RequestMapping("/super-admin/deleteRole/{id}")
     public String deleteRole(@PathVariable long id){
        Role role = roleService.findById(id);
        roleService.delete(role);
-        return"redirect:/roles";
+        return"redirect:/super-admin/roles";
     }
 
 }

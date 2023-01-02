@@ -61,4 +61,8 @@ public class RoleService {
     public void delete(Role role) {
         roleDao.delete(role);
     }
+
+    public Role findByType(String type){
+       return roleDao.findByType(type);
+    }
 }
