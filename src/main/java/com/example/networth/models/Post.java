@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table (name = "post")
+@Table (name ="post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,16 @@ public class Post {
         this.videoUrl = videoUrl;
     }
 
-
+    public Post(long id, User user, String imgUrl, String videoUrl, String description, List<Comment> comments, List<PostLike> likes, List<PostDislike> dislikes) {
+        this.id = id;
+        this.user = user;
+        this.imgUrl = imgUrl;
+        this.videoUrl = videoUrl;
+        this.description = description;
+        this.comments = comments;
+        this.likes = likes;
+        this.dislikes = dislikes;
+    }
 
     //Add and Remove PostLike objects
     public void addLike(PostLike postLike){

@@ -31,7 +31,7 @@
 <nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
 
-        <a class="navbar-brand"><img class="navbar-img" src="images/networth-1.png" alt=""></a>
+        <a href="/" class="navbar-brand"><img class="navbar-img" src="images/networth-1.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -133,13 +133,16 @@
                         <!-- Side Nav START -->
                         <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="/"><i class="fa-solid fa-network-wired"></i><span> My Network</span></a>
+                                <a class="nav-link" href="/posts"><i class="fa-solid fa-network-wired"></i><span> My Wall</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/update-profile"><i class="fa-solid fa-user"></i><span> Update Profile</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/userFinance"> <i class="fa-brands fa-bitcoin"></i><span> My Dashboard</span></a>
+                                <a class="nav-link" href="/userProfile"><i class="fa-solid fa-money-bill-trend-up"></i><span> User Profile</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/finance"> <i class="fa-brands fa-bitcoin"></i><span> My Dashboard</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/crypto"><i class="fa-solid fa-money-bill-trend-up"></i><span> Market</span></a>
@@ -166,6 +169,38 @@
     <!-- Navbar END-->
 </div>
 <!--Side Nav tag fragment END-->
+
+
+<!--Crypto Nav tag fragment START-->
+<nav th:fragment="cryptoNavbar" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+        <a class="navbar-brand"><img class="navbar-img" src="images/networth-1.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" >
+            <span> </span>
+
+            <ul class="navbar-nav ">
+                <li class="nav-item">
+                    <!--                    <form th:action="@{/logout}" method="POST">-->
+                    <!--                        <button class="btn" type="submit">Logout</button>-->
+                    <!--                    </form>-->
+                    <form class="d-flex">
+                        <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search" aria-label="Search">
+                        <button id="searchBtn" class="btn btn-outline-success " type="button">Search</button>
+                    </form>
+                </li>
+                <!--                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>-->
+                <!--                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--Crypto Nav tag fragment END-->
 
 
 <!--Script tags fragment START-->

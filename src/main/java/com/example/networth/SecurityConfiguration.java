@@ -41,9 +41,9 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                .loginPage("/login.html")
+                .defaultSuccessUrl("/userProfile") // user's home page, it can be any URL
+                .permitAll() // Anyone can go to the login.html page
 
                 /* Logout configuration */
                 .and()
@@ -53,19 +53,43 @@ public class SecurityConfiguration {
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/signup","/js/**", "/css/**") // anyone can see the home and the ads pages
+                .antMatchers("/", "/signup","/js/**", "/css/**","/crypto") // anyone can see the home and the ads pages
                 .permitAll()
+
+
 
                 /* Pages that require authentication */
                 .and()
                 .authorizeRequests()
                 .antMatchers(
                         "/addAsset",
-                        " /userFinance/**",
-                        "/posts/**", //only authenticated users can create ads
-                        "/userProfile/**"// only authenticated users can edit ads
+                        "/userFinance",
+                        "/posts", //only authenticated users can create ads
+                        "/userProfile"// only authenticated users can edit ads
                 )
                 .authenticated()
+
+//                ************************************************************
+                //.and()
+                //.authorizeRequests()
+                //.antMatchers("/admin/**")
+                //.hasAnyAuthority("super-admin","admin")
+
+
+               // .and()
+               // .authorizeRequests()
+                //.antMatchers("/super-admin/**")
+               // .hasAnyAuthority("super-admin")
+
+
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied")
+//                *****************************************************************************
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
         ;
 
 

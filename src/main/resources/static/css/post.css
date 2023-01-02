@@ -22,16 +22,26 @@ a{
 /*Card Styling*/
 .card{
     color: var(--text-color);
-    border: none;
-}
-.card-header{
-    background-color: var(--box-color);
-}
+    /*background-color: var(--box-color) ;*/
+    /*background-color: rgba(0,0,0,0.5);*/
+    background: linear-gradient(to right bottom, rgba(225,225,225,0), rgba(0,0,0,0.5));
 
-.card-body{
-    background-color:var(--box-color) ;
+    border-top-color: rgba(225,225,225,0.5);
+    border-left-color: rgba(225,225,225,0.5);
+    border-bottom-color: rgba(225,225,225,0.1);
+    border-right-color: rgba(225,225,225,0.1);
 
+    backdrop-filter: blur(1rem);
+    box-shadow: 1.3rem 1.3rem 1.3rem rgba(0,0,0,0.5);
 }
+/*.card-header{*/
+/*    background-color: var(--box-color);*/
+/*}*/
+
+/*.card-body{*/
+/*    background-color:var(--box-color) ;*/
+
+/*}*/
 
 body{
     background: var(--bg-color);
@@ -46,4 +56,17 @@ body{
 
 .fa-thumbs-down{
     color: var(--text-color);
+}
+
+/*Table Styling*/
+.table{
+    background-color: rgba(225,225,225,0);
+}
+
+thead{
+    color: #66fcf1;
+}
+
+tbody{
+    color: #66fcf1;
 }

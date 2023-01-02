@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <div th:replace="fragments :: myheader"></div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--&lt;!&ndash; ... &ndash;&gt;<head>-->
+<!--    <div th:replace="fragments :: myheader"></div>-->
 
 
 
-    <title>Home</title>
-</head>
+<!--    <title>Home</title>-->
+<!--</head>-->
+
+<head th:replace="partials::head"/>
 <body>
-<div th:replace="fragments :: crypto-navbar"></div>
+
+<!--<div th:replace="fragments :: crypto-navbar"></div>-->
+
+
 <div></div>
 
 
 
 <section class="crypto-page">
     <div class="alert alert-danger" role="alert" th:text="${red}" th:if="${red}"></div>
+    <div class="alert alert-danger" role="alert" th:text="${added}" th:if="${added}"></div>
+
 
     <div class="bg-image h-100" style="">
         <div class="mask d-flex align-items-center h-100" style="background-color: rgba(25, 185, 234,.25);">
