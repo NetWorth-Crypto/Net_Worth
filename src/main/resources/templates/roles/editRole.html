@@ -23,34 +23,26 @@
             <div class="alert alert-danger" role="alert" th:text="${lowBalance}" th:if="${lowBalance}"></div>
 
             <div class="card-header">
-                <h3 class="mb-0">Update asset</h3>
+                <h3 class="mb-0">Update role</h3>
             </div>
 
             <div class="card-body">
-                <form th:action="@{/updating}" th:method="post"  class="form">
+                <form th:action="@{/Admin/saveEdited}" th:method="post"  class="form">
                     <div class="form-group">
-                        <label for="name">Asset name</label>
-                        <input class="form-control" id="name" name="name" required="" readonly type="text" th:value="${asset.name}"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="ticker">Ticker</label>
-                        <input  class="form-control" id="ticker" required="" type="text" readonly name="ticker" th:value="${asset.ticker}"/>
+                        <label for="name">Description</label>
+                        <input class="form-control" id="name" name="type" required=""  type="text" th:value="${type}"/>
                     </div>
                     <div class="form-group">
-                        <label for="price" >Price</label>
-                        <input id="price" name="price" class="form-control" type="text" readonly th:value="${asset.currentPrice}"/>
+                        <label for="ticker">Details</label>
+                        <input  class="form-control" id="ticker" required="" type="text" name="details" th:value="${details}"/>
                     </div>
-
                     <div class="form-group">
-                        <label for="quantity">Quantity</label>
-                        <input class="form-control" id="quantity" name="quantity" required="" type="number"/>
+                        <label for="price" >Id</label>
+                        <input id="price" name="id" class="form-control" type="text" readonly th:value="${id}"/>
                     </div>
 
-                    <div  class="form-group invisible">
 
-                        <input type="text" name="id" th:value="${asset.id}">
 
-                    </div>
 
                     <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">submit</button>
                 </form>

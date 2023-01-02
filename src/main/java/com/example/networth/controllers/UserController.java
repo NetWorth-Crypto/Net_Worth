@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+
 
 
 @Controller
@@ -26,18 +28,18 @@ public class UserController {
 
 
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model){
+    public String showSignupForm(Model model ){
         model.addAttribute("user", new User());
-        System.out.println("reached");
+
         return "users/sign-up";
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user){
+    public String saveUser(@ModelAttribute User user, RedirectAttributes attributes){
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userService.saveUser(user);
-
+attributes.addFlashAttribute("success","You successfully registered! You can now login");
         return "redirect:/login";
     }
 

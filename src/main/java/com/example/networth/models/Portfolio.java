@@ -18,6 +18,9 @@ public class Portfolio {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "available_balance")
+    private Double availableBalance;
+
     @Column
     private boolean isDefault;
 
@@ -33,12 +36,13 @@ public class Portfolio {
     public Portfolio() {
     }
 
-    public Portfolio(User user, String name, boolean isDefault, double dollarLimit, boolean isPrivate) {
+    public Portfolio(User user, String name, boolean isDefault, double dollarLimit, boolean isPrivate,double availableBalance ) {
         this.user = user;
         this.name = name;
         this.isDefault = isDefault;
         this.dollarLimit = dollarLimit;
         this.isPrivate = isPrivate;
+        this.availableBalance = availableBalance;
     }
 
     public long getId() {
@@ -87,5 +91,13 @@ public class Portfolio {
 
     public void setPrivate(boolean aPrivate) {
         isPrivate = aPrivate;
+    }
+
+    public double getAvailableBalance() {
+        return availableBalance;
+    }
+
+    public void setAvailableBalance(double availableBalance) {
+        this.availableBalance = availableBalance;
     }
 }

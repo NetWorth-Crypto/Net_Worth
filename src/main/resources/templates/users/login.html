@@ -1,51 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <div th:replace="fragments :: myheader"></div>
-    <div th:replace="fragments :: css"></div>
+<!--<head>-->
+<!--    <div th:replace="fragments :: myheader"></div>-->
+<!--    <div th:replace="fragments :: css"></div>-->
 
-    <title>posts</title>
-</head>
+<!--    <title>posts</title>-->
+<!--</head>-->
+<head th:replace="partials::head"></head>
+
 <body>
-<div th:replace="fragments :: navbar"></div>
+<!--<div th:replace="fragments :: pforms-navbar"></div>-->
+<nav th:replace="partials::mainNavbar"></nav>
         <!-- form card register -->
-        <hr class="mb-4">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="alert alert-danger m-3" role="alert" th:text="${login}" th:if="${login}"></div>
+<!--        <hr class="mb-4">-->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="alert alert-success m-3" role="alert" th:text="${success}" th:if="${success}"></div>
 
-                <div th:if="${param.error}">
-                    Invalid Username and Password.
-                </div>
-                <div th:if="${param.logout}">
-                    You have been logged out.
-                </div>
-                <span class="anchor" id="formLogin1"></span>
-                <!-- form card login.html -->
+                    <div th:if="${param.error}">
+                        Invalid Username and Password.
+                    </div>
+                    <div th:if="${param.logout}">
+                        You have been logged out.
+                    </div>
+                    <span class="anchor" id="formLogin1"></span>
+                    <!-- form card login.html -->
 
-                <div style="flex-direction: row;"  class="card card-outline-secondary">
-                    <img style="width: 30%" th:src="@{/images/logo.png}" class="card-img-top" alt="...">
+                    <div style="flex-direction: row;"  class="card card-outline-secondary">
+                        <img style="width: 30%" th:src="@{/images/oldNetworth-1.png}" class="card-img-top m-2" alt="...">
 
-                    <div class="card-body">
-                        <div class="card-header">
-                            <h3 class="mb-0">Login</h3>
-                        </div>
-                        <form th:action="@{login.html}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
-                            <div class="form-group">
-                                <label for="uname1">Username</label>
-                                <input class="form-control" id="uname1" name="username" required="" type="text"/>
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h3 class="mb-0">Login</h3>
                             </div>
-                            <div class="form-group">
-                                <label for="pwd1">Password</label>
-                                <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
-                            </div>
+                            <form th:action="@{login.html}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
+                                <div class="form-group">
+                                    <label for="uname1">Username</label>
+                                    <input class="form-control" id="uname1" name="username" required="" type="text"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd1">Password</label>
+                                    <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
+                                </div>
 
-                            <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
-                        </form>
-                    </div><!--/card-block-->
-                </div><!-- /form card login.html -->
+                                <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
+
+                                <div class="text-center">
+                                    <p>Not a member? <a href="/sign-up">Register</a></p>
+                                </div>
+                            </form>
+                        </div><!--/card-block-->
+                    </div><!-- /form card login.html -->
+                </div>
             </div>
-        </div>
 
 
 

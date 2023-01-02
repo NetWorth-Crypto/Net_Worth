@@ -26,4 +26,9 @@ public class AssetService {
     public void delete(Asset asset) {
         assetDao.delete(asset);
     }
+
+    Asset getAssetDetails(Asset asset){
+        return assetDao.getAssetDetails(asset.getId());
+
+    }
 }

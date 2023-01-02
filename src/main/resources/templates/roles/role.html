@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <div th:replace="fragments :: myheader"></div>
+    <link th:href="@{/css/role.css}" rel="stylesheet">
+
+
+    <title>Home</title>
+</head>
+<body>
+<div th:replace="fragments :: Admin-navbar"></div>
+<div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="AddRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new role</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form th:ACTION="addRole" th:method="POST">
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <input type="text" id="description" class="form-control" name="type" />
+                            <label class="form-label" for="description">Description</label>
+                        </div>
+
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="details" class="form-control" name="details"/>
+                            <label class="form-label" for="details">Details</label>
+                        </div>
+
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Submit</button>
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<section class="intro">
+    <div class="bg-image h-100" style="background-color: #f5f7fa;">
+        <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
+<div class="text-center m-1">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddRoleModal">
+                                       Add New
+                                    </button>
+</div>
+
+                                    <table class="table table-striped mb-0">
+                                        <thead style="background-color: #002d72;">
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Details</th>
+                                            <th scope="col">Action</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                        <tr th:each="role : ${roles}">
+                                            <td th:text="${role.id}"></td>
+                                            <td th:text="${role.type}"></td>
+                                            <td th:text="${role.details}"></td>
+                                            <td>
+
+                                                <div>
+                                                    <a th:href="@{/admin/editRole/{id}(id=${role.id})}" class="btn btn-warning">Edit</a>
+                                                    <a th:href="@{/admin/deleteRole/{id}(id=${role.id})}" class="btn btn-danger">Delete</a>
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<div th:replace="fragments :: jsFile"></div>
+</body>
+</html>

@@ -2,6 +2,9 @@ package com.example.networth.services;
 
 
 
+import com.example.networth.models.Role;
+import com.example.networth.models.User;
+import com.example.networth.repositories.RoleRepository;
 import com.example.networth.models.Post;
 import com.example.networth.models.User;
 import com.example.networth.repositories.SearchPostRepository;
@@ -16,9 +19,11 @@ import java.util.Optional;
 public class UserService {
 
 
-
+    private final RoleRepository roleDao;
     private final UserRepository userDao;
 
+    public UserService(RoleRepository roleDao, UserRepository userDao) {
+        this.roleDao = roleDao;
     @Autowired
     private UserRepository userRepository;
     //creating a list of a user using users detail.
@@ -42,5 +47,11 @@ public class UserService {
     }
 
 
+    public List<Role> getUserNotRoles(User user){
+        return roleDao.getUserNotRoles(user.getId());
+    }
 
+    public List<User> findAll() {
+        return  userDao.findAll();
+    }
 }
