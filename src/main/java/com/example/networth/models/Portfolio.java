@@ -19,7 +19,7 @@ public class Portfolio {
     private String name;
 
     @Column(name = "available_balance")
-    private double availableBalance;
+    private Double availableBalance;
 
     @Column
     private boolean isDefault;
