@@ -39,5 +39,12 @@ public void addPortfolio(Portfolio portfolio){
         portfolioDao.save(portfolio);
 }
 
-
+public Portfolio findByNameAndUser(String name, User user){
+  return portfolioDao.findByNameAndUser(name,user);
 }
+
+    public void delete(Portfolio portfolio) {
+        portfolioDao.delete(portfolio);
+    }
+}
+

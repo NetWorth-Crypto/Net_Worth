@@ -41,9 +41,9 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/login.html")
                 .defaultSuccessUrl("/") // user's home page, it can be any URL
-                .permitAll() // Anyone can go to the login page
+                .permitAll() // Anyone can go to the login.html page
 
                 /* Logout configuration */
                 .and()
@@ -53,19 +53,35 @@ public class SecurityConfiguration {
                 /* Pages that can be viewed without having to log in */
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/signup","/js/**", "/css/**") // anyone can see the home and the ads pages
+                .antMatchers("/", "/signup","/js/**", "/css/**","/crypto") // anyone can see the home and the ads pages
                 .permitAll()
+
+
 
                 /* Pages that require authentication */
                 .and()
                 .authorizeRequests()
                 .antMatchers(
                         "/addAsset",
-                        " /userFinance/**",
-                        "/posts/**", //only authenticated users can create ads
-                        "/userProfile/**"// only authenticated users can edit ads
+                        "/userFinance",
+                        "/posts", //only authenticated users can create ads
+                        "/userProfile"// only authenticated users can edit ads
                 )
                 .authenticated()
+
+//                ************************************************************
+
+                .antMatchers("/userRoles/edit/**")
+                .hasAnyAuthority("ADMIN","Admin")
+
+
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied")
+//                *****************************************************************************
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
         ;
 
 

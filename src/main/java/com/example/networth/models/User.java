@@ -37,9 +37,14 @@ public class User {
     @Column
     private String userTitle;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    List<Role> roles = new ArrayList<>();
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Follower> followers;
@@ -73,11 +78,11 @@ public class User {
         email = copy.email;
         username = copy.username;
         password = copy.password;
+        roles = copy.roles;
     }
 
-    public User(long id, Role role, String firstName, String lastName, String email, String password,String username) {
+    public User(long id, String firstName, String lastName, String email, String password,String username) {
         this.id = id;
-        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -149,4 +154,11 @@ public class User {
         following.setUser(null);
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }

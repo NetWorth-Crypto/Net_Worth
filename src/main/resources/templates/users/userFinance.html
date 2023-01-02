@@ -23,7 +23,7 @@
 
             <div class="col w-100">
 
-                <a style="width: 10em" th:href="@{/createPortfolio}" class="btn btn-dark ">Create a portfolio</a>
+                <a th:href="@{/createPortfolio}"  style="width: 10em"  class="btn btn-dark " >Create a portfolio</a>
 
             </div>
 
@@ -38,6 +38,8 @@
             <hr style="width: 15em" class="m-2">
         </div>
     </div>
+
+
     <div class="col-10 main-content">
         <div class="row content">
             <div class="col left-side">
@@ -109,23 +111,30 @@
                     <div class="col myportfplio">
                         <div th:each="portfolio: ${portfolios}" class="card mt-2  portfolio">
 
-                            <div class="row row-cols-2 bg-light w-100">
+                            <div  class="row row-cols-3 bg-light w-100">
 
                                 <div class="col-4">
                                     <p style="font-size: 5rem" class="fas fa-chart-line text-primary"></p>
                                 </div>
                                 <div class="col col-8">
                                     <h3 th:text="${portfolio.name}"></h3>
-                                    <p th:text="${portfolio.dollarLimit}"></p>
+                                    <p>Initial Deposit: <span th:text="${portfolio.dollarLimit}" class="text-primary"></span></p>
+                                    <p>Available Balance: <span th:text="${portfolio.getAvailableBalance()}" class="text-primary"></span></p>
+
+
+
+
+
                                 </div>
-                            </div>
 
-                            <div>
-
+                            <div class="col-12">
                                 <a th:href="@{/asset/{id}(id=${portfolio.id})}" class="btn btn-primary">view</a>
+                                <a th:href="@{/editPortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Edit</a>
+
+                                <a th:href="@{/deletePortfolio/{id}(id=${portfolio.id})}" class="btn btn-primary">Delete</a>
                             </div>
                         </div>
-
+</div>
 
                     </div>
 
@@ -159,9 +168,12 @@
     </div>
 </div>
 
-<!--            -->
+<!-- *************************           -->
 
 
+
+
+<!--*********************-->
 <div th:replace="fragments :: jsFile"></div>
 </body>
 </html>

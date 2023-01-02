@@ -1,11 +1,14 @@
 package com.example.networth.models;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserWithRoles extends User implements UserDetails {
+
 
     public UserWithRoles(User user) {
         super(user);  // Call the copy constructor defined in User
@@ -13,8 +16,11 @@ public class UserWithRoles extends User implements UserDetails {
 
     @Override
     public List<GrantedAuthority> getAuthorities() {
-        String roles = ""; // Since we're not using the authorization part of the component
-            return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+      List<GrantedAuthority>authorities = new ArrayList<>();
+      for (Role role: roles){
+          authorities.add(new SimpleGrantedAuthority(role.getType()));
+      }
+      return authorities;
     }
 
 
@@ -40,5 +46,6 @@ public class UserWithRoles extends User implements UserDetails {
         return true;
     }
 
+public boolean hasRole(String roleName){return hasRole(roleName);}
 
 }
