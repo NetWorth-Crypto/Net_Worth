@@ -19,6 +19,8 @@ public interface PortfolioAssetRepository extends JpaRepository<PortfolioAsset,L
 
     List<PortfolioAsset> findAllAssetsByPortfolio(Portfolio portfolio);
 
+    PortfolioAsset findIdByAssetAndPortfolio(Asset asset,Portfolio portfolio);
+
 
 
     @Query(

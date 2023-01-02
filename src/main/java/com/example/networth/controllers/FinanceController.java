@@ -4,6 +4,7 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
+import com.example.networth.repositories.AssetRepository;
 import com.example.networth.repositories.PortfolioAssetRepository;
 import com.example.networth.repositories.PortfolioRepository;
 import com.example.networth.repositories.UserRepository;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -37,11 +39,14 @@ public class FinanceController {
     @Autowired
     FinanceService financeService;
 
-//    @Autowired
-//    PortfolioAssetRepository paDao;
+    @Autowired
+    PortfolioAssetRepository paDao;
 
     @Autowired
     PortfolioRepository portfolioDao;
+
+    @Autowired
+    AssetRepository assetDao;
 
     @GetMapping("/finance")
     public String finance(Model model) throws ParseException {
@@ -63,6 +68,7 @@ public class FinanceController {
 
         //Get current portfolio total
         double totalBalance = performance.get(today);
+        System.out.println("Today's total balance: "+ totalBalance);
 
         //Get 24h portfolio change
         double yesterdayTotalBalance = performance.get(yesterday);
@@ -92,10 +98,24 @@ public class FinanceController {
         //Assets in portfolio
         model.addAttribute("assets", financeService.getAssets(selectedPortfolio));
 
+        System.out.println("Before Pa!!!!");
+        //Assets in portfolio
+        model.addAttribute("portfolioAssets", financeService.getPortfolioAssets(selectedPortfolio));
 
-        for (Map.Entry<String,Double> entry: portData.entrySet()){
-            System.out.println("Key: "+entry.getKey()+" Value: "+entry.getValue());
+        for(PortfolioAsset pa: financeService.getPortfolioAssets(selectedPortfolio)){
+            System.out.println("Portfolio Asset Name: "+pa);
         }
+        System.out.println("After Pa!!!!");
+
+        //Access User's PortfolioAsset for deletion
+//        PortfolioAsset portFolioAssetId = paDao.findIdByAssetAndPortfolio(financeService.getAssets(selectedPortfolio).get(1),selectedPortfolio);
+//
+//        System.out.println("Asset searched for: "+ financeService.getAssets(selectedPortfolio).get(1));
+//        System.out.println("Portfolio search for: "+ selectedPortfolio.getId());
+//        System.out.println("portfolio asset id: "+portFolioAssetId.getId());
+//        for (Map.Entry<String,Double> entry: portData.entrySet()){
+//            System.out.println("Key: "+entry.getKey()+" Value: "+entry.getValue());
+//        }
 
         return "financePage";
     }
@@ -137,6 +157,9 @@ public class FinanceController {
         System.out.println("Yesterday's balance is: "+ yesterdayTotalBalance);
         System.out.println("total change: "+change);
 
+        //Asset data (price, 24h change, market cap)
+
+        Map<String,Double> portData = financeService.getAssetData(selectedPortfolio);
 
 
 
@@ -151,10 +174,23 @@ public class FinanceController {
         model.addAttribute("portfolioPerformance", performance);
 
         //24h Portfolio Change
-        model.addAttribute("portfolioChange", change);
+        model.addAttribute("portfolioChange", portData);
 
 
         return "financePage";
+    }
+
+    @GetMapping("/finance/delete/asset/{id}/{portfolioId}")
+    public String deleteAsset(@PathVariable("id") long assetId,
+                              @PathVariable("portfolioId") long portfolioId){
+        Asset asset = assetDao.getReferenceById(assetId);
+        Portfolio portfolio = portfolioDao.getReferenceById(portfolioId);
+
+        PortfolioAsset portfolioAsset = paDao.findIdByAssetAndPortfolio(asset,portfolio);
+
+        paDao.delete(portfolioAsset);
+
+        return "feed";
     }
 
 

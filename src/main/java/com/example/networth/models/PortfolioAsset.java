@@ -1,8 +1,13 @@
 package com.example.networth.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 public class PortfolioAsset {
     @Id
@@ -38,38 +43,6 @@ public class PortfolioAsset {
         this.purchase_date = purchase_date;
     }
 
-    public Portfolio getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(Portfolio portfolio) {
-        this.portfolio = portfolio;
-    }
-
-    public Asset getAsset() {
-        return asset;
-    }
-
-    public void setAsset(Asset asset) {
-        this.asset = asset;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-
-    public double getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(double purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
 
     @Override
     public String toString() {

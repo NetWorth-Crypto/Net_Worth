@@ -71,6 +71,17 @@ public class FinanceService {
         return assets;
     }
 
+    //Function gets all portfolioAssets in portfolio
+    public List<PortfolioAsset> getPortfolioAssets(Portfolio portfolio){
+
+        //Get all assets in a portfolio
+        List<PortfolioAsset> portfolioAssets = paDao.findAllAssetsByPortfolio(portfolio);
+
+        System.out.println("getPA Hit!!!");
+        System.out.println(portfolioAssets);
+        return portfolioAssets;
+    }
+
 
     /**************Functions for past data**************/
     public SortedMap<String, Double> getSevenDayPrice(Portfolio portfolio) throws ParseException {
