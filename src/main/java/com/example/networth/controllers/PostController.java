@@ -217,10 +217,6 @@ public class PostController {
         return "TestTemplates/CreatePost";
     }
 
-
-
-
-
     @GetMapping("/search")
     public String getSearch()
     {
@@ -232,5 +228,16 @@ public class PostController {
         return "redirect:profile";
     }
 
+    @PostMapping("/TestTemplates/UserPost/{id}")
+    public String deletePost(@PathVariable ("id") long id)
+    {
+//        postService.deletePost(postService.findById(id));
+
+        return "redirect:/posts";
+    }
+
+
 
 }
+
+
