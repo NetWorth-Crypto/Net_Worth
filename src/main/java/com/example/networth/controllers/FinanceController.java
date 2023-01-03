@@ -15,6 +15,8 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +52,16 @@ public class FinanceController {
 
     @GetMapping("/finance")
     public String finance(Model model) throws ParseException {
-        User user = userDao.getReferenceById(1l);
+        //Get logged-in User
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get all user Portfolios
         List<Portfolio> portfolios = user.getPortfolios();
         Portfolio selectedPortfolio = portfolios.get(0);
 
@@ -131,8 +142,14 @@ public class FinanceController {
         //Get portfolio data
         Portfolio selectedPortfolio = portfolioDao.getReferenceById(portfolioId);
 
-        //Get User data
-        User user = userDao.getReferenceById(1l);
+        //Get logged-in User
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
         //Get user's portfolios
         List<Portfolio> portfolios = user.getPortfolios();
