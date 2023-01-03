@@ -217,10 +217,6 @@ public class PostController {
         return "TestTemplates/CreatePost";
     }
 
-
-
-
-
     @GetMapping("/search")
     public String getSearch()
     {
@@ -232,5 +228,6 @@ public class PostController {
         return "redirect:profile";
     }
 
-
 }
+
+

@@ -13,6 +13,17 @@
     height: 150px;
 }
 
+/*Nav-Link items*/
+.nav-link:hover{
+    color: lawngreen;
+}
+
+/*User Profile Sidebar Nav*/
+.profile-button:hover
+{
+    color: gold;
+}
+
 /*Body Styling*/
 a{
     color: var(--text-color);

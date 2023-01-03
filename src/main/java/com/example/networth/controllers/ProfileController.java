@@ -41,8 +41,9 @@ public class ProfileController
         //Add attributes for page
         model.addAttribute("user", user);
         model.addAttribute("posts",posts);
+        model.addAttribute("newPost",new Post());
         model.addAttribute("newComment",new Comment());
-        return "userProfile";
+        return "users/userProfile";
     }
 
     @GetMapping("/userProfile/{id}")
@@ -56,7 +57,7 @@ public class ProfileController
         model.addAttribute("user",user);
         model.addAttribute("posts", posts);
         model.addAttribute("newComment",new Comment());
-        return "userProfile";
+        return "users/userProfile";
     }
 
     /****************TEST MAPPING CODE****************/
@@ -70,7 +71,7 @@ public class ProfileController
         User user = userDao.getReferenceById(loggedinUser.getId());
 
         model.addAttribute("updateProfile", user);
-        return "users/profile";
+        return "users/userProfile";
     }
 
     @GetMapping("/updateProfile")
@@ -114,7 +115,7 @@ public class ProfileController
         userDao.save(user);
 
 
-        return "redirect:/userProfile";
+        return "redirect:users/userProfile";
     }
 
     @PostMapping("/delete")
