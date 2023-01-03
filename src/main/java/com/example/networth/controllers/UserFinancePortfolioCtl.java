@@ -4,6 +4,7 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
+import com.example.networth.repositories.PortfolioAssetRepository;
 import com.example.networth.repositories.PortfolioRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.AssetService;
@@ -31,6 +32,9 @@ public class UserFinancePortfolioCtl {
     private final AssetService assetService;
     private final PortfolioAssetService portAssetDao;
     private final PortfolioRepository portfolioRepository;
+
+    @Autowired
+    PortfolioAssetRepository portfolioAssetDao;
 
     @Autowired
     UserRepository userDao;
@@ -120,17 +124,15 @@ public class UserFinancePortfolioCtl {
     ) {
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
-        User user = userDao.getReferenceById(1l);
-//        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
-        List<Portfolio> portfolios = getAlluserPortfolios(user);
+
+        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
         for (Portfolio portfolio : portfolios) {
             if (portfolio.getName().equals(name)) {
                 attributes.addFlashAttribute("rename", "A portfolio with this name already exist");
                 return "redirect:/createPortfolio";
             }
         }
-//        Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
-        Portfolio portfolio = new Portfolio(user, name, isDefault, dollarLimit, isPrivate, dollarLimit);
+        Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
         portfolioService.addPortfolio(portfolio);
 
         return "redirect:/finance";
@@ -302,6 +304,14 @@ public class UserFinancePortfolioCtl {
         return "portfolio/updateAsset";
     }
 
+    @GetMapping("/updateAsset/{id}")
+    public String updateAsset(@PathVariable long id,
+                              Model model) {
+        PortfolioAsset asset = portfolioAssetDao.getReferenceById(id);
+        model.addAttribute("asset", asset);
+        return "portfolio/updateAsset";
+    }
+
     @PostMapping("/updating")
     public String updating(@RequestParam("id") long id,
                            @RequestParam("quantity") int quantity,
@@ -309,20 +319,23 @@ public class UserFinancePortfolioCtl {
                            Model model,
                            RedirectAttributes attributes) {
 
-        Asset asset = assetService.findById(id);
-        PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
+
+        PortfolioAsset portfolioAsset = portfolioAssetDao.getReferenceById(id);
+//        Asset asset = portfolioAsset.getAsset();
         Portfolio portfolio = portfolioAsset.getPortfolio();
         if (portfolio.getAvailableBalance() < quantity * price) {
             attributes.addFlashAttribute("lowBalance", "Available balance is not enough for the QUANTITY");
-            model.addAttribute("id",asset.getId());
-            model.addAttribute("ticker",asset.getTicker());
-            model.addAttribute("name",asset.getName());
-            model.addAttribute("price",asset.getCurrentPrice());
-          return   "redirect: /updateAsset";
+//            model.addAttribute("id",asset.getId());
+//            model.addAttribute("ticker",asset.getTicker());
+//            model.addAttribute("name",asset.getName());
+//            model.addAttribute("price",asset.getCurrentPrice());
+            model.addAttribute("asset",portfolioAsset);
+
+          return   "redirect: /updateAsset"+portfolioAsset.getId();
         }
         portfolioAsset.setQuantity(quantity);
         portAssetDao.save(portfolioAsset);
-        return "redirect:/viewAll";
+        return "redirect:/finance";
     }
 
 }
