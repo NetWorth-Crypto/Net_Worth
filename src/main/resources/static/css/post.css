@@ -81,3 +81,22 @@ thead{
 tbody{
     color: #66fcf1;
 }
+
+/* Modal styling */
+.modal-header{
+
+    /* background: linear-gradient(to right bottom, rgba(225,225,225,0), rgba(0,0,0,0.5)); */
+
+    background: linear-gradient(to right bottom, var(--bg-color), var(--box-color));
+}
+
+.modal-body{
+
+    /* background: linear-gradient(to right bottom, rgba(225,225,225,0), rgba(0,0,0,0.5)); */
+
+    background: linear-gradient(to right bottom, var(--bg-color), var(--box-color));
+}
+
+.modal-backdrop {
+    z-index: 1020;
+}

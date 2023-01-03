@@ -19,7 +19,7 @@ public class RoleController {
     }
 
 
-    @GetMapping("/super-admin/roles")
+    @GetMapping("/admin/roles")
     public String roles(Model model){
         model.addAttribute("roles",roleService.findAll());
         return "roles/role";

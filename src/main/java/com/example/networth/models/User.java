@@ -49,6 +49,7 @@ public class User {
     List<Role> roles = new ArrayList<>();
 
 
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Follower> followers;
 
@@ -73,6 +74,12 @@ public class User {
     //Constructors
     public User() {
     }
+
+
+
+
+
+
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
@@ -102,6 +109,9 @@ public class User {
 
 
     }
+
+
+
 
     //Add and Remove PostLike objects
     public void addLike(PostLike postLike){
@@ -156,6 +166,8 @@ public class User {
         this.followings.remove(following);
         following.setUser(null);
     }
+
+
 
     public List<Role> getRoles() {
         return roles;

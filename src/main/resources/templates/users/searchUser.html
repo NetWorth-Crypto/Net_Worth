@@ -1,142 +1,240 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Search Post</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="partials::head"/>
 <body>
-<div class="container mt-5">
+
+<!-- Container START -->
+<div class="container">
     <h2 align="center">Searching Users</h2>
-    <form th:action="@{/searchPost}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="find post" size="50" >
-        <button type="submit" class="btn btn-info" >Search</button>
+    <form th:action="@{/searchUser}" method="get">
+        <input type="text" name="user" th:value="${user}"  placeholder="find User" size="50" >
+        <button type="submit" class="btn btn-info" size="50" >Search</button>
     </form>
 
     <div th:each="list : ${lists}" class="card mt-2">
-        <div  class="row row-cols-2 bg-light w-100">
+        <div class="card-body pt-0">
+            <div class="text-center">
 
-            <div class="card-body">
-                <!--Post Description-->
-                <p class="card-text" th:text="${list.description}"></p>
-
-                <!--Post image-->
-                <!--MAKE IMAGE AND VIDEO CONDITIONAL UPON NULL CHECK-->
-                <img src="images/logo.png" class="card-img-top" alt="logoImage">
-
-                <!--Post Reaction Items START-->
-                <div class="d-flex align-items-center justify-content-between">
-                    <form th:action="@{/like/testpost}" th:method="post">
-                        <input hidden th:value="${list.id}">
-
-                        <button class="btn" type="submit">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <span class="badge bg-secondary" th:text="${list.likes.size()}"></span>
-                        </button>
-
-                    </form>
-                    <form th:action="@{/dislike/testpost}" th:method="post">
-                        <input hidden th:value="${list.id}">
-                        <button class="btn" type="submit">
-                            <i class="fa-solid fa-thumbs-down"></i>
-                            <span class="badge bg-secondary" th:text="${list.dislikes.size()}"></span>
-                        </button>
-
-                    </form>
-
-                    <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <!--PUT total comment data in badge-->
-                        Comment
-                        <span class="badge bg-secondary">14</span>
-                    </button>
-
+                Avatar
+                <div class="avatar avatar-lg mt-n5 mb-3">
+                    <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3"
+                                      th:src="${list.profilePicture}" alt=""></a>
                 </div>
-                <!--Post Reaction Items END-->
 
-                <!-- Add comment START-->
-                <div class="d-flex mb-3">
-                    <!-- Avatar -->
-                    <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
-                    <div class="avatar avatar-xs me-2">
-                        <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
+                <!-- Info -->
+                <h5 class="mb-0"><a href="#!" th:text="${list.firstName}+' '+${list.lastName}"></a></h5>
+                <small th:text="${list.userTitle}"></small>
+                <div class="mt-3">
+                    <form th:action="@{/following/user}" th:method="post">
+                        <input hidden name="userId" th:value="${list.getId()}">
+
+                        <button class="btn" type="submit"> Follow
+<!--                            <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>-->
+                        </button>
+
+                    </form>
+                </div>
+                <p class="mt-3">Just Do it</p>
+
+                <!-- User stat START -->
+                <div class="hstack gap-2 gap-xl-3 justify-content-center">
+                    <!-- User stat item -->
+                    <!--                        <div>-->
+                    <!--                            <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>-->
+                    <!--                            <small>Post</small>-->
+                    <!--                        </div>-->
+
+                    <!-- Divider -->
+                    <div class="vr"></div>
+                    <!-- User stat item -->
+                    <div>
+                        <h6 class="mb-0">2.5K</h6>
+                        <small>Followers</small>
                     </div>
-                    <!-- Comment box  -->
-                    <form class="w-100">
-                        <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>
-                        <input type="submit" hidden>
-                    </form>
+                    <!-- Divider -->
+                    <div class="vr"></div>
+                    <!-- User stat item -->
+                    <div>
+                        <h6 class="mb-0">365</h6>
+                        <small>Following</small>
+                    </div>
                 </div>
-                <!-- Add comment END-->
-
-                <!-- Comment wrap START -->
-                <div class="collapse" id="collapseExample">
-                    <ul class="comment-wrap list-unstyled">
-                        <li class="comment-item">
-                            <div class="d-flex position-relative">
-                                <!-- Avatar -->
-                                <!--GET COMMENT USER IMAGE-->
-                                <div class="avatar avatar-xs">
-                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
-                                </div>
-                                <div class="ms-2">
-                                    <!-- Comment by -->
-                                    <div class="bg-light rounded-start-top-0 p-3 rounded">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1"> <a href="#!"> Anthony Stevens </a></h6>
-                                        </div>
-                                        <p class="small mb-0">No more Comment.comment</p>
-                                    </div>
-                                    <!-- Comment react -->
-                                    <!-- PUT THIS IF TIME IS ALLOTED-->
-                                    <!--                            <ul class="nav nav-divider py-2 small">-->
-                                    <!--                                <li class="nav-item">-->
-                                    <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
-                                    <!--                                </li>-->
-                                    <!--                                <li class="nav-item">-->
-                                    <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
-                                    <!--                                </li>-->
-                                    <!--                                <li class="nav-item">-->
-                                    <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
-                                    <!--                                </li>-->
-                                    <!--                            </ul>-->
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Comment wrap END -->
+                <!-- User stat END -->
 
             </div>
-            <!--Card body END-->
-
         </div>
-        <!--Post Card Item END-->
     </div>
 
 </div>
-</div>
-</div>
 
-</div>
+
+
+<!-- Container END -->
 </body>
 </html>
 
 <!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-
+<!--<html xmlns:th="www.thymeleaf.org">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8"/>-->
 <!--    <title>Search Post</title>-->
 <!--</head>-->
 <!--<body>-->
-<!--<form th:action="@{/post/searchPost}" th:method="get">-->
-<!--    <input name="keyword" type="text"  placeholder="Search Posts">-->
-<!--    <button type="submit">Search</button>-->
-<!--</form>-->
-<!--&lt;!&ndash;<form th:action="@{/searchPost}" th:method="post">&ndash;&gt;-->
-<!--&lt;!&ndash;    <input name="keyword" type="text" th:value="${keyword}" placeholder="Search Posts">&ndash;&gt;-->
-<!--&lt;!&ndash;    <button type="submit">Search</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</form>&ndash;&gt;-->
+<!--<div class="container mt-5">-->
+<!--    <h2 align="center">Searching Users</h2>-->
+<!--    <form th:action="@{/searchUser}" method="get">-->
+<!--        <input type="text" name="user" th:value="${user}"  placeholder="find User" size="50" >-->
+<!--        <button type="submit" class="btn btn-info" >Search</button>-->
+<!--    </form>-->
 
+<!--    <div th:each="list : ${lists}" class="card mt-2">-->
+<!--        <div class="card-header" th:id="'list'+${list.id}">-->
+<!--            <div class="d-flex align-items-center justify-content-between">-->
+<!--                <div class="d-flex align-items-center">-->
+<!--                    &lt;!&ndash;Avatar&ndash;&gt;-->
+<!--                    <img th:src="${list.getUser().profilePicture}" class="rounded-circle mb-3"-->
+<!--                         style="width: 50px;" alt="Avatar"/>-->
+<!--                    &lt;!&ndash;Info&ndash;&gt;-->
+<!--                    &lt;!&ndash;               <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>&ndash;&gt;-->
+<!--                    <div>-->
+<!--                        <div class="nav nav-divider">-->
+<!--                            &lt;!&ndash;INPUT USER PROFILE LINK&ndash;&gt;-->
+<!--                            <h6 class="nav-item card-title mb-0"><a href="#!"> <strong-->
+<!--                                    th:text="${list.getUser().firstName}"></strong> <strong-->
+<!--                                    th:text="${list.getUser().lastName}"></strong> </a></h6>-->
+<!--                        </div>-->
+<!--                        <p class="mb-0 small" th:text="${list.user.userTitle}"></p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div  class="row row-cols-2 bg-light w-100">&ndash;&gt;-->
 
+<!--&lt;!&ndash;            <div class="card-body">&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash;Post Description&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <p class="card-text" th:text="${list.description}"></p>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash;Post image&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash;MAKE IMAGE AND VIDEO CONDITIONAL UPON NULL CHECK&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <img src="images/logo.png" class="card-img-top" alt="logoImage">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash;Post Reaction Items START&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="d-flex align-items-center justify-content-between">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <form th:action="@{/like/testpost}" th:method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input hidden th:value="${list.id}">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                        <button class="btn" type="submit">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fa-solid fa-thumbs-up"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span class="badge bg-secondary" th:text="${list.likes.size()}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <form th:action="@{/dislike/testpost}" th:method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input hidden th:value="${list.id}">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn" type="submit">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="fa-solid fa-thumbs-down"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span class="badge bg-secondary" th:text="${list.dislikes.size()}"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                    <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">&ndash;&gt;-->
+<!--&lt;!&ndash;                        &lt;!&ndash;PUT total comment data in badge&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        Comment&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="badge bg-secondary">14</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash;Post Reaction Items END&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash; Add comment START&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="d-flex mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; Avatar &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; GET LOGGED-IN USER DATA FOR AVATAR IMAGE&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="avatar avatar-xs me-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    &lt;!&ndash; Comment box  &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    <form class="w-100">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="submit" hidden>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash; Add comment END&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;                &lt;!&ndash; Comment wrap START &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="collapse" id="collapseExample">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <ul class="comment-wrap list-unstyled">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li class="comment-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="d-flex position-relative">&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash; Avatar &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                &lt;!&ndash;GET COMMENT USER IMAGE&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="avatar avatar-xs">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="ms-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash; Comment by &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="bg-light rounded-start-top-0 p-3 rounded">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="d-flex justify-content-between">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <h6 class="mb-1"> <a href="#!"> Anthony Stevens </a></h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <p class="small mb-0">No more Comment.comment</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash; Comment react &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash; PUT THIS IF TIME IS ALLOTED&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                            <ul class="nav nav-divider py-2 small">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> Like (3)</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> Reply</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> View 5 replies</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                                </li>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                    &lt;!&ndash;                            </ul>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                &lt;!&ndash; Comment wrap END &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            &lt;!&ndash;Card body END&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;Post Card Item END&ndash;&gt;-->
+<!--    </div>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
 <!--</body>-->
 <!--</html>-->
+
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en" xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Search Post</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<form th:action="@{/post/searchPost}" th:method="get">&ndash;&gt;-->
+<!--&lt;!&ndash;    <input name="keyword" type="text"  placeholder="Search Posts">&ndash;&gt;-->
+<!--&lt;!&ndash;    <button type="submit">Search</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<form th:action="@{/searchPost}" th:method="post">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <input name="keyword" type="text" th:value="${keyword}" placeholder="Search Posts">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;    <button type="submit">Search</button>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+

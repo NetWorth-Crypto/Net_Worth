@@ -41,7 +41,7 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .defaultSuccessUrl("/userProfile") // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login.html page
 
@@ -65,21 +65,22 @@ public class SecurityConfiguration {
                         "/addAsset",
                         "/userFinance",
                         "/posts", //only authenticated users can create ads
-                        "/userProfile"// only authenticated users can edit ads
+                        "/userProfile",
+                        "/finance/**"// only authenticated users can edit ads
                 )
                 .authenticated()
 
 //                ************************************************************
-                //.and()
-                //.authorizeRequests()
-                //.antMatchers("/admin/**")
-                //.hasAnyAuthority("super-admin","admin")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/admin/**")
+                .hasAnyAuthority("super-admin","admin")
 
 
-               // .and()
-               // .authorizeRequests()
-                //.antMatchers("/super-admin/**")
-               // .hasAnyAuthority("super-admin")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/super-admin/**")
+                .hasAnyAuthority("super-admin")
 
 
 

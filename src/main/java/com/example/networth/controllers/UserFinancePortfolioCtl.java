@@ -4,10 +4,13 @@ import com.example.networth.models.Asset;
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
+import com.example.networth.repositories.PortfolioAssetRepository;
 import com.example.networth.repositories.PortfolioRepository;
+import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,12 @@ public class UserFinancePortfolioCtl {
     private final AssetService assetService;
     private final PortfolioAssetService portAssetDao;
     private final PortfolioRepository portfolioRepository;
+
+    @Autowired
+    PortfolioAssetRepository portfolioAssetDao;
+
+    @Autowired
+    UserRepository userDao;
 
     public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao, AssetService assetService,
                                    PortfolioRepository portfolioRepository) {
@@ -115,8 +124,8 @@ public class UserFinancePortfolioCtl {
     ) {
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
-        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
 
+        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
         for (Portfolio portfolio : portfolios) {
             if (portfolio.getName().equals(name)) {
                 attributes.addFlashAttribute("rename", "A portfolio with this name already exist");
@@ -124,10 +133,9 @@ public class UserFinancePortfolioCtl {
             }
         }
         Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
-
         portfolioService.addPortfolio(portfolio);
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 
@@ -296,6 +304,14 @@ public class UserFinancePortfolioCtl {
         return "portfolio/updateAsset";
     }
 
+    @GetMapping("/updateAsset/{id}")
+    public String updateAsset(@PathVariable long id,
+                              Model model) {
+        PortfolioAsset asset = portfolioAssetDao.getReferenceById(id);
+        model.addAttribute("asset", asset);
+        return "portfolio/updateAsset";
+    }
+
     @PostMapping("/updating")
     public String updating(@RequestParam("id") long id,
                            @RequestParam("quantity") int quantity,
@@ -303,20 +319,23 @@ public class UserFinancePortfolioCtl {
                            Model model,
                            RedirectAttributes attributes) {
 
-        Asset asset = assetService.findById(id);
-        PortfolioAsset portfolioAsset = portAssetDao.findByAsset(asset);
+
+        PortfolioAsset portfolioAsset = portfolioAssetDao.getReferenceById(id);
+//        Asset asset = portfolioAsset.getAsset();
         Portfolio portfolio = portfolioAsset.getPortfolio();
         if (portfolio.getAvailableBalance() < quantity * price) {
             attributes.addFlashAttribute("lowBalance", "Available balance is not enough for the QUANTITY");
-            model.addAttribute("id",asset.getId());
-            model.addAttribute("ticker",asset.getTicker());
-            model.addAttribute("name",asset.getName());
-            model.addAttribute("price",asset.getCurrentPrice());
-          return   "redirect: /updateAsset";
+//            model.addAttribute("id",asset.getId());
+//            model.addAttribute("ticker",asset.getTicker());
+//            model.addAttribute("name",asset.getName());
+//            model.addAttribute("price",asset.getCurrentPrice());
+            model.addAttribute("asset",portfolioAsset);
+
+          return   "redirect: /updateAsset"+portfolioAsset.getId();
         }
         portfolioAsset.setQuantity(quantity);
         portAssetDao.save(portfolioAsset);
-        return "redirect:/viewAll";
+        return "redirect:/finance";
     }
 
 }

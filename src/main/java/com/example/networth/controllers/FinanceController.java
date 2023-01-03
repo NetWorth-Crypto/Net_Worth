@@ -15,6 +15,8 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +52,16 @@ public class FinanceController {
 
     @GetMapping("/finance")
     public String finance(Model model) throws ParseException {
-        User user = userDao.getReferenceById(1l);
+        //Get logged-in User
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get all user Portfolios
         List<Portfolio> portfolios = user.getPortfolios();
         Portfolio selectedPortfolio = portfolios.get(0);
 
@@ -67,18 +78,27 @@ public class FinanceController {
         System.out.println("Yesterday's data is: "+ yesterday);
 
         //Get current portfolio total
-        double totalBalance = performance.get(today);
-        System.out.println("Today's total balance: "+ totalBalance);
+        double totalBalance;
+        if(performance.get(today) == null){
+            totalBalance = 0;
+        }else{
+            totalBalance = performance.get(today);
+        }
 
         //Get 24h portfolio change
-        double yesterdayTotalBalance = performance.get(yesterday);
+        double yesterdayTotalBalance;
+        if(performance.get(yesterday) == null){
+            yesterdayTotalBalance = 0;
+        }else{
+            yesterdayTotalBalance = performance.get(yesterday);
+        }
+
         double change = yesterdayTotalBalance -totalBalance;
         change = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP).doubleValue();
         System.out.println("Yesterday's balance is: "+ yesterdayTotalBalance);
         System.out.println("total change: "+change);
 
         //Asset data (price, 24h change, market cap)
-
         Map<String,Double> portData = financeService.getAssetData(selectedPortfolio);
 
         model.addAttribute("user",user);
@@ -98,14 +118,9 @@ public class FinanceController {
         //Assets in portfolio
         model.addAttribute("assets", financeService.getAssets(selectedPortfolio));
 
-        System.out.println("Before Pa!!!!");
         //Assets in portfolio
         model.addAttribute("portfolioAssets", financeService.getPortfolioAssets(selectedPortfolio));
 
-        for(PortfolioAsset pa: financeService.getPortfolioAssets(selectedPortfolio)){
-            System.out.println("Portfolio Asset Name: "+pa);
-        }
-        System.out.println("After Pa!!!!");
 
         //Access User's PortfolioAsset for deletion
 //        PortfolioAsset portFolioAssetId = paDao.findIdByAssetAndPortfolio(financeService.getAssets(selectedPortfolio).get(1),selectedPortfolio);
@@ -127,8 +142,14 @@ public class FinanceController {
         //Get portfolio data
         Portfolio selectedPortfolio = portfolioDao.getReferenceById(portfolioId);
 
-        //Get User data
-        User user = userDao.getReferenceById(1l);
+        //Get logged-in User
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
 
         //Get user's portfolios
         List<Portfolio> portfolios = user.getPortfolios();
@@ -147,18 +168,27 @@ public class FinanceController {
         System.out.println("Yesterday's data is: "+ yesterday);
 
         //Get current portfolio total for current day
-        double totalBalance = performance.get(today);
+        double totalBalance;
+        if(performance.get(today) == null){
+            totalBalance = 0;
+        }else{
+            totalBalance = performance.get(today);
+        }
         System.out.println("Today's balance is: "+ totalBalance);
 
         //Get 24h portfolio change
-        double yesterdayTotalBalance = performance.get(yesterday);
+        double yesterdayTotalBalance;
+        if(performance.get(yesterday) == null){
+            yesterdayTotalBalance = 0;
+        }else{
+            yesterdayTotalBalance = performance.get(yesterday);
+        }
         double change = yesterdayTotalBalance -totalBalance;
         change = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP).doubleValue();
         System.out.println("Yesterday's balance is: "+ yesterdayTotalBalance);
         System.out.println("total change: "+change);
 
         //Asset data (price, 24h change, market cap)
-
         Map<String,Double> portData = financeService.getAssetData(selectedPortfolio);
 
 
@@ -174,7 +204,16 @@ public class FinanceController {
         model.addAttribute("portfolioPerformance", performance);
 
         //24h Portfolio Change
-        model.addAttribute("portfolioChange", portData);
+        model.addAttribute("portfolioChange", change);
+
+        //Asset data (price, 24h change, market cap)
+        model.addAttribute("assetData", portData);
+
+        //Assets in portfolio
+        model.addAttribute("assets", financeService.getAssets(selectedPortfolio));
+
+        //Assets in portfolio
+        model.addAttribute("portfolioAssets", financeService.getPortfolioAssets(selectedPortfolio));
 
 
         return "financePage";
