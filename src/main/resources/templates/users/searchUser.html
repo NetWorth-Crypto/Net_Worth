@@ -28,10 +28,10 @@
                 <small th:text="${list.userTitle}"></small>
                 <div class="mt-3">
                     <form th:action="@{/following/user}" th:method="post">
-                        <input hidden name="userId" th:value="${list.getId()}">
+                        <input hidden name="userId" th:value="${list.id}">
 
                         <button class="btn" type="submit"> Follow
-<!--                            <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>-->
+<!--                            <span th:text="${list.username.}"></span>-->
                         </button>
 
                     </form>
