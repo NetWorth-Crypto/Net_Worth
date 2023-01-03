@@ -65,7 +65,8 @@ public class SecurityConfiguration {
                         "/addAsset",
                         "/userFinance",
                         "/posts", //only authenticated users can create ads
-                        "/userProfile"// only authenticated users can edit ads
+                        "/userProfile",
+                        "/finance/**"// only authenticated users can edit ads
                 )
                 .authenticated()
 

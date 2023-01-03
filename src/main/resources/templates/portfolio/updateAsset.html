@@ -30,20 +30,20 @@
                 <form th:action="@{/updating}" th:method="post"  class="form">
                     <div class="form-group">
                         <label for="name">Asset name</label>
-                        <input class="form-control" id="name" name="name" required="" readonly type="text" th:value="${asset.name}"/>
+                        <input class="form-control" id="name" name="name" required="" readonly type="text" th:value="${asset.getAsset().getName()}"/>
                     </div>
                     <div class="form-group">
                         <label for="ticker">Ticker</label>
-                        <input  class="form-control" id="ticker" required="" type="text" readonly name="ticker" th:value="${asset.ticker}"/>
+                        <input  class="form-control" id="ticker" required="" type="text" readonly name="ticker" th:value="${asset.getAsset().getTicker()}"/>
                     </div>
                     <div class="form-group">
                         <label for="price" >Price</label>
-                        <input id="price" name="price" class="form-control" type="text" readonly th:value="${asset.currentPrice}"/>
+                        <input id="price" name="price" class="form-control" type="text" readonly th:value="${asset.getAsset().getCurrentPrice()}"/>
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
-                        <input class="form-control" id="quantity" name="quantity" required="" type="number"/>
+                        <input class="form-control"  th:value="${asset.getQuantity()}" id="quantity" name="quantity" required="" type="number"/>
                     </div>
 
                     <div  class="form-group invisible">
