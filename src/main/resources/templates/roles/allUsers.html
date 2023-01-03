@@ -3,15 +3,18 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <div th:replace="fragments :: myheader"></div>
-    <link th:href="@{/css/role.css}" rel="stylesheet">
 
 
-    <title>Home</title>
-</head>
+
+
+
+    <head th:replace="partials::head"/>
+
+
 <body>
-<div th:replace="fragments :: Admin-navbar"></div>
+
+<div th:replace="partials ::mainNavbar"></div>
+
 
 
 
