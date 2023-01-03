@@ -2,6 +2,7 @@ package com.example.networth.services;
 
 import com.example.networth.models.Post;
 import com.example.networth.repositories.FollowerRepository;
+//import com.example.networth.repositories.FollowingRepository;
 import com.example.networth.repositories.FollowingRepository;
 import com.example.networth.repositories.SearchPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class SearchPostService{
         return lists;
     }
 
-    pub
+
 
 
 }
