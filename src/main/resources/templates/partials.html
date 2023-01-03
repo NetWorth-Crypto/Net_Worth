@@ -30,40 +30,38 @@
 <!--Main Nav tag fragment START-->
 <nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-
         <a href="/" class="navbar-brand"><img class="navbar-img" src="images/networth-1.png" alt=""></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"-->
+<!--                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <span> </span>
+<!--        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">-->
+<!--            <span> </span>-->
 
-            <ul class="navbar-nav ">
-                <li class="nav-item">
-                    <!--                    <form th:action="@{/logout}" method="POST">-->
-                    <!--                        <button class="btn" type="submit">Logout</button>-->
-                    <!--                    </form>-->
-                </li>
-                <!--                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>-->
-                <!--                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>-->
-            </ul>
-        </div>
+<!--            <ul class="navbar-nav ">-->
+<!--                <li class="nav-item">-->
+<!--                    &lt;!&ndash;                    <form th:action="@{/logout}" method="POST">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <button class="btn" type="submit">Logout</button>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--                </li>-->
+<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>&ndash;&gt;-->
+<!--            </ul>-->
+<!--        </div>-->
     </div>
 </nav>
 <!--Main Nav tag fragment END-->
-
 
 <!--Side Nav tag fragment START-->
 <div th:fragment="sideNavbar" class="col-lg-3">
 
     <!-- Advanced filter responsive toggler START -->
     <div class="d-flex align-items-center d-lg-none">
-        <button class="border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
+        <button class="profile-button border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
-            <i class="btn btn-primary fw-bold fa-solid fa-sliders-h"></i>
-            <span class="h6 mb-0 fw-bold d-lg-none ms-2">My profile</span>
+            <i class="fa-brands fa-bitcoin" style="color: gold"></i>
+            <span class="h6 mb-0 fw-bold d-lg-none ms-2">Profile Menu</span>
         </button>
     </div>
     <!-- Advanced filter responsive toggler END -->
@@ -133,13 +131,13 @@
                         <!-- Side Nav START -->
                         <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                             <li class="nav-item">
-                                <a class="nav-link" href="/posts"><i class="fa-solid fa-network-wired"></i><span> My Wall</span></a>
+                                <a class="nav-link" href="/posts"><i class="fa-solid fa-network-wired"></i><span> $tockpile</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/updateProfile"><i class="fa-solid fa-user"></i><span> Update Profile</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/userProfile"><i class="fa-solid fa-money-bill-trend-up"></i><span> User Profile</span></a>
+                                <a class="nav-link" href="/userProfile"><i class="fa-solid fa-money-bill-trend-up"></i><span> My Profile</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/finance"> <i class="fa-brands fa-bitcoin"></i><span> My Dashboard</span></a>
@@ -153,16 +151,12 @@
                     <!-- Card body END -->
                     <!-- Card footer -->
                     <div class="card-footer text-center py-2">
-                        <li class="nav-item">
-                            <form th:action="@{/logout}" method="POST">
-                                <button class="btn btn primary" type="submit">Logout</button>
-                            </form>
-                        </li>
+                        <form th:action="@{/logout}" method="POST">
+                            <button class="btn btn primary" type="submit">Logout</button>
+                        </form>
                     </div>
                 </div>
                 <!-- Card END -->
-
-                </ul>
             </div>
         </div>
     </nav>
