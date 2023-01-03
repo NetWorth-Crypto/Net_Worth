@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface SearchPostRepository extends JpaRepository<Post,String>{
     //query to search for keywords through post title and description.
-    @Query(value = "SELECT * FROM post p WHERE p.title LIKE %:keyword% OR p.description LIKE %:keyword%",nativeQuery = true)
+    @Query(value = "SELECT * FROM post p Where p.description LIKE %:keyword%",nativeQuery = true)
     List<Post> findByKeyword(@Param("keyword") String keyword);
 }
