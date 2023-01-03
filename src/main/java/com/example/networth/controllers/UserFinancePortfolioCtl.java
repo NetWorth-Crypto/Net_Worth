@@ -5,9 +5,11 @@ import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
 import com.example.networth.repositories.PortfolioRepository;
+import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.AssetService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,9 @@ public class UserFinancePortfolioCtl {
     private final AssetService assetService;
     private final PortfolioAssetService portAssetDao;
     private final PortfolioRepository portfolioRepository;
+
+    @Autowired
+    UserRepository userDao;
 
     public UserFinancePortfolioCtl(PortfolioService portfolioService, PortfolioAssetService portAssetDao, AssetService assetService,
                                    PortfolioRepository portfolioRepository) {
@@ -115,19 +120,20 @@ public class UserFinancePortfolioCtl {
     ) {
         boolean isDefault = type.equals("Default");
         boolean isPrivate = type.equals("Private");
-        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
-
+        User user = userDao.getReferenceById(1l);
+//        List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
+        List<Portfolio> portfolios = getAlluserPortfolios(user);
         for (Portfolio portfolio : portfolios) {
             if (portfolio.getName().equals(name)) {
                 attributes.addFlashAttribute("rename", "A portfolio with this name already exist");
                 return "redirect:/createPortfolio";
             }
         }
-        Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
-
+//        Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
+        Portfolio portfolio = new Portfolio(user, name, isDefault, dollarLimit, isPrivate, dollarLimit);
         portfolioService.addPortfolio(portfolio);
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 

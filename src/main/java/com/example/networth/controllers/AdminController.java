@@ -1,6 +1,10 @@
 package com.example.networth.controllers;
 
+import com.example.networth.models.Portfolio;
+import com.example.networth.models.PortfolioAsset;
 import com.example.networth.models.User;
+import com.example.networth.services.PortfolioAssetService;
+import com.example.networth.services.PortfolioService;
 import com.example.networth.services.RoleService;
 import com.example.networth.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -8,15 +12,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class AdminController {
     private final UserService userService;
 
+
+    private final PortfolioAssetService portfolioAssetService;
+
+
+    private final PortfolioService portfolioService;
+
+
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
 
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder, RoleService roleService) {
+    public AdminController(UserService userService, PortfolioAssetService portfolioAssetService, PortfolioService portfolioService, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userService = userService;
+        this.portfolioAssetService = portfolioAssetService;
+        this.portfolioService = portfolioService;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
     }
@@ -56,25 +72,46 @@ public class AdminController {
     }
 
 
+
+    public List<PortfolioAsset> getAllPortfolioAssets(User user) {
+
+        List<PortfolioAsset> portfolioAssets = new ArrayList<>();
+        for (Portfolio portfolio : getAlluserPortfolios(user)) {
+            List<PortfolioAsset> portfolioAsset = portfolioAssetService.findByPortfolio(portfolio);
+            portfolioAssets.addAll(portfolioAsset);
+        }
+        return portfolioAssets;
+    }
+
+
+  public   List<Portfolio> getAlluserPortfolios(User user) {
+        return portfolioService.findByUser(user);
+    }
+
+
     @RequestMapping(value = "/admin/deleteUser/{id}")
     public String deleteUser(@PathVariable long id) {
         User user = userService.findById(id);
-        long userId = user.getId();
+
+        for(Portfolio portfolio:getAlluserPortfolios(user)){
+
+            for (PortfolioAsset portfolioAsset : portfolioAssetService.findByPortfolio(portfolio)) {
+                portfolioAssetService.delete(portfolioAsset);
+            }
+            portfolioService.delete(portfolio);
+
+
+        }
+
         userService.delete(user);
+
 
         return "redirect:/admin/getUsers";
 
     }
 
 
-    @RequestMapping(value = "/admin/editUser/{id}")
-    public String editUser(@PathVariable long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
 
-        return "roles/adminEditUser";
-
-    }
 
 
     @PostMapping("admin/saveEdit")
@@ -96,7 +133,7 @@ public class AdminController {
 
        }
 userService.saveUser(user);
-        return "redirect:/admin/getUsers";
+        return "redirect:/admin/editRole/"+id;
     }
 
 
