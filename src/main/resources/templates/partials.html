@@ -66,7 +66,6 @@
     </div>
     <!-- Advanced filter responsive toggler END -->
 
-
     <!-- Navbar START-->
     <nav class="navbar navbar-expand-lg mx-0">
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
@@ -88,16 +87,18 @@
                     <div class="card-body pt-0">
                         <div class="text-center">
 
-                            <!-- Avatar -->
+                            <!-- Avatar / Profile Pic -->
                             <div class="avatar avatar-lg mt-n5 mb-3">
                                 <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3"
                                                   th:src="${user.profilePicture}" alt=""></a>
                             </div>
 
-                            <!-- Info -->
+                            <!-- User Info -->
                             <h5 class="mb-0"><a href="#!" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
+                            <br>
                             <small th:text="${user.userTitle}"></small>
-                            <p class="mt-3">Just Do it</p>
+                            <br>
+                            <br>
 
                             <!-- User stat START -->
                             <div class="hstack gap-2 gap-xl-3 justify-content-center">
@@ -111,14 +112,14 @@
                                 <div class="vr"></div>
                                 <!-- User stat item -->
                                 <div>
-                                    <h6 class="mb-0">2.5K</h6>
+                                    <h6 class="mb-0"></h6>
                                     <small>Followers</small>
                                 </div>
                                 <!-- Divider -->
                                 <div class="vr"></div>
                                 <!-- User stat item -->
                                 <div>
-                                    <h6 class="mb-0">365</h6>
+                                    <h6 class="mb-0" ></h6>
                                     <small>Following</small>
                                 </div>
                             </div>

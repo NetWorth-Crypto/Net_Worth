@@ -94,7 +94,8 @@ public class ProfileController
              @RequestParam("firstName") String firstName,
              @RequestParam("lastName") String lastName,
              @RequestParam("email") String email,
-             @RequestParam("password") String password)
+             @RequestParam("password") String password,
+             @RequestParam("userTitle") String userTitle)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
@@ -106,6 +107,7 @@ public class ProfileController
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setUserTitle(userTitle);
         if (!password.isEmpty())
         {
             String hash = passwordEncoder.encode(password);
@@ -115,7 +117,7 @@ public class ProfileController
         userDao.save(user);
 
 
-        return "redirect:users/userProfile";
+        return "redirect:/userProfile";
     }
 
     @PostMapping("/delete")
