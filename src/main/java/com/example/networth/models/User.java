@@ -39,13 +39,15 @@ public class User {
     @Column
     private String userTitle;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     List<Role> roles = new ArrayList<>();
+
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
@@ -72,6 +74,12 @@ public class User {
     //Constructors
     public User() {
     }
+
+
+
+
+
+
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
@@ -101,6 +109,9 @@ public class User {
 
 
     }
+
+
+
 
     //Add and Remove PostLike objects
     public void addLike(PostLike postLike){
@@ -155,6 +166,8 @@ public class User {
         this.followings.remove(following);
         following.setUser(null);
     }
+
+
 
     public List<Role> getRoles() {
         return roles;

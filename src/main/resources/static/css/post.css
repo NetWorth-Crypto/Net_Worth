@@ -57,3 +57,16 @@ body{
 .fa-thumbs-down{
     color: var(--text-color);
 }
+
+/*Table Styling*/
+.table{
+    background-color: rgba(225,225,225,0);
+}
+
+thead{
+    color: #66fcf1;
+}
+
+tbody{
+    color: #66fcf1;
+}
