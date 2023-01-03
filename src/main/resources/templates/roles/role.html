@@ -1,15 +1,15 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <div th:replace="fragments :: myheader"></div>
-    <link th:href="@{/css/role.css}" rel="stylesheet">
+
+<head th:replace="partials::head"/>
+
+<div th:replace="partials ::mainNavbar"></div>
 
 
-    <title>Home</title>
-</head>
 <body>
-<div th:replace="fragments :: Admin-navbar"></div>
+
+
 <div>
 
 
@@ -61,7 +61,7 @@
 
 
 <section class="intro">
-    <div class="bg-image h-100" style="background-color: #f5f7fa;">
+    <div class="bg-image h-100" >
         <div class="mask d-flex align-items-center h-100">
             <div class="container">
                 <div class="row justify-content-center">
@@ -77,7 +77,7 @@
 </div>            <div class="alert alert-danger" role="alert" th:text="${exist}" th:if="${exist}"></div>
 
 
-                                    <table class="table table-striped mb-0">
+                                    <table class="table  mb-0">
                                         <thead style="background-color: #002d72;">
                                         <tr>
                                             <th scope="col">Id</th>

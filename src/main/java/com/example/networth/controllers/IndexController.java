@@ -16,8 +16,8 @@ public class IndexController {
 
     public String index(){
 
-        User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user.getPassword());
+//        User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        System.out.println(user.getPassword());
         return "newLandingPage";
     }
 
