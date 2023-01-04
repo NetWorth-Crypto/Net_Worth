@@ -1,4 +1,4 @@
-USE networth_db;
+USE net_worth;
 
 
 
@@ -11,7 +11,7 @@ values ('aastevens1126@gmail.com', 'astevens09','Anthony','Stevens','$2a$10$GsOi
 
 
 insert into user(id,email,user_name, first_name, last_name, password)
-values (124,'mido@codeup','mido','mido','mido','$2a$10$H2RhGoEkPhNco43B7.LvEeA1gZDEVqufUaBwuJxsAU0bndlyBzQs6');
+values (124,'mido@codeup','mido','mido','mido','$2a$10$TnLa1qY/rIQL/P5ur9ZA/uXDZWuisNJcV9oFX.oIn/NheyBNImvHe');
 
 
 insert into follower(user_id,follower_user_id)

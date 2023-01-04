@@ -41,8 +41,9 @@ public class ProfileController
         //Add attributes for page
         model.addAttribute("user", user);
         model.addAttribute("posts",posts);
+        model.addAttribute("newPost",new Post());
         model.addAttribute("newComment",new Comment());
-        return "userProfile";
+        return "users/userProfile";
     }
 
     @GetMapping("/userProfile/{id}")
@@ -56,7 +57,7 @@ public class ProfileController
         model.addAttribute("user",user);
         model.addAttribute("posts", posts);
         model.addAttribute("newComment",new Comment());
-        return "userProfile";
+        return "users/userProfile";
     }
 
     /****************TEST MAPPING CODE****************/
@@ -70,7 +71,7 @@ public class ProfileController
         User user = userDao.getReferenceById(loggedinUser.getId());
 
         model.addAttribute("updateProfile", user);
-        return "users/profile";
+        return "users/userProfile";
     }
 
     @GetMapping("/updateProfile")
@@ -93,7 +94,8 @@ public class ProfileController
              @RequestParam("firstName") String firstName,
              @RequestParam("lastName") String lastName,
              @RequestParam("email") String email,
-             @RequestParam("password") String password)
+             @RequestParam("password") String password,
+             @RequestParam("userTitle") String userTitle)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User loggedinUser = (User) authentication.getPrincipal();
@@ -105,6 +107,7 @@ public class ProfileController
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
+        user.setUserTitle(userTitle);
         if (!password.isEmpty())
         {
             String hash = passwordEncoder.encode(password);
