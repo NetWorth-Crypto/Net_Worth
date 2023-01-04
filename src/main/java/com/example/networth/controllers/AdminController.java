@@ -2,11 +2,13 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.Portfolio;
 import com.example.networth.models.PortfolioAsset;
+import com.example.networth.models.Role;
 import com.example.networth.models.User;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
 import com.example.networth.services.RoleService;
 import com.example.networth.services.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,11 +39,18 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+    public User logedinUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
 
     @GetMapping("/admin/getUsers")
     public String getUsers(Model model) {
-
+User user = logedinUser();
+List<Role> roles = user.getRoles();
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
         return "roles/allUsers";
     }
 
