@@ -154,14 +154,14 @@
                                             <!-- Avatar -->
                                             <!--GET COMMENT USER IMAGE-->
                                             <div class="avatar avatar-xs">
-                                                <a href=""><img style="width: 50px;" class="avatar-img rounded-circle"
+                                                <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"
                                                                   th:src="${comment.user.profilePicture}" alt=""></a>
                                             </div>
                                             <div class="ms-2">
                                                 <!-- Comment by -->
                                                 <div class=" rounded-start-top-0 p-3 rounded">
                                                     <div class="d-flex justify-content-between">
-                                                        <h6 class="mb-1"><a href="#!" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
+                                                        <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
                                                     </div>
                                                     <p class="small mb-0" th:text="${comment.message}"></p>
                                                 </div>

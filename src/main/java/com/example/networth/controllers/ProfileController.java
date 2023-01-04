@@ -56,6 +56,7 @@ public class ProfileController
 
         model.addAttribute("user",user);
         model.addAttribute("posts", posts);
+        model.addAttribute("newPost",new Post());
         model.addAttribute("newComment",new Comment());
         return "users/userProfile";
     }

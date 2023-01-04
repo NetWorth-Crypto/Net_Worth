@@ -29,11 +29,11 @@ insert into portfolio_asset(portfolio_id, asset_id, quantity,purchase_price,purc
 values (1,1,1.2,23000,CURRENT_DATE),(1,2,2.2,1200,CURRENT_DATE),
        (2,1,.8,17000,CURRENT_DATE),(2,2,4,1600,CURRENT_DATE);
 
-insert into post(description,user_id,img_url)
-values ('Privacy ledge arrives at Cardano', 1,'https://u.today/sites/default/files/styles/736x/public/2022-11/26126.jpg'),
-       ('Jp makes the world go around',2, 'https://static.news.bitcoin.com/wp-content/uploads/2022/05/jpmorgan-bitcoin1.jpg'),
-       ('Africa will lead the defi revolution!',3, 'https://adapulse.io/wp-content/uploads/2021/04/Screen-Shot-2021-04-30-at-8.00.21-AM-800x500.png'),
-       ('Eth is King!!!',4, 'https://c8.alamy.com/comp/2FBK2EF/ethereum-with-golden-crown-3d-rendering-isolated-on-white-background-2FBK2EF.jpg');
+insert into post(description,user_id,img_url,video_url)
+values ('Privacy ledge arrives at Cardano', 1,'https://u.today/sites/default/files/styles/736x/public/2022-11/26126.jpg','null'),
+       ('Jp makes the world go around',2, 'https://static.news.bitcoin.com/wp-content/uploads/2022/05/jpmorgan-bitcoin1.jpg','null'),
+       ('Africa will lead the defi revolution!',3, 'https://adapulse.io/wp-content/uploads/2021/04/Screen-Shot-2021-04-30-at-8.00.21-AM-800x500.png','null'),
+       ('Eth is King!!!',4, 'https://c8.alamy.com/comp/2FBK2EF/ethereum-with-golden-crown-3d-rendering-isolated-on-white-background-2FBK2EF.jpg','null');
 
 insert into comment(message,user_id, post_id)
 values ('I 100% agree!',1,2),
