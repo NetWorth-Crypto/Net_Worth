@@ -171,14 +171,14 @@
                                             <!-- Avatar -->
                                             <!--GET COMMENT USER IMAGE-->
                                             <div class="avatar avatar-xs">
-                                                <a href=""><img style="width: 50px;" class="avatar-img rounded-circle"
+                                                <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"
                                                                   th:src="${comment.user.profilePicture}" alt=""></a>
                                             </div>
                                             <div class="ms-2">
                                                 <!-- Comment by -->
                                                 <div class=" rounded-start-top-0 p-3 rounded">
                                                     <div class="d-flex justify-content-between">
-                                                        <h6 class="mb-1"><a href="#!" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
+                                                        <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
                                                     </div>
                                                     <p class="small mb-0" th:text="${comment.message}"></p>
                                                 </div>
@@ -255,4 +255,45 @@
 <!--    Javascript files for image upload-->
 <div th:replace="partials::scriptTags"/>
 </body>
+
+<!-- Follower Modal START-->
+<div class="modal fade" id="followerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-content-center">
+                    <!-- Avatar -->
+                    <!--GET COMMENT USER IMAGE-->
+                    <div class="avatar avatar-xs">
+                        <a href=""><img style="width: 50px;"
+                                        class="avatar-img rounded-circle"
+                                        th:src="${comment.user.profilePicture}"
+                                        alt=""></a>
+                    </div>
+                    <div class="ms-2">
+                        <!-- Comment by -->
+                        <div class=" rounded-start-top-0 p-3 rounded">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="mb-1"><a href="#!"
+                                                    th:text="${comment.user.firstName}+' '+${comment.user.lastName}">Anthony Stevens</a>
+                                </h6>
+                            </div>
+                            <p class="small mb-0" th:text="${comment.message}">Saitama</p>
+                        </div>
+
+                    </div>
+                    <div class="d-flex align-content-center ms-auto">
+                        <button class="btn">Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Follower Modal END-->
+
 </html>
