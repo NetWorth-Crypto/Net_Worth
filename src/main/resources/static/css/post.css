@@ -18,6 +18,11 @@
     color: lawngreen;
 }
 
+.navbar-form:hover
+{
+    color: lawngreen;
+}
+
 /*User Profile Sidebar Nav*/
 .profile-button:hover
 {
