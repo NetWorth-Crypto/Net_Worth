@@ -49,9 +49,7 @@
 <!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>&ndash;&gt;-->
 <!--            </ul>-->
 
-<!--            <div sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">-->
-<!--                <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage Users</a>-->
-<!--            </div>-->
+
 <!--        </div>-->
     </div>
 </nav>
@@ -193,12 +191,21 @@
                                 </a>
                             </li>
 
+
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/updateProfile">
                                     <i class="fa-solid fa-user"></i>
                                     <span> Update Profile</span>
                                 </a>
                             </li>
+
+
+                                        <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
+                                            <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage Users</a>
+                                        </li>
+
+
                         </ul>
                         <!-- Side Nav END -->
                     </div>
