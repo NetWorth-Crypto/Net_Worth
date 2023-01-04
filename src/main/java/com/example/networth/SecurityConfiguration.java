@@ -62,6 +62,8 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+                        "/admin/**",
+                        "/super-admin/**",
                         "/addAsset",
                         "/userFinance",
                         "/posts", //only authenticated users can create ads
@@ -69,11 +71,24 @@ public class SecurityConfiguration {
                 )
                 .authenticated()
 
-//                ************************************************************
+
                 .and()
-                .authorizeRequests()
-                .antMatchers("/admin/**")
-                .hasAnyAuthority("super-admin","admin")
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+
+
+
+
+//                ************************************************************
+
+
+
+
+
+
+
+//                *****************************************************************************
 
 
                 .and()
@@ -81,15 +96,8 @@ public class SecurityConfiguration {
                 .antMatchers("/super-admin/**")
                 .hasAnyAuthority("super-admin")
 
-
-
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessDenied")
-//                *****************************************************************************
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
         ;
 
 
