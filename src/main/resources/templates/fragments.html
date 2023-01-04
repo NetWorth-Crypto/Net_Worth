@@ -46,7 +46,6 @@
                     </li>
 
 
-
                 </ul>
                 <ul sec:authorize="isAuthenticated()" class="me-auto my-2 my-lg-0 navbar-nav">
                     <li class="nav-item">
@@ -100,9 +99,13 @@
                     </li>
                 </ul>
 
-                    <li sec:authorize="hasAuthority('admin')" class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/getUsers}">Manage Users</a>
-                    </li>
+
+
+
+
+                <li sec:authorize="hasAuthority('admin')" class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/getUsers}">Manage Users</a>
+                </li>
 
 
 
@@ -124,60 +127,31 @@
 </div>
 
 <!-- Profile Navbar -->
-<div th:fragment="profile-navbar">
+<nav th:fragment="profileNavbar" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand"><img class="navbar-img" src="images/networth-1.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <span> </span>
 
-
-            <a class="navbar-brand" href="/">
-                <img th:src="@{/images/logo.png}"/>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll3"
-                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll3">
-                <ul class=" me-auto my-2 my-lg-0 navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile">Profile</a>
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" th:href="userFinance">Portfolio</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/post">Your Network</a>
-                    </li>
-                </ul>
-
-                <div class="d-flex">
-                    <ul sec:authorize="isAuthenticated()" class="me-auto my-2 my-lg-0 navbar-nav">
-                        <li class="nav-item">
-                            <form th:action="@{/logout}" method="POST">
-                                <button class="btn btn primary" type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <ul class="navbar-nav ">
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+            </ul>
         </div>
-
-    </nav>
-</div>
+    </div>
+</nav>
 
 <!-- Portfolio Navbar -->
 <div th:fragment="portfolio-navbar">
 
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-
 
             <a class="navbar-brand" href="/">
                 <img th:src="@{/images/logo.png}"/>
@@ -189,19 +163,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarScroll4">
                 <ul class=" me-auto my-2 my-lg-0 navbar-nav">
-
-
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/crypto}">Crypto</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/feed}">Your Network</a>
                     </li>
-
-
-
-
-
                 </ul>
 
                 <form class="d-flex">
@@ -221,15 +188,11 @@
                 </div>
             </div>
         </div>
-
     </nav>
-
-
 </div>
 
 
 <div th:fragment="crypto-navbar">
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
 
@@ -251,7 +214,8 @@
 
                 </ul>
                 <form class="d-flex">
-                    <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search" aria-label="Search">
+                    <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search"
+                           aria-label="Search">
                     <button id="searchBtn" class="btn btn-outline-success " type="button">Search</button>
                 </form>
             </div>
@@ -278,7 +242,6 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
 
-
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
@@ -288,8 +251,6 @@
         </div>
     </nav>
 </div>
-
-
 
 
 <div th:fragment="Admin-navbar">
@@ -302,7 +263,8 @@
                 <img th:src="@{/images/logo.png}"/>
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#Admin-navbarScroll-forms"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#Admin-navbarScroll-forms"
                     aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -310,11 +272,11 @@
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/super-admin/roles">Roles</a>
+                        <a class="nav-link active" aria-current="page" >Roles</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/admin/getUsers}">Manage Users</a>
+                        <a class="nav-link active" aria-current="page" >Manage Users</a>
                     </li>
 
                     <li class="nav-item">
@@ -328,19 +290,14 @@
 </div>
 
 
+<div th:fragment="jsFile">
 
-
-
-
-
-        <div th:fragment="jsFile">
-
-            <script type="text/javascript" th:src="@{js/main.js}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-                    crossorigin="anonymous">
-            </script>
-        </div>
+    <script type="text/javascript" th:src="@{js/main.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous">
+    </script>
+</div>
 
 </body>
 </html>

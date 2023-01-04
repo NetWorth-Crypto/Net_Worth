@@ -41,7 +41,7 @@ public class SecurityConfiguration {
         http
                 /* Login configuration */
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/login")
                 .defaultSuccessUrl("/userProfile") // user's home page, it can be any URL
                 .permitAll() // Anyone can go to the login.html page
 
@@ -62,18 +62,34 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeRequests()
                 .antMatchers(
+                        "/admin/**",
+                        "/super-admin/**",
                         "/addAsset",
                         "/userFinance",
                         "/posts", //only authenticated users can create ads
-                        "/userProfile"// only authenticated users can edit ads
+                        "/userProfile",
+                        "/finance/**"// only authenticated users can edit ads
                 )
                 .authenticated()
 
-//                ************************************************************
+
                 .and()
-                .authorizeRequests()
-                .antMatchers("/admin/**")
-                .hasAnyAuthority("super-admin","admin")
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+
+
+
+
+//                ************************************************************
+
+
+
+
+
+
+
+//                *****************************************************************************
 
 
                 .and()
@@ -81,15 +97,8 @@ public class SecurityConfiguration {
                 .antMatchers("/super-admin/**")
                 .hasAnyAuthority("super-admin")
 
-
-
                 .and()
                 .exceptionHandling().accessDeniedPage("/accessDenied")
-//                *****************************************************************************
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
         ;
 
 

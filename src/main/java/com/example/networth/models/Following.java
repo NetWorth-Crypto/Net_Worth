@@ -23,6 +23,10 @@ public class Following {
         this.following_user_id = following_user_id;
     }
 
+    public Following(User user, Following following) {
+
+    }
+
     public long getId() {
         return id;
     }

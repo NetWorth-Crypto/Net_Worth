@@ -4,7 +4,7 @@
 <body>
 
 <!--Main NavBar START-->
-<nav th:replace="partials:: mainNavbar"/>
+<nav th:replace="partials:: loggedInLandingNavbar"/>
 <!--Main NavBar END-->
 
 <!--Welcome Section START-->
@@ -12,12 +12,10 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-12 col-md-5 col-lg-6 order-md-2">
-
                 <!-- Image -->
                 <img src="/images/blueBitcoin.png"
                      class="img-fluid mw-md-150 mw-lg-130 mb-6 mb-md-0 aos-init aos-animate" alt="..."
                      data-aos="fade-up" data-aos-delay="100">
-
             </div>
             <div class="col-12 col-md-7 col-lg-6 order-md-1 aos-init aos-animate" data-aos="fade-up">
 
@@ -34,14 +32,13 @@
 
                 <!-- Buttons -->
                 <div class="text-center text-md-start">
-                    <a th:href= "@{/sign-up}" class="btn btn-primary shadow lift me-4">
-                        Create Account <i class="fe fe-arrow-right d-none d-md-inline ms-3"></i>
+                    <a th:href= "@{/sign-up}" class="btn btn-primary shadow lift me-4">Create Account
+                        <i class="fa-sharp fa-solid fa-user d-none d-md-inline ms-3"></i>
                     </a>
-                    <a th:href= "@{/login}" class="btn btn-primary lift">
-                        Login
+                    <a th:href= "@{/login}" class="btn btn-primary lift">Login
+                        <i class="fa fa-sign-in d-none d-md-inline ms-3"></i>
                     </a>
                 </div>
-
             </div>
         </div> <!-- / .row -->
     </div> <!-- / .container -->
