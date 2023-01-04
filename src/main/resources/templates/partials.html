@@ -97,7 +97,7 @@
     <!-- Advanced filter responsive toggler END -->
 
     <!-- Navbar START-->
-    <nav class="navbar navbar-expand-lg mx-0">
+    <nav class="navbar navbar-expand-lg ">
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
             <!-- Offcanvas header -->
             <div class="offcanvas-header">
@@ -111,7 +111,7 @@
                 <div class="card overflow-hidden">
                     <!-- Cover image -->
                     <div class="h-50px"
-                         style="background-image:url(https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+                         style="background-image:url('https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
 
                     <!-- Card body START -->
                     <div class="card-body pt-0">
@@ -119,7 +119,7 @@
 
                             <!-- Avatar / Profile Pic -->
                             <div class="avatar avatar-lg mt-n5 mb-3">
-                                <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3"
+                                <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3 mt-2"
                                                   th:src="${user.profilePicture}" alt=""></a>
                             </div>
 
@@ -213,7 +213,7 @@
                     <!-- Card footer -->
                     <div class="card-footer text-center py-2">
                             <form th:action="@{/logout}" method="POST">
-                                <button class="btn btn primary" type="submit">Logout</button>
+                                <button class="btn shareBtn" type="submit">Logout</button>
                             </form>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
 
 
     <!-- Navbar START-->
-    <nav  class="navbar navbar-expand-lg mx-0">
+    <nav  class="navbar navbar-expand-lg">
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar-admin2">
             <!-- Offcanvas header -->
             <div class="offcanvas-header">
@@ -264,7 +264,7 @@
                 <!-- Card START -->
                 <div class="card overflow-hidden">
                     <!-- Cover image -->
-                    <div class="h-50px"
+                    <div class="h-50px "
                          style="background-image:url(https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
 
                     <!-- Card body START -->

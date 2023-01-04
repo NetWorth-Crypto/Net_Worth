@@ -20,34 +20,28 @@
                 <!--Card Header START-->
                 <div class="card-header">
                     <div class="row">
-                        <h5 class="card-heading col" th:text="${selectedPortfolio.name}">Portfolio Name</h5>
+                        <h5 class="card-heading col-5" th:text="${selectedPortfolio.name}">Portfolio Name</h5>
 
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal START-->
-                        <form th:action="@{/finance/portfolioSelection}" method="post" class="col">
-                            <div class="input-group mb-3">
-                                <!--                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">-->
+                        <form th:action="@{/finance/portfolioSelection}" method="post" class="col-7">
+
                                 <select name="portfolioId" class="form-select" aria-label="Default select example"
                                         aria-describedby="button-addon2">
-                                    <!--                                    <option selected>Select Portfolio</option>-->
                                     <div th:each="portfolio: ${portfolios}">
                                         <option th:text="${portfolio.name}" th:value="${portfolio.id}"></option>
 
                                     </div>
                                 </select>
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Select
+                                <button class="btn shareBtn mt-2 me-1" type="submit" id="button-addon2">Select
                                 </button>
                                 <a th:href="@{/editPortfolio/{id}(id=${selectedPortfolio.id})}"
-                                   class="btn btn-outline-secondary">edit</a>
+                                   class="btn shareBtn mt-2 me-1">edit</a>
                                 <a th:href="@{/deletePortfolio/{id}(id=${selectedPortfolio.id})}"
-                                   class="btn btn-outline-danger">delete</a>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                   class="btn btn-danger mt-2 me-1">delete</a>
+                                <button type="button" class="btn  btn-success mt-2" data-bs-toggle="modal"
                                         data-bs-target="#exampleModal">
                                     Create Portfolio
                                 </button>
-
-
-                            </div>
-
 
                         </form>
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal END-->

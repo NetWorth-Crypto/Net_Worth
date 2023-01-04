@@ -101,6 +101,7 @@ public class FinanceService {
 
             //Asset name
             String assetName = portfolioAsset.getAsset().getName();
+            assetName = assetName.toLowerCase();
 
             //Get quantity
             double assetQuantity = portfolioAsset.getQuantity();

@@ -24,45 +24,45 @@
                 <div sec:authorize="isAuthenticated()">
                     <div th:if="${#authentication.principal.id} == ${user.id}">
                     <div class="card card-body">
-                        <form class="form-group w-100" th:action="@{/posts/create}" th:method="post"
+                        <form class="form-group w-100" th:action="@{/posts/create/user}" th:method="post"
                               th:object="${newPost}">
                             <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
                                       data-autoresize="" placeholder="Share your thoughts...">
                             </textarea>
                             <input id="imgurl" type="text" name="imgUrl" hidden value="null">
                             <input id="videourl" type="text" name="videoUrl" hidden value="null">
-                            <button class="btn" id="imageButton" type="button"><i class="fa-regular fa-image"
+                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i class="fa-regular fa-image"
                                                                                   style="color: white"></i>
                                 picture
                             </button>
-                            <button class="btn" id="videoButton" type="button"><i class="fa-solid fa-video"
+                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i class="fa-solid fa-video"
                                                                                   style="color: white"></i> video
                             </button>
-                            <button class="btn" type="submit"><i class="fa-solid fa-square-share-nodes"
+                            <button class="btn shareBtn mt-2 " type="submit"><i class="fa-solid fa-square-share-nodes"
                                                                  style="color: white"></i> share
                             </button>
                         </form>
                         <hr>
                         <!-- Search Posts -->
-                    <div class="form-group d-flex justify-content-end">
-                        <form class="form-group w-100 col-md-8 col-lg-6" action="" method="get">
-                            <input size="50" class="form-group rounded" type="text" name="keyword" placeholder="Find Post">
-                            <button type="submit" class="rounded">Search</button>
-                        </form>
-                    </div>
+<!--                    <div class="form-group d-flex justify-content-end">-->
+<!--                        <form class="form-group w-100 col-md-8 col-lg-6" action="" method="get">-->
+<!--                            <input size="50" class="form-group rounded" type="text" name="keyword" placeholder="Find Post">-->
+<!--                            <button type="submit" class="rounded">Search</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
 
                     </div>
                     </div>
                 </div>
 
                 <!-- Card feed item START -->
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="row row-cols-1 row-cols-md-2 g-4">
 
                     <!--Foreach Loop for each Post for user START-->
-                    <div th:each="post: ${posts}">
+<!--                    <div th:each="post: ${posts}">-->
 
                         <!--Column Start-->
-                        <div class="col">
+                        <div class="col" th:each="post: ${posts}">
 
                             <!--//Post Card item START-->
                             <div class="card h-100">
@@ -110,8 +110,8 @@
                                     </div>
 
                                     <!--Post Reaction Items START-->
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <form th:action="@{/like/post}" th:method="post">
+                                    <div class="d-flex align-items-center justify-content-between my-2">
+                                        <form th:action="@{/like/post/user}" th:method="post">
                                             <input hidden name="postId" th:value="${post.id}">
 
                                             <button class="btn" type="submit">
@@ -121,7 +121,7 @@
 
                                         </form>
 
-                                        <form th:action="@{/dislike/post}" th:method="post">
+                                        <form th:action="@{/dislike/post/user}" th:method="post">
                                             <input hidden name="postId" th:value="${post.id}">
                                             <button class="btn" type="submit">
                                                 <i class="fa-solid fa-thumbs-down"></i>
@@ -131,11 +131,11 @@
                                             </button>
                                         </form>
 
-                                        <button class="btn" data-bs-toggle="collapse"
+                                        <button class="btn shareBtn" data-bs-toggle="collapse"
                                                 th:attr="data-bs-target='#collapse'+${post.id}"
                                                 aria-expanded="false" aria-controls="collapseExample">
-                                            Comment
-                                            <span class="badge bg-secondary"
+                                            Comments
+                                            <span class="badge ms-1"
                                                   th:text="${post.getComments().size()}">
                                             </span>
                                         </button>
@@ -158,31 +158,39 @@
                                     <!--                                    </div>-->
                                     <!--Edit and Delete buttons END-->
 
+
+                                </div>
+                                <!--Card body END-->
+
+                                <!--Card footer START-->
+                                <div class="card-footer">
+
+                                    <!-- Add comment START-->
+                                    <div class="d-flex mb-3 mt-2">
+                                        <!-- Avatar -->
+                                        <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
+                                        <div class="avatar avatar-xs me-2">
+                                            <a href="#!"> <img class="avatar-img rounded-circle"
+                                                               style="width: 50px;"
+                                                               th:src="${user.profilePicture}" alt=""> </a>
+                                        </div>
+                                        <!-- Comment box  -->
+                                        <form class="w-75 d-flex justify-content-center"
+                                              th:action="@{/posts/{id}/create/comment/user(id=${post.id})}"
+                                              th:method="post"
+                                              th:object="${newComment}">
+                                            <textarea th:field="*{message}" name="commentSection" data-autoresize=""
+                                                      class="form-control pe-4 bg-light" rows="1"
+                                                      placeholder="Add a comment..."></textarea>
+                                            <button class="btn btn-outline-light ms-1" type="submit">comment</button>
+                                        </form>
+                                    </div>
+                                    <!-- Add comment END-->
+
                                     <!-- Comment wrap START -->
                                     <div th:each="comment: ${post.getComments()}">
                                         <div class="collapse" th:id="'collapse'+${post.id}">
 
-                                            <!-- Add comment START-->
-                                            <div class="d-flex mb-3">
-                                                <!-- Avatar -->
-                                                <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
-                                                <div class="avatar avatar-xs me-2">
-                                                    <a href="#!"> <img class="avatar-img rounded-circle"
-                                                                       style="width: 50px;"
-                                                                       th:src="${user.profilePicture}" alt=""> </a>
-                                                </div>
-                                                <!-- Comment box  -->
-                                                <form class="w-75 d-flex justify-content-center"
-                                                      th:action="@{/posts/{id}/create/comment(id=${post.id})}"
-                                                      th:method="post"
-                                                      th:object="${newComment}">
-                                            <textarea th:field="*{message}" name="commentSection" data-autoresize=""
-                                                      class="form-control pe-4 bg-light" rows="1"
-                                                      placeholder="Add a comment..."></textarea>
-                                                    <button class="btn btn-outline-light" type="submit">comment</button>
-                                                </form>
-                                            </div>
-                                            <!-- Add comment END-->
 
                                             <!--All Comments for Post START-->
                                             <ul class="comment-wrap list-unstyled">
@@ -230,14 +238,14 @@
                                     <!-- Comment wrap END -->
 
                                 </div>
-                                <!--Card body END-->
+                                <!--Card footer END-->
 
                             </div>
                             <!--//Post Card item END-->
 
                         </div>
                         <!--Column END-->
-                    </div>
+<!--                    </div>-->
                     <!--Foreach Loop for each Post for user END-->
 
                 </div>
