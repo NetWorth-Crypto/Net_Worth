@@ -33,7 +33,8 @@ public class UserController {
     @Autowired
     private FollowingRepository followingDao;
 
-    private final UserRepository userDao;
+    @Autowired
+    private UserRepository userDao;
 
 
 
@@ -71,55 +72,13 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
         return "users/searchUser";
     }
 
-//    @GetMapping("searchFollower")
-//    public String searchFollower(Model model, String user) {
-//        System.out.println(user);
-//        List<User> lists = userService.getByUser(user);
-//        model.addAttribute("lists", lists);
-//        System.out.println(lists);
-//        return "users/followers";
-//    }
-
-//    @GetMapping("searchFollowing")
-//    public String searchFollowing(Model model, String user) {
-//        System.out.println(user);
-//        List<User> lists = userService.getByUser(user);
-//        model.addAttribute("lists", lists);
-//        System.out.println(lists);
-//        return "users/following";
-//    }
-
-
-
-
-
-//    @GetMapping("/followers")
-//    public String testFollower(Model model) {
-//        model.addAttribute("follower", new Follower());
-//        return "users/followers";
-//    }
-
-//    @PostMapping("/create/followers")
-//    public String testFollower1(@ModelAttribute("follower") Follower follower,
-//                                @RequestParam("userId") long follower_user_id) {
-//        //Get UserId from logged-in user to create new follower
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        follower.setUser(user);
-//        follower.setFollower_user_id(follower_user_id);
-//        //Save new follower to database
-//
-//        //System.out.println(follower.getFollower_user_id());
-//
-//        followerDao.save(follower);
-//        return "users/followers";
-//    }
 
     @PostMapping("/following/user")
     public String followingUser(@RequestParam("userId") long userId){
 
         System.out.println(userId);
         //Get followings from database
-        Following following = followingDao.getReferenceById(userId);
+        User userFollowings = userDao.getReferenceById(userId);
 
         /*Change this to the actual logged in user*/
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -131,26 +90,69 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
         User user = userDao.getReferenceById(loggedinUser.getId());
 
         //Get all followed users
-        List<Following> userFollowing = following.getFollowingList();
+        List<Following> followings =user.getFollowings();
 
 //        Check user already followed the user
-        for(Following following1: userFollowing){
-            if(following1.getId() == following.getId()){
+        for(Following following: followings){
+            if(following.getUser().getId() == userFollowings.getId()){
 
                 //remove from following table
-                user.removeFollowing(following1);
-                following.removeFollowing(following1);
-                followingDao.delete(following1);
+                user.removeFollowing(following);
+                following.removeFollowing(following);
+                followingDao.delete(following);
                 System.out.println("not following anymore");
                 //return to page
                 return "redirect:/users#user"+userId;
             }
         }
 
-        Following postFollowing = new Following(user,following);
+        Following postFollowing = new Following(user,userFollowings);
         user.addFollowing(postFollowing);
-        following.addFollowing(postFollowing);
+        followings.add(postFollowing);
         followingDao.save(postFollowing);
+        System.out.println("followers added");
+
+
+        return "redirect:/users#user"+userId;
+    }
+
+    @PostMapping("/follower/user")
+    public String followerUser(@RequestParam("userId") long userId){
+
+        System.out.println(userId);
+        //Get followings from database
+        User userFollowers = userDao.getReferenceById(userId);
+
+        /*Change this to the actual logged in user*/
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get all followed users
+        List<Follower> followers = user.getFollowers();
+
+//        Check user already followed the user
+        for(Follower follower: followers){
+            if(follower.getUser().getId() == userFollowers.getId()){
+
+                //remove from following table
+                user.removeFollower(follower);
+                follower.removeFollower(follower);
+                followerDao.delete(follower);
+                System.out.println(" no follower ");
+                //return to page
+                return "redirect:/users#user"+userId;
+            }
+        }
+
+        Follower userFollower = new Follower(user,userFollowers);
+        user.addFollower(userFollower);
+        followers.add(userFollower);
+        followerDao.save(userFollower);
         System.out.println("followers added");
 
 

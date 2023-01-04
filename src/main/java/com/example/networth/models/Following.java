@@ -22,9 +22,6 @@ public class Following {
     @JoinColumn(name = "following_user_id")
     Following following;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "following", orphanRemoval = true)
-    private List<Following> followingList ;
-
     //Constructors
 
 
@@ -36,6 +33,9 @@ public class Following {
 
     public Following() {
 
+    }
+
+    public Following(User user, User userFollowings) {
     }
 
 
