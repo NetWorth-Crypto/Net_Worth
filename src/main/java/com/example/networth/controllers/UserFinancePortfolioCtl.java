@@ -314,7 +314,7 @@ public class UserFinancePortfolioCtl {
 
     @PostMapping("/updating")
     public String updating(@RequestParam("id") long id,
-                           @RequestParam("quantity") int quantity,
+                           @RequestParam("quantity") double quantity,
                            @RequestParam("price") double price,
                            Model model,
                            RedirectAttributes attributes) {

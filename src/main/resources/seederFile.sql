@@ -17,9 +17,9 @@ values (124,'mido@codeup','mido','mido','mido','$2a$10$TnLa1qY/rIQL/P5ur9ZA/uXDZ
 insert into follower(user_id,follower_user_id)
 values (1,2),(2,1);
 
-insert into portfolio(name,dollar_limit,is_default,is_private,user_id)
-values ('portfolio1',1000, true, false, 1),
-       ('portfolio2',1000,true, false,2);
+insert into portfolio(name,dollar_limit,is_default,is_private,user_id,available_balance)
+values ('portfolio1',1000, true, false, 1,30000),
+       ('portfolio2',1000,true, false,2,50000);
 
 insert into asset(name,ticker,current_price)
 values ('bitcoin','BTC',19000),

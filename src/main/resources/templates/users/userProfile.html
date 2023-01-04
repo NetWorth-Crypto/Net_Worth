@@ -20,32 +20,34 @@
 
             <!-- Main content START -->
             <div class="col-md-8 col-lg-6 vstack gap-4">
-                <!-- Create Post -->
-                <form class="form-group w-100" th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
-                    <!-- Post Text Area -->
-                    <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
+                <div sec:authorize="isAuthenticated()">
+                    <div th:if="${#authentication.principal.id} == ${user.id}">
+                        <form class="form-group w-100" th:action="@{/posts/create}" th:method="post"
+                              th:object="${newPost}">
+                            <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
                                       data-autoresize="" placeholder="Share your thoughts...">
-                    </textarea>
-                    <input id="imgurl" type="text" name="imgUrl" hidden value="null">
-                    <input id="videourl" type="text" name="videoUrl" hidden value="null">
-                    <!-- Upload Image -->
-                    <button class="btn" id="imageButton" type="button">
-                        <i class="fa-regular fa-image" style="color: white"></i> picture
-                    </button>
-                    <!-- Upload Video -->
-                    <button class="btn" id="videoButton" type="button">
-                        <i class="fa-solid fa-video" style="color: white"></i> video
-                    </button>
-                    <!-- Submit Post -->
-                    <button class="btn" type="submit">
-                        <i class="fa-solid fa-square-share-nodes" style="color: white"></i> share
-                    </button>
-                </form>
-                <!-- Search Posts -->
-                <form  class="w-100 col-md-8 col-lg-6" action="" method="get">
-                    <input size="45" class="form-group rounded" type="text" name="keyword" placeholder="Find Post">
-                    <button type="submit" class="rounded">Search</button>
-                </form>
+                            </textarea>
+                            <input id="imgurl" type="text" name="imgUrl" hidden value="null">
+                            <input id="videourl" type="text" name="videoUrl" hidden value="null">
+                            <button class="btn" id="imageButton" type="button"><i class="fa-regular fa-image"
+                                                                                  style="color: white"></i>
+                                picture
+                            </button>
+                            <button class="btn" id="videoButton" type="button"><i class="fa-solid fa-video"
+                                                                                  style="color: white"></i> video
+                            </button>
+                            <button class="btn" type="submit"><i class="fa-solid fa-square-share-nodes"
+                                                                 style="color: white"></i> share
+                            </button>
+                        </form>
+                        <form class="w-100 col-md-8 col-lg-6" action="" method="get">
+                            <input size="45" class="form-group rounded" type="text" name="keyword"
+                                   placeholder="Find Post">
+                            <button type="submit" class="rounded">Search</button>
+                        </form>
+
+                    </div>
+                </div>
 
                 <!-- Card feed item START -->
                 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -71,8 +73,8 @@
                                             <div>
                                                 <div class="nav nav-divider">
                                                     <!--INPUT USER PROFILE LINK-->
-                                                    <h6 class="nav-item card-title mb-0">
-                                                        <a href="#!"> <strong
+                                                    <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${post.getUser().id})}"> <strong
+
                                                             th:text="${post.getUser().firstName}"></strong> <strong
                                                             th:text="${post.getUser().lastName}"></strong>
                                                         </a>
@@ -125,7 +127,7 @@
 
                                         <button class="btn" data-bs-toggle="collapse"
                                                 th:attr="data-bs-target='#collapse'+${post.id}"
-                                                aria-expanded="false" aria-controls="collapseExample" >
+                                                aria-expanded="false" aria-controls="collapseExample">
                                             Comment
                                             <span class="badge bg-secondary"
                                                   th:text="${post.getComments().size()}">
@@ -135,19 +137,19 @@
                                     <!--Post Reaction Items END-->
 
                                     <!--Edit and Delete buttons START-->
-<!--                                    <div sec:authorize="isAuthenticated()">-->
-<!--                                        <div th:if="${#authentication.principal.id} == ${user.id}">-->
-<!--                                            <button class="btn" type="submit">-->
-<!--                                                Edit-->
-<!--                                            </button>-->
-<!--                                            <button class="btn" type="submit">-->
-<!--                                                Delete-->
-<!--                                            </button>-->
-<!--                                        </div>-->
-<!--                                        <form th:action="@{/post/{id}/delete (id = ${post.id})}" method="POST">-->
-<!--                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>-->
-<!--                                        </form>-->
-<!--                                    </div>-->
+                                    <!--                                    <div sec:authorize="isAuthenticated()">-->
+                                    <!--                                        <div th:if="${#authentication.principal.id} == ${user.id}">-->
+                                    <!--                                            <button class="btn" type="submit">-->
+                                    <!--                                                Edit-->
+                                    <!--                                            </button>-->
+                                    <!--                                            <button class="btn" type="submit">-->
+                                    <!--                                                Delete-->
+                                    <!--                                            </button>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <form th:action="@{/post/{id}/delete (id = ${post.id})}" method="POST">-->
+                                    <!--                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>-->
+                                    <!--                                        </form>-->
+                                    <!--                                    </div>-->
                                     <!--Edit and Delete buttons END-->
 
                                     <!-- Comment wrap START -->

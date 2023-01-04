@@ -69,7 +69,7 @@
                                     <div>
                                         <div class="nav nav-divider">
                                             <!--INPUT USER PROFILE LINK-->
-                                            <h6 class="nav-item card-title mb-0"><a href="#!"> <strong
+                                            <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${post.getUser().id})}"> <strong
                                                     th:text="${post.getUser().firstName}"></strong> <strong
                                                     th:text="${post.getUser().lastName}"></strong> </a></h6>
                                         </div>

@@ -265,7 +265,7 @@
                             </div>
 
                             <!-- Info -->
-                            <h5 class="mb-0"><a href="#!" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
+                            <h5 class="mb-0"><a th:href="@{/userProfile}" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
                             <small th:text="${user.userTitle}"></small>
                             <p class="mt-3">Just Do it</p>
 
