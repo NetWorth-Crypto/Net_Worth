@@ -20,8 +20,10 @@
 
             <!-- Main content START -->
             <div class="col-md-8 col-lg-6 vstack gap-4">
+            
                 <div sec:authorize="isAuthenticated()">
                     <div th:if="${#authentication.principal.id} == ${user.id}">
+                    <div class="card card-body">
                         <form class="form-group w-100" th:action="@{/posts/create}" th:method="post"
                               th:object="${newPost}">
                             <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
@@ -40,12 +42,16 @@
                                                                  style="color: white"></i> share
                             </button>
                         </form>
-                        <form class="w-100 col-md-8 col-lg-6" action="" method="get">
-                            <input size="45" class="form-group rounded" type="text" name="keyword"
-                                   placeholder="Find Post">
+                        <hr>
+                        <!-- Search Posts -->
+                    <div class="form-group d-flex justify-content-end">
+                        <form class="form-group w-100 col-md-8 col-lg-6" action="" method="get">
+                            <input size="50" class="form-group rounded" type="text" name="keyword" placeholder="Find Post">
                             <button type="submit" class="rounded">Search</button>
                         </form>
+                    </div>
 
+                    </div>
                     </div>
                 </div>
 
