@@ -13,27 +13,35 @@
 
 <body>
 
-<div th:replace="partials ::mainNavbar"></div>
+<div th:replace="partials :: mainNavbar"></div>
+
+
+<div class="row">
+
+    <div th:replace="partials ::sideNavbar-admin1" class="col-2"></div>
+
+    <!--Side Nav tag fragment END-->
 
 
 
 
-
-
+<div class="col-8">
 
 <section class="intro">
-    <div class="bg-image h-100" style="background-color: #f5f7fa;">
-        <div class="mask d-flex align-items-center h-100">
+        <div class="mask d-flex align-items-center">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12">
-                        <div class="text-center m-3">
-                            <h5>User Management Table</h5>
-                        </div>
+
                         <div class="card">
+
+                            <div class="text-center m-3">
+                                <h5>User Management Table</h5>
+                            </div>
+
                             <div class="card-body p-0">
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 700px">
-                                    <table class="table table-striped mb-0">
+                                    <table class="table  mb-0">
                                         <thead style="background-color: #002d72;">
                                         <tr>
                                             <th scope="col">Firstname</th>
@@ -46,7 +54,7 @@
 
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="color: white">
 
 
                                         <tr th:each="user : ${users}">
@@ -63,7 +71,6 @@
 
                                              <div>
                                                  <a th:href="@{/admin/viewUser/{id}(id=${user.id})}" class="btn btn-primary">View</a>
-                                                 <a th:href="@{/admin/editUser/{id}(id=${user.id})}" class="btn btn-danger">edit</a>
 
                                                  <a onclick="return confirm('Are you sure you want delete?')"
                                                     th:href="@{/admin/deleteUser/{id}(id=${user.id})}"
@@ -85,12 +92,14 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </section>
 
+</div>
+</div>
 
-
-
+<div th:replace="partials :: scriptTags"></div>
 <div th:replace="fragments :: jsFile"></div>
+
 </body>
 </html>
