@@ -4,6 +4,7 @@ import com.example.networth.models.Comment;
 import com.example.networth.models.Post;
 import com.example.networth.models.User;
 import com.example.networth.repositories.UserRepository;
+import com.example.networth.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProfileController
@@ -19,31 +21,52 @@ public class ProfileController
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userDao;
 
-    public ProfileController(PasswordEncoder passwordEncoder, UserRepository userDao)
+    private final UserService userService;
+
+    public ProfileController(PasswordEncoder passwordEncoder, UserRepository userDao, UserService userService)
     {
         this.passwordEncoder = passwordEncoder;
         this.userDao = userDao;
+        this.userService = userService;
     }
 
 
 
     /****************PRODUCTION MAPPING CODE****************/
-    @GetMapping("/userProfile")
-    public String userProfile(Model model)
-    {
-        //Get logged-in user
-        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getReferenceById(loggedinUser.getId());
+    @RequestMapping(value = {"/userProfile", "/admin/viewUser/{id}"})
 
-        //Get logged-in user's posts
-        List<Post> posts = user.getPosts();
+    public String userProfile(Model model, @PathVariable Optional<Long> id) {
 
-        //Add attributes for page
-        model.addAttribute("user", user);
-        model.addAttribute("posts",posts);
-        model.addAttribute("newPost",new Post());
-        model.addAttribute("newComment",new Comment());
-        return "users/userProfile";
+        if (id.isPresent()) {
+
+            long userId = id.get();
+
+            User user = userService.findById(userId);
+
+            List<Post> posts = user.getPosts();
+
+            //Add attributes for page
+            model.addAttribute("user", user);
+            model.addAttribute("posts", posts);
+            model.addAttribute("newPost", new Post());
+            model.addAttribute("newComment", new Comment());
+            return "users/userProfile";
+
+        } else {
+            //Get logged-in user
+            User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDao.getReferenceById(loggedinUser.getId());
+
+            //Get logged-in user's posts
+            List<Post> posts = user.getPosts();
+
+            //Add attributes for page
+            model.addAttribute("user", user);
+            model.addAttribute("posts", posts);
+            model.addAttribute("newPost", new Post());
+            model.addAttribute("newComment", new Comment());
+            return "users/userProfile";
+        }
     }
 
     @GetMapping("/userProfile/{id}")
