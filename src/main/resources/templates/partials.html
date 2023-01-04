@@ -38,13 +38,38 @@
 <!--Main Nav tag fragment END-->
 
 <!-- Main Navbar When Logged in and on Landing Page -->
-<nav th:fragment="loggedInLandingNavbar" class="navbar navbar-expand-lg">
+<nav th:fragment="loggedInLandingNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a href="/" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--Side Nav tag fragment START-->
 <div th:fragment="sideNavbar" class="col-lg-3">
@@ -185,7 +210,7 @@
 <!--********************Admin Dashboard Nav***************************-->
 
 <!--Side Nav tag fragment START-->
-<div th:fragment="sideNavbar-admin" class="col-lg-3">
+<div th:fragment="sideNavbar-admin" class="col-lg-3">z
 
     <!-- Advanced filter responsive toggler START -->
     <div class="d-flex align-items-center d-lg-none">
