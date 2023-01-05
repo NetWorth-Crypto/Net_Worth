@@ -15,7 +15,7 @@ public class SearchPostController {
     @Autowired
     private SearchPostService searchPostService;
 
-    @GetMapping("searchPost")
+    @GetMapping("/searchPost")
     public String search(Model model, String keyword) {
         System.out.println(keyword);
 
