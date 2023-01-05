@@ -50,8 +50,8 @@ public class User {
 
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany(
+            )
     @JoinTable(
             name = "user_follower",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -61,8 +61,7 @@ public class User {
     private List<Follower> followers;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToMany()
     @JoinTable(
             name = "user_following",
             joinColumns = {@JoinColumn(name = "user_id")},
