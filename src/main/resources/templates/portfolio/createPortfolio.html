@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <div th:replace="fragments :: myheader"></div>
-    <div th:replace="fragments :: css"></div>
 
-    <title>posts</title>
-</head>
+<head th:replace="partials::head"/>
 <body>
-<div th:replace="fragments ::pforms-navbar"></div>
+<!--<div th:replace="fragments ::pforms-navbar"></div>-->
+<nav th:replace="partials::mainNavbar"/>
+
 <div class="text-center mb-3">
     <h1>Create New Portfolio</h1>
 </div>

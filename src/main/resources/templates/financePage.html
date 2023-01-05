@@ -20,7 +20,11 @@
                 <!--Card Header START-->
                 <div class="card-header">
                     <div class="row">
-                        <h5 class="card-heading col-5" th:text="${selectedPortfolio.name}">Portfolio Name</h5>
+
+                        <div class="col-5">
+                        <h5 class="card-heading " th:text="${selectedPortfolio.name}">Portfolio Name</h5>
+                        <a class="btn shareBtn">Add Asset</a>
+                        </div>
 
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal START-->
                         <form th:action="@{/finance/portfolioSelection}" method="post" class="col-7">
