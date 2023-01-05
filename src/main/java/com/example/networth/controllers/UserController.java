@@ -2,46 +2,50 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.*;
 import com.example.networth.repositories.FollowerRepository;
-import com.example.networth.repositories.FollowingRepository;
 import com.example.networth.repositories.UserRepository;
+import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Controller
 public class UserController {
+
+
     private final UserService userService;
+
 
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+
     private FollowerRepository followerDao;
 
-    @Autowired
-    private FollowingRepository followingDao;
+
+    private final FollowingService followingService;
 
     private UserRepository userDao;
 
 
 
-    public UserController(UserService userService,PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowingService followingService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+
+        this.followingService = followingService;
     }
 
+    User loggedinUser(){
+      return   (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 
     @GetMapping("/sign-up")
     public String showSignupForm(Model model ){
@@ -55,22 +59,30 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userService.saveUser(user);
-attributes.addFlashAttribute("success","You successfully registered! You can now login");
+        attributes.addFlashAttribute("success","You successfully registered! You can now login");
         return "redirect:/login";
     }
 
 
-    @GetMapping("searchUser")
-    public String search(Model model, String user) {
-        System.out.println(user);
+    @RequestMapping(value = {"/searchUser", "/searchUser/{user}"})
+    public String search(Model model,  @RequestParam("user") Optional<String> user) {
 
-        List<User> lists = userService.getByUser(user);
-        model.addAttribute("lists", lists);
-        System.out.println(lists);
-        return "users/searchUser";
+        if (user.isEmpty()){
+            return "users/searchUser";
+        }else {
+
+            String userName = user.get();
+            System.out.println(userName);
+            List<User> lists = userService.getByUser(userName);
+            System.out.println(lists.size());
+            model.addAttribute("lists", lists);
+            System.out.println(lists);
+            return "users/searchUser";
+        }
+
     }
 
-    @GetMapping("searchFollower")
+    @GetMapping("/searchFollower")
     public String searchFollower(Model model, String user) {
         System.out.println(user);
         List<User> lists = userService.getByUser(user);
@@ -79,7 +91,7 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
         return "users/followers";
     }
 
-    @GetMapping("searchFollowing")
+    @GetMapping("/searchFollowing")
     public String searchFollowing(Model model, String user) {
         System.out.println(user);
         List<User> lists = userService.getByUser(user);
@@ -114,20 +126,21 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
     }
 
     @PostMapping("/following/user")
-    public String likePost(@RequestParam("userId") long userId){
+    public String likePost(@RequestParam("userId") long userId,Model model){
 
         System.out.println(userId);
-        //Get liked post from database
-        Following following = followingDao.getReferenceById(userId);
 
         /*Change this to the actual logged in user*/
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() == "anonymousUser")
         {
-            return "redirect:login";
+            return "redirect:/login";
         }
-        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get liked post from database
+        Following following = followingService.findById(userId);
+
+        User user = userService.findById(loggedinUser().getId());
 
         //Get all users' likes
         List<Following> userFollowing = user.getFollowings();
@@ -138,20 +151,21 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
 
                 //remove from PostLike table
                 user.removeFollowing(following1);
-                followingDao.delete(following1);
+               followingService.delete(following1);
                 System.out.println("not following anymore");
                 //return to page
-                return "redirect:/users#user"+userId;
+
+                return "users/userProfile";
             }
         }
 
         Following postFollowing = new Following(user,following);
         user.addFollowing(postFollowing);
-        followingDao.save(postFollowing);
+       followingService.save(postFollowing);
         System.out.println("followers added");
 
-
-        return "redirect:/users#user"+userId;
+        model.addAttribute("user",loggedinUser());
+        return "users/userProfile";
     }
 
     @PostMapping("/users/followers")
@@ -186,7 +200,7 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
     @GetMapping("/follow")
     public String testFollow(Model model) {
         model.addAttribute("following", new Following());
-        return "users/follow";
+        return "/users/follow";
     }
 
 //    @PostMapping("/follow/user")
@@ -232,8 +246,7 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
         //Save new following to database
 
         //        System.out.println(following.getFollowing_user_id());
-
-        followingDao.save(following);
+        followingService.save(following);
         return "users/following";
     }
 
@@ -245,8 +258,3 @@ attributes.addFlashAttribute("success","You successfully registered! You can now
 
 
 }
-
-
-
-
-
