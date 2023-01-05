@@ -210,6 +210,154 @@ public class PostController {
         return "redirect:/posts#post"+id;
     }
 
+
+    @PostMapping("/posts/create/user")
+    public String testPost2(@ModelAttribute("newPost") Post newPost,
+                            @RequestParam("imgUrl") String imgUrl,
+                            @RequestParam("videoUrl") String videoUrl){
+        //Get UserId from logged-in user to create new post
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Save image/video to new post
+        newPost.setImgUrl(imgUrl);
+        newPost.setVideoUrl(videoUrl);
+
+        //Check if user logged-in
+        System.out.println(user.getId());
+
+        //Save new post to database
+        user.getPosts().add(newPost);
+        newPost.setUser(user);
+        postDao.save(newPost);
+        return "redirect:/userProfile";
+    }
+
+    @PostMapping("/like/post/user")
+    public String likePostUser(@RequestParam("postId") long postId){
+
+        System.out.println(postId);
+        //Get liked post from database
+        Post likedPost = postDao.getReferenceById(postId);
+
+        /*Change this to the actual logged in user*/
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        //Get all users' likes
+        List<PostLike> userLikes = user.getLikes();
+
+        //Check user already like the post
+        for(PostLike like: userLikes){
+            if(like.getPost().getId() == likedPost.getId()){
+
+                //remove from PostLike table
+                user.removeLike(like);
+                likedPost.removeLike(like);
+                postLikeDao.delete(like);
+                System.out.println("like removed");
+                //return to page
+                return "redirect:/userProfile#post"+postId;
+            }
+        }
+
+        PostLike postLike = new PostLike(user,likedPost);
+        user.addLike(postLike);
+        likedPost.addLike(postLike);
+        postLikeDao.save(postLike);
+        System.out.println("like added");
+
+
+        return "redirect:/userProfile#post"+postId;
+    }
+
+    @PostMapping("/dislike/post/user")
+    public String dislikePostUser(@RequestParam("postId") long postId){
+
+        Post dislikedPost = postDao.getReferenceById(postId);
+
+        /*Change this to the actual logged in user*/
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+
+        List<PostDislike> userDislikes = user.getDislikes();
+
+        //Check user already like the post
+        for(PostDislike dislike: userDislikes){
+            if(dislike.getPost().getId() == dislikedPost.getId()){
+
+                //remove from PostDislike table
+                user.removeDislike(dislike);
+                dislikedPost.removeDislike(dislike);
+                postDislikeDao.delete(dislike);
+                System.out.println("dislike removed");
+                //return to page
+                return "redirect:/userProfile#post"+postId;
+            }
+        }
+
+        PostDislike postDislike = new PostDislike(user,dislikedPost);
+        user.addDislike(postDislike);
+        dislikedPost.addDislike(postDislike);
+        postDislikeDao.save(postDislike);
+        System.out.println("dislike added");
+
+        return "redirect:/userProfile#post"+postId;
+    }
+
+    @PostMapping("/posts/{id}/create/comment/user")
+    public String createCommentUserPage(@ModelAttribute Comment comment,
+                                @PathVariable long id) {
+
+        EntityManager em;
+        System.out.println("Comment Section Hit!");
+        //find user
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() == "anonymousUser")
+        {
+            return "redirect:login";
+        }
+        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getReferenceById(loggedinUser.getId());
+        System.out.println(user.getFirstName());
+
+        //find post
+        Post post = postDao.getReferenceById(id);
+        System.out.println(post.getDescription());
+
+
+
+
+        //add comment to post comment list
+        post.getComments().add(comment);
+        //add comment to user comment list
+        user.getComments().add(comment);
+        //Save to database
+        System.out.println("Comments added to entities");
+
+        //set comment fields(post,user)
+        comment.setPost(post);
+        comment.setUser(user);
+        commentDao.save(comment);
+
+        return "redirect:/userProfile#post"+id;
+    }
+
     /********************TEST ROUTES********************/
     @GetMapping("/createpost")
     public String testPost(Model model){

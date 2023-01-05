@@ -34,6 +34,27 @@ a{
     color: var(--text-color);
 }
 
+/* Button Styling START */
+.shareBtn{
+    color: var(--text-color);
+    /* border-radius: 40px; */
+    /* background: linear-gradient(90deg, #c5c6c7, var(--accent-color2)); */
+
+    /* background: linear-gradient(90deg,#141F2D, #38424E); */
+    background: #38424E center;
+    transition: background 0.8s;
+}
+
+.shareBtn:hover {
+    background: #525E6D radial-gradient(circle, transparent 1%, #525E6D 1%) center/15000%;
+}
+.shareBtn:active {
+    background-color: #38424E;
+    background-size: 100%;
+    transition: background 0s;
+}
+/* Button Styling END */
+
 
 /*Card Styling*/
 .card{
