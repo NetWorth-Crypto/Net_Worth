@@ -1,13 +1,74 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8"/>-->
+<!--    <title>Network-follow</title>-->
+<!--</head>-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--    <form th:action="@{/following/user}" th:method="post" th:object="${following}">-->
+<!--        <input hidden th:field="*{id}">-->
+<!--        <button  type="submit">Follow</button>-->
+<!--    </form>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Network-follow</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="partials::head"/>
 <body>
-    <form th:action="@{/following/users}" th:method="post" th:object="${following}">
-        <input hidden th:field="*{id}">
-        <button  type="submit">Follow</button>
+
+<!-- Container START -->
+<div class="container">
+    <h2 align="center">Searching Users you are following</h2>
+    <form th:action="@{/searchFollowers}" method="get">
+        <input type="text" name="user"   placeholder="Find Followers" size="50" >
+        <button type="submit" class="btn btn-info" size="50" >Search</button>
     </form>
+
+    <div th:each="list : ${lists}" class="card mt-2">
+        <div class="card-body pt-0">
+            <div class="text-center">
+
+                Avatar
+                <div class="avatar avatar-lg mt-n5 mb-3">
+                    <a href="#!"><img style="width: 50px;" class="avatar-img  border border-white border-3"
+                                      th:src="${list.profilePicture}" alt=""></a>
+                </div>
+
+                <!-- Info -->
+                <h5 class="mb-0"><a href="#!" th:text="${list.firstName}+' '+${list.lastName}"></a></h5>
+                <small th:text="${list.userTitle}"></small>
+                <form th:action="@{/following/user}" th:method="post" th:object="${following}">
+                    <input hidden th:field="*{id}">
+                    <button  type="submit">Follow</button>
+                </form>
+                <div>
+                    <div>
+                        <h6 class="mb-0">2.5K</h6>
+                        <small>Followers</small>
+                    </div>
+                    <!-- Divider -->
+                    <div class="vr"></div>
+                    <!-- User stat item -->
+                    <div>
+                        <h6 class="mb-0">365</h6>
+                        <small>Following</small>
+                    </div>
+                </div>
+                <!-- User stat END -->
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Container END -->
 </body>
 </html>
+
+

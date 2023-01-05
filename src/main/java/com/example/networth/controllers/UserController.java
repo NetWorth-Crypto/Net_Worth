@@ -65,7 +65,7 @@ public class UserController {
 
 
     @RequestMapping(value = {"/searchUser", "/searchUser/{user}"})
-    public String search(Model model,  @RequestParam("user") Optional<String> user) {
+    public String searchUser(Model model,  @RequestParam("user") Optional<String> user) {
 
         if (user.isEmpty()){
             return "users/searchUser";
@@ -82,32 +82,38 @@ public class UserController {
 
     }
 
-    @GetMapping("/searchFollower")
-    public String searchFollower(Model model, String user) {
-        System.out.println(user);
-        List<User> lists = userService.getByUser(user);
-        model.addAttribute("lists", lists);
-        System.out.println(lists);
-        return "users/followers";
+    @RequestMapping(value = {"/searchFollower", "/searchFollower/{user}"})
+    public String searchFollower(Model model, @RequestParam("user") Optional<String>user) {
+
+        if (user.isEmpty()){
+            return "users/followers";
+        }else {
+
+            String userFollowers = user.get();
+            System.out.println(userFollowers);
+            List<User> lists = userService.getByUser(userFollowers);
+            System.out.println(lists.size());
+            model.addAttribute("lists", lists);
+            System.out.println(lists);
+            return "users/followers";
+        }
     }
 
-    @GetMapping("/searchFollowing")
-    public String searchFollowing(Model model, String user) {
-        System.out.println(user);
-        List<User> lists = userService.getByUser(user);
-        model.addAttribute("lists", lists);
-        System.out.println(lists);
-        return "users/following";
-    }
+    @RequestMapping(value = {"/searchFollowing", "/searchFollowing/{user}"})
+    public String searchFollowing(Model model, @RequestParam("user") Optional<String>user) {
 
+        if (user.isEmpty()){
+            return "users/following";
+        }else {
 
-
-
-
-    @GetMapping("/followers")
-    public String testFollower(Model model) {
-        model.addAttribute("follower", new Follower());
-        return "users/followers";
+            String userFollowing = user.get();
+            System.out.println(userFollowing);
+            List<User> lists = userService.getByUser(userFollowing);
+            System.out.println(lists.size());
+            model.addAttribute("lists", lists);
+            System.out.println(lists);
+            return "users/following";
+        }
     }
 
     @PostMapping("/create/followers")
