@@ -10,4 +10,11 @@ import java.util.List;
 public interface FollowingRepository extends JpaRepository<Following, Long> {
 
 
+    @Query(
+            value = "SELECT * FROM following WHERE id NOT IN (SELECT following_id FROM user_following WHERE user_id = ?1)",
+            nativeQuery = true
+    )
+    List<Following> getUserNotFollowings(long user_Id);
+
+
 }

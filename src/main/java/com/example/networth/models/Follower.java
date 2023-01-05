@@ -24,9 +24,6 @@ public class Follower{
         this.follower_user_id = follower_user_id;
     }
 
-    public Follower(User user, User userFollowers) {
-    }
-
     public long getFollower_id() {
         return follower_id;
     }
@@ -49,11 +46,5 @@ public class Follower{
 
     public void setFollower_user_id(long follower_user_id) {
         this.follower_user_id = follower_user_id;
-    }
-
-    public long getId() {
-    }
-
-    public void removeFollower(Follower follower) {
     }
 }
