@@ -117,6 +117,7 @@ public class CrytoController {
         model.addAttribute("name", name);
         model.addAttribute("ticker", ticker);
 
+
         User user = logedinUser();
         System.out.println(user);
         List<Portfolio> portfolios = portfolioService.findByUser(user);
@@ -129,6 +130,7 @@ public class CrytoController {
         return "portfolio/addAsset";
     }
 
+    /*Use this one*/
     @RequestMapping(value = "/add_crypto", method = RequestMethod.POST)
     public String addAsset(@RequestParam("name") String name,
                            @RequestParam("ticker") String ticker,
