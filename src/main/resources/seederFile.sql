@@ -51,10 +51,3 @@ values  (1,'admin','edit user\'s info or delete other users'),
 
 insert into user_role(user_id,role_id)
 values (124,2),(124,1)
-
-
-
-
-
-
-

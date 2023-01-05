@@ -50,10 +50,23 @@ public class User {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    @ManyToMany(
+            )
+    @JoinTable(
+            name = "user_follower",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "follower_id")}
+    )
+
     private List<Follower> followers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+
+    @ManyToMany()
+    @JoinTable(
+            name = "user_following",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "following_id")}
+    )
     private List<Following> followings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
