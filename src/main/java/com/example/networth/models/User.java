@@ -40,7 +40,8 @@ public class User {
     private String userTitle;
 
     @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
+          CascadeType.MERGE}, fetch = FetchType.EAGER)
+
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -50,10 +51,34 @@ public class User {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+
+//    @ManyToMany(cascade = {CascadeType.PERSIST,
+//            CascadeType.MERGE}, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "user_follower",
+//            joinColumns = {@JoinColumn(name = "user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "follower_id")}
+//    )
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+//            CascadeType.MERGE}, fetch = FetchType.EAGER)
+            CascadeType.MERGE})
+    @JoinTable(
+            name = "user_followers",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "follower_user_id")}
+
+    )
+
+
     private List<Follower> followers;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+
+    @OneToMany()
+    @JoinTable(
+            name = "user_followings",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "following_user_id")}
+    )
     private List<Following> followings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user",orphanRemoval = true)
@@ -167,7 +192,9 @@ public class User {
         following.setUser(null);
     }
 
-
+    public String getProfilePicture() {
+        return profilePicture;
+    }
 
     public List<Role> getRoles() {
         return roles;

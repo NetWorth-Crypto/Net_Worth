@@ -117,6 +117,7 @@ public class CrytoController {
         model.addAttribute("name", name);
         model.addAttribute("ticker", ticker);
 
+
         User user = logedinUser();
         System.out.println(user);
         List<Portfolio> portfolios = portfolioService.findByUser(user);
@@ -129,11 +130,12 @@ public class CrytoController {
         return "portfolio/addAsset";
     }
 
+    /*Use this one*/
     @RequestMapping(value = "/add_crypto", method = RequestMethod.POST)
     public String addAsset(@RequestParam("name") String name,
                            @RequestParam("ticker") String ticker,
                            @RequestParam("price") double price,
-                           @RequestParam("quantity") int quantity,
+                           @RequestParam("quantity") double quantity,
                            @RequestParam("portfolio") long portfolio,
                            Model model,
                            RedirectAttributes redirectAttrs) {
@@ -176,7 +178,7 @@ public class CrytoController {
         Date date = new Date();
         pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
         redirectAttrs.addFlashAttribute("added", quantity + " " + name + " has been added to " + portfolio1.getName());
-        return "redirect:/crypto";
+        return "redirect:/finance";
 
     }
 

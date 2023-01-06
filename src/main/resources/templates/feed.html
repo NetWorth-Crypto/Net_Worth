@@ -5,7 +5,7 @@
 <body>
 
 <!--Main Navbar-->
-<nav th:replace="partials::mainNavbar"/>
+<nav th:replace="partials::profileNavbar"/>
 
 <!--Primary Content-->
 <main>
@@ -32,40 +32,26 @@
                         <div class="avatar avatar-xs me-2">
                             <a href="#"> <img class="avatar-img " src="images/AS_31.jpg" alt=""> </a>
                         </div>
-                        <!-- Create Post -->
-                        <form class="form-group w-100" th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
-                            <!-- Post Input Text Area -->
+                        <!-- Post input -->
+                        <form class="w-100" th:action="@{/posts/create}" th:method="post" th:object="${newPost}">
                             <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
-                                      data-autoresize="" placeholder="Share your thoughts...">
-                            </textarea>
+                                      data-autoresize="" placeholder="Share your thoughts..."></textarea>
                             <input id="imgurl" type="text" name="imgUrl" hidden value="null">
                             <input id="videourl" type="text" name="videoUrl" hidden value="null">
-                            <!-- Upload Image -->
-                            <button class="btn" id="imageButton" type="button">
-                                <i class="fa-regular fa-image" style="color: white"></i> picture
+                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i class="fa-regular fa-image"></i>
+                                picture
                             </button>
-                            <!-- Upload Video -->
-                            <button class="btn" id="videoButton" type="button">
-                                <i class="fa-solid fa-video" style="color: white"></i> video
+                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i class="fa-solid fa-video"></i> video
                             </button>
-                            <!-- Submit Post -->
-                            <button class="btn" type="submit">
-                                <i class="fa-solid fa-square-share-nodes" style="color: white"></i> share
+                            <button class="btn shareBtn mt-2" type="submit">
+                                <i class="fa-solid fa-square-share-nodes" style="color: white"></i>
+                                share
                             </button>
                         </form>
                     </div>
                 </div>
                 <!-- Share feed END -->
 
-                <!-- Search Posts -->
-                <div class="card card-body">
-                    <div class="d-flex mb-3">
-                        <form class="w-100 col-md-8 col-lg-6" action="" method="get">
-                            <input size="50" class="form-group rounded" type="text" name="keyword" placeholder="Find Post">
-                            <button type="submit" class="rounded">Search</button>
-                        </form>
-                    </div>
-                </div>
 
 
                 <!-- Card feed item START -->
@@ -114,7 +100,7 @@
                             </div>
 
                             <!--Post Reaction Items START-->
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center justify-content-between mt-2">
                                 <form th:action="@{/like/post}" th:method="post">
                                     <input hidden name="postId" th:value="${post.id}">
 
@@ -134,17 +120,17 @@
 
                                 </form>
 
-                                <button class="btn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${post.id}"
+                                <button class="btn shareBtn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${post.id}"
                                         aria-expanded="false" aria-controls="collapseExample">
-                                    Comment
-                                    <span class="badge bg-secondary" th:text="${post.getComments().size()}"></span>
+                                    Comments
+                                    <span class="badge ms-1" th:text="${post.getComments().size()}"></span>
                                 </button>
 
                             </div>
                             <!--Post Reaction Items END-->
 
                             <!-- Add comment START-->
-                            <div class="d-flex mb-3">
+                            <div class="d-flex mb-3 mt-2">
                                 <!-- Avatar -->
                                 <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
                                 <div class="avatar avatar-xs me-2">
@@ -157,7 +143,7 @@
                                 <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
                                     <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
                                               placeholder="Add a comment..."></textarea>
-                                    <button class="btn btn-outline-light" type="submit" >comment</button>
+                                    <button class="btn shareBtn ms-2" type="submit" >comment</button>
                                 </form>
                             </div>
                             <!-- Add comment END-->
@@ -214,11 +200,12 @@
 
 
             </div>
+            <!-- Main content END -->
 
 
             <!-- Right sidebar START -->
             <div class="col-lg-3">
-                <div class=" card  mt-4">
+                <div class=" card">
                     <div class="table-responsive scrollbar">
                         <h2 class="card-header">24 Hour Trending Crypto</h2>
                         <div class="card-body ">
@@ -242,13 +229,13 @@
                 </div>
                 <!-- Right sidebar END -->
 
-            </div> <!-- Row END -->
-
+            </div>
+            <!-- Right sidebar END -->
 
         </div>
+        <!-- Row END -->
     </div>
     <!-- Container END -->
-
 </main>
 
 
@@ -256,44 +243,5 @@
 <div th:replace="partials::scriptTags"/>
 </body>
 
-<!-- Follower Modal START-->
-<div class="modal fade" id="followerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="d-flex align-content-center">
-                    <!-- Avatar -->
-                    <!--GET COMMENT USER IMAGE-->
-                    <div class="avatar avatar-xs">
-                        <a href=""><img style="width: 50px;"
-                                        class="avatar-img rounded-circle"
-                                        th:src="${comment.user.profilePicture}"
-                                        alt=""></a>
-                    </div>
-                    <div class="ms-2">
-                        <!-- Comment by -->
-                        <div class=" rounded-start-top-0 p-3 rounded">
-                            <div class="d-flex justify-content-between">
-                                <h6 class="mb-1"><a href="#!"
-                                                    th:text="${comment.user.firstName}+' '+${comment.user.lastName}">Anthony Stevens</a>
-                                </h6>
-                            </div>
-                            <p class="small mb-0" th:text="${comment.message}">Saitama</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex align-content-center ms-auto">
-                        <button class="btn">Test</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Follower Modal END-->
 
 </html>

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -51,7 +52,7 @@ public class FinanceController {
     AssetRepository assetDao;
 
     @GetMapping("/finance")
-    public String finance(Model model) throws ParseException {
+    public String finance(Model model, RedirectAttributes redirectAttributes) throws ParseException {
         //Get logged-in User
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.getPrincipal() == "anonymousUser")
@@ -62,7 +63,12 @@ public class FinanceController {
         User user = userDao.getReferenceById(loggedinUser.getId());
 
         //Get all user Portfolios
+
         List<Portfolio> portfolios = user.getPortfolios();
+        if (portfolios.isEmpty()) {
+            redirectAttributes.addFlashAttribute("needPortfolio", "Creat a portfolio in order to view financial dashboard page");
+            return "redirect:/createPortfolio";
+        }
         Portfolio selectedPortfolio = portfolios.get(0);
 
         Map<String,Double> performance = financeService.getSevenDayPrice(selectedPortfolio);
@@ -229,7 +235,7 @@ public class FinanceController {
 
         paDao.delete(portfolioAsset);
 
-        return "feed";
+        return "redirect:/finance";
     }
 
 

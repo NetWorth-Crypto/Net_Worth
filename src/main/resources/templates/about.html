@@ -1,62 +1,104 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments :: myheader"></div>
-
-    <div th:replace="fragments :: css"></div>
-
-    <meta charset="UTF-8"/>
-    <title>About</title>
+    <head th:replace="partials::head"/>
 </head>
 <body>
-<div th:replace="fragments :: landing-navbar"></div>
+<!--Main NavBar START-->
+<nav th:replace="partials:: aboutUsNavbar"/>
+<!--Main NavBar END-->
 
-<section>
-    <h1>About NetWorth</h1>
-    <p>Describe why NetWorth was created.</p>
-</section>
+<header>
+    <div class="container text-center py-5 mb-4">
+        <h1 class="fw-light text-white">About Us</h1>
+        <hr>
+    </div>
+</header>
+<!-- Developer Profiles-->
+<div class="container">
+    <div class="row">
+        <!-- ANTHONY STEVENS -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <!-- Profile Image -->
+            <div class="card rounded border-0 shadow">
+                <img src="/images/Anthony_Stevens.jpg" class="card-img-top" alt="Anthony Stevens">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Anthony Stevens</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                            <!-- Github Link -->
+                            <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/astevens09}" target="_blank"></a>
+                            <!-- LinkedIn Link -->
+                            <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/anthonymstevens/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- YOGESH ADHIKARI -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <div class="card rounded border-0 shadow">
+                <!-- Profile Image -->
+                <img src="/images/Yogesh_Adhikari.jpeg" class="card-img-top" alt="Yogesh Adhikari">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Yogesh Adhikari</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/yogesh-adhikari}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/yogesh-adhikari/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AMIDA FOMBUTU -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <div class="card rounded border-0 shadow">
+                <!-- Profile Image -->
+                <img src="/images/Amida_Fombutu.jpeg" class="card-img-top" alt="Amida Fombutu">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Amida Fombutu</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/midoostar1}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/amida-fombutu/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CASANOVA GEARY -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card rounded border-0 border-primary shadow">
+                <!-- Profile Image -->
+                <img src="/images/Casanova_Geary.jpeg" class="card-img-top" alt="Casanova Geary">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Casanova Geary</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/5T0P5331N6M3}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/casanova-geary/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Row -->
+</div>
+<!-- End Container -->
 
-<!-- Haskell Student Cards -->
-<div class="row landing-row">
-    <div class="column">
-        <div class="card">
-            <img src="#" alt="Profile Pic">
-            <h3>Anthony Stevens</h3>
-            <p>Some text</p>
-            <p>Some text</p>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="column">
-        <div class="card">
-            <img src="#" alt="Profile Pic">
-            <h3>Yogesh Adhikari</h3>
-            <p>Some text</p>
-            <p>Some text</p>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="column">
-        <div class="card">
-            <img src="#" alt="Profile Pic">
-            <h3>Amida Fombutu</h3>
-            <p>Some text</p>
-            <p>Some text</p>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="column">
-        <div class="card">
-            <img src="#" alt="Profile Pic">
-            <h3>Casanova Geary</h3>
-            <p>Some text</p>
-            <p>Some text</p>
-        </div>
-    </div>
-</div>
-<div th:replace="fragments :: jsFile"></div>
+<!-- Javascript files for image upload -->
+<div th:replace="partials::scriptTags"/>
 </body>
 </html>
