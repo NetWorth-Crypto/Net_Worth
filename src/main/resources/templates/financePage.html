@@ -4,7 +4,7 @@
 <head th:replace="partials::head"/>
 
 <body>
-<nav th:replace="partials::mainNavbar"/>
+<nav th:replace="partials::profileNavbar"/>
 
 <div class="container-fluid">
     <div class="row g-4">
@@ -22,30 +22,40 @@
                     <div class="row">
 
                         <div class="col-5">
-                        <h5 class="card-heading " th:text="${selectedPortfolio.name}">Portfolio Name</h5>
-                        <a class="btn shareBtn">Add Asset</a>
+                            <h5 class="card-heading " th:text="${selectedPortfolio.name}">Portfolio Name</h5>
+                            <!-- Button trigger for crypto list modal START-->
+                            <button type="button" class="btn shareBtn" data-bs-toggle="modal"
+                                    data-bs-target="#cryptoModal">
+                                <i class="fa-brands fa-bitcoin" style="color: gold"></i>
+                                Add Asset
+                            </button>
+                            <!-- Button trigger for crypto list modal END-->
                         </div>
 
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal START-->
                         <form th:action="@{/finance/portfolioSelection}" method="post" class="col-7">
 
-                                <select name="portfolioId" class="form-select" aria-label="Default select example"
-                                        aria-describedby="button-addon2">
-                                    <div th:each="portfolio: ${portfolios}">
-                                        <option th:text="${portfolio.name}" th:value="${portfolio.id}"></option>
+                            <select name="portfolioId" class="form-select" aria-label="Default select example"
+                                    aria-describedby="button-addon2">
+                                <div th:each="portfolio: ${portfolios}">
+                                    <option th:text="${portfolio.name}" th:value="${portfolio.id}"></option>
 
-                                    </div>
-                                </select>
-                                <button class="btn shareBtn mt-2 me-1" type="submit" id="button-addon2">Select
-                                </button>
-                                <a th:href="@{/editPortfolio/{id}(id=${selectedPortfolio.id})}"
-                                   class="btn shareBtn mt-2 me-1">edit</a>
-                                <a th:href="@{/deletePortfolio/{id}(id=${selectedPortfolio.id})}"
-                                   class="btn btn-danger mt-2 me-1">delete</a>
-                                <button type="button" class="btn  btn-success mt-2" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                    Create Portfolio
-                                </button>
+                                </div>
+                            </select>
+                            <button class="btn shareBtn mt-2 me-1" type="submit" id="button-addon2">Select
+                            </button>
+                            <!--<a th:href="@{/editPortfolio/{id}(id=${selectedPortfolio.id})}"-->
+                            <!--       class="btn shareBtn mt-2 me-1">edit</a>-->
+                            <button type="button" class="btn shareBtn mt-2 me-1" data-bs-toggle="modal"
+                                    data-bs-target="#editPortfolioModal">
+                                Edit
+                            </button>
+                            <a th:href="@{/deletePortfolio/{id}(id=${selectedPortfolio.id})}"
+                               class="btn btn-danger mt-2 me-1">delete</a>
+                            <button type="button" class="btn  btn-success mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                Create Portfolio
+                            </button>
 
                         </form>
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal END-->
@@ -70,9 +80,9 @@
                         <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">
                             <h3 class="subtitle text-gray-500">Total Balance</h3>
                             <div th:text="${#numbers.formatCurrency(totalBalance)}" class="h1 text-primary"></div>
-<!--                            <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span-->
-<!--                                    class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span>-->
-<!--                            </p>-->
+                            <!--                            <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span-->
+                            <!--                                    class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span>-->
+                            <!--                            </p>-->
                         </div>
                         <!--Total Balance Section END-->
 
@@ -81,23 +91,23 @@
                             <div>
                                 <h3 class="subtitle text-gray-500 fw-normal">24h Portfolio Change</h3>
                                 <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(portfolioChange)}"></div>
-<!--                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span-->
-<!--                                        class="badge badge-success-light"><i-->
-<!--                                        class="fas fa-arrow-up me-2"></i>21.3%</span></p>-->
+                                <!--                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span-->
+                                <!--                                        class="badge badge-success-light"><i-->
+                                <!--                                        class="fas fa-arrow-up me-2"></i>21.3%</span></p>-->
                             </div>
                         </div>
                         <!--24h Change Section END-->
 
                         <!--Profit/Loss Section START-->
-<!--                        <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">-->
-<!--                            <div>-->
-<!--                                <h3 class="subtitle text-gray-500 fw-normal">Profit/Loss </h3>-->
-<!--                                <div class="h4 fw-normal ">$2,500</div>-->
-<!--                                <p class="mb-0"><span class="text-muted me-2">-$233 </span><span-->
-<!--                                        class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%           </span>-->
-<!--                                </p>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">-->
+                        <!--                            <div>-->
+                        <!--                                <h3 class="subtitle text-gray-500 fw-normal">Profit/Loss </h3>-->
+                        <!--                                <div class="h4 fw-normal ">$2,500</div>-->
+                        <!--                                <p class="mb-0"><span class="text-muted me-2">-$233 </span><span-->
+                        <!--                                        class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%           </span>-->
+                        <!--                                </p>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <!--Profit/Loss Section START-->
 
                     </div>
@@ -154,11 +164,11 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/updateAsset/{id}(id=${portfolioAsset.getId()})}"
-                                       class="btn">Update</a>
+                                       class="btn shareBtn">Update</a>
                                 </td>
                                 <td>
                                     <a th:href="@{/finance/delete/asset/{id}/{portfolioId}(id=${portfolioAsset.getAsset().id}, portfolioId = ${selectedPortfolio.id})}"
-                                       class="btn">Delete</a>
+                                       class="btn shareBtn">Delete</a>
                                 </td>
                                 <!--                                <td>-->
                                 <!--                                    <div class="d-flex align-items-center">-->
@@ -250,17 +260,17 @@
 
         //Days of the week
         // console.log(dates);
-        for (let date of documentDates) {
+        for (let i=0; i<6; i++) {
 
-            dates.push(date.value);
+            dates.push(documentDates[i].value);
         }
-        console.log(dates);
+        console.log(documentDates);
 
-        for (let total of documentTotals) {
+        for (let i=0; i<6; i++) {
 
-            totals.push(total.value);
+            totals.push(documentTotals[i].value);
         }
-        console.log(totals);
+        console.log(documentTotals);
         // for(let i=6; i > -1; i--){
         //     dates.push(date.getDate()-i);
         // }
@@ -289,6 +299,7 @@
         });
     </script>
     <div th:replace="partials::scriptTags"/>
+    <div th:replace="partials::cryptoScriptTags"/>
 </div>
 
 </body>
@@ -343,4 +354,144 @@
     </div>
 </div>
 <!--Create Portfolio Modal END-->
+
+<!-- Crypto asset Modal START-->
+<div class="modal fade" id="cryptoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+
+            <!--Modal Header START-->
+            <div class="modal-header">
+                <h1 class="modal-title fs-5"></h1>
+
+                <!--Crypto Search Bar START-->
+                <form class="d-flex">
+                    <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search"
+                           aria-label="Search">
+                    <button id="searchBtn" data-bs-toggle="modal" data-bs-target="#cryptoSearchModal"
+                            class="btn btn-outline-success " type="button">Search
+                    </button>
+                </form>
+                <!--Crypto Search Bar START-->
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <!--Modal Header END-->
+
+            <!--Modal Body Start-->
+            <div class="modal-body">
+                <!-- <section class="crypto-page"> -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Current Price</th>
+                            <th scope="col">Market Cap</th>
+                            <th scope="col">24Hr High</th>
+                            <th scope="col">24Hr Low</th>
+                            <th scope="col">24Hr Price Change</th>
+                            <th scope="col">more</th>
+                        </tr>
+                        </thead>
+                        <tbody id="list-crypto"></tbody>
+                    </table>
+                </div>
+                <!-- </section> -->
+            </div>
+            <!--Modal Body Start-->
+
+        </div>
+    </div>
+</div>
+<!-- Crypto asset Modal END-->
+
+<!-- Crypto search asset Modal START-->
+<div class="modal fade" id="cryptoSearchModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+
+            <!--Modal Header START-->
+            <div class="modal-header">
+                <!-- <h1 class="modal-title fs-5" id="ModalLabel"></h1> -->
+
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" data-bs-toggle="modal"
+                        data-bs-target="#cryptoModal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="crypto-page" aria-label="Close"></button> -->
+
+            </div>
+            <!--Modal Header END-->
+
+            <!--Modal Body Start-->
+            <div class="modal-body">
+                <section class="crypto-page">
+
+                </section>
+            </div>
+            <!--Modal Body Start-->
+
+        </div>
+    </div>
+</div>
+<!-- Crypto asset Modal END-->
+
+<!-- Edit Portfolio Modal START-->
+<div class="modal fade" id="editPortfolioModal" tabindex="-1" aria-labelledby="editPortfolioModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+
+            <!--Modal Header START-->
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editPortfolioModalLable">Edit Portfolio</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!--Modal Header END-->
+
+            <!--Modal Body START-->
+            <div class="modal-body">
+                <form th:action="@{/saveEdit}" method="POST" autocomplete="off" class="form" role="form">
+
+
+                    <div class="form-group">
+                        <label for="name">Portfolio name</label>
+                        <input name="name" class="form-control"  placeholder="" required="" type="text"
+                               th:value="${selectedPortfolio.name}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dollar">Dollar limit</label>
+                        <input name="dollarLimit" class="form-control"  placeholder="$" required=""
+                               type="text" th:value="${selectedPortfolio.getDollarLimit()}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">choose Portfolio type</label>
+                        <select id="type" name="type" class="form-select">
+                            <option>Private</option>
+                            <option>Default</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group invisible">
+                        <label for="id">Dollar limit</label>
+                        <input name="id" class="form-control" id="id" placeholder="$" required="" type="text"
+                               th:value="${selectedPortfolio.id}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <button class="btn btn-success btn-lg float-right" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <!--Modal Body END-->
+
+        </div>
+    </div>
+</div>
+<!-- Edit Modal END-->
 </html>

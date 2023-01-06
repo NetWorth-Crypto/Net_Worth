@@ -5,7 +5,7 @@
 <body>
 
 <!--Main Navbar-->
-<nav th:replace="partials::mainNavbar"/>
+<nav th:replace="partials::profileNavbar"/>
 
 <!--Primary Content-->
 <main>
@@ -106,7 +106,7 @@
                             </div>
 
                             <!--Post Reaction Items START-->
-                            <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center justify-content-between mt-2">
                                 <form th:action="@{/like/post}" th:method="post">
                                     <input hidden name="postId" th:value="${post.id}">
 

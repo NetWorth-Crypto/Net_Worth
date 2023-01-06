@@ -6,7 +6,7 @@
 <body>
 
 <!--Main NavBar START-->
-<nav th:replace="partials:: mainNavbar"/>
+<nav th:replace="partials::profileNavbar"/>
 <!--Main NavBar END-->
 
 <main>
@@ -24,26 +24,40 @@
                 <div sec:authorize="isAuthenticated()">
                     <div th:if="${#authentication.principal.id} == ${user.id}">
 
-                    <div class="card card-body">
-                        <form class="form-group w-100" th:action="@{/posts/create/user}" th:method="post"
-                              th:object="${newPost}">
+                        <div class="card card-body">
+                            <form class="form-group w-100" th:action="@{/posts/create/user}" th:method="post"
+                                  th:object="${newPost}">
                             <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"
                                       data-autoresize="" placeholder="Share your thoughts...">
                             </textarea>
-                            <input id="imgurl" type="text" name="imgUrl" hidden value="null">
-                            <input id="videourl" type="text" name="videoUrl" hidden value="null">
-                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i class="fa-regular fa-image"
-                                                                                  style="color: white"></i>
-                                picture
-                            </button>
-                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i class="fa-solid fa-video"
-                                                                                  style="color: white"></i> video
-                            </button>
-                            <button class="btn shareBtn mt-2 " type="submit"><i class="fa-solid fa-square-share-nodes"
-                                                                 style="color: white"></i> share
-                            </button>
-                        </form>
-                    </div>
+                                <input id="imgurl" type="text" name="imgUrl" hidden value="null">
+                                <input id="videourl" type="text" name="videoUrl" hidden value="null">
+                                <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i
+                                        class="fa-regular fa-image"
+                                        style="color: white"></i>
+                                    picture
+                                </button>
+                                <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i
+                                        class="fa-solid fa-video"
+                                        style="color: white"></i> video
+                                </button>
+                                <button class="btn shareBtn mt-2 " type="submit"><i
+                                        class="fa-solid fa-square-share-nodes"
+                                        style="color: white"></i> share
+                                </button>
+                            </form>
+                            <hr>
+                            <!-- Search Posts -->
+                            <!--                            <div class="form-group d-flex justify-content-end">-->
+                            <!--                                <form class="form-group w-100 col-md-8 col-lg-6" action="" method="get">-->
+                            <!--                                    <input size="50" class="form-group rounded" type="text" name="keyword"-->
+                            <!--                                           placeholder="Find Post">-->
+                            <!--                                    <button type="submit" class="rounded">Search</button>-->
+                            <!--                                </form>-->
+                            <!--                            </div>-->
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -51,193 +65,195 @@
                 <div class="row row-cols-1 row-cols-md-2 g-4">
 
                     <!--Foreach Loop for each Post for user START-->
-<!--                    <div th:each="post: ${posts}">-->
+                    <!--                    <div th:each="post: ${posts}">-->
 
-                        <!--Column Start-->
-                        <div class="col" th:each="post: ${posts}">
+                    <!--Column Start-->
+                    <div class="col" th:each="post: ${posts}">
 
-                            <!--//Post Card item START-->
-                            <div class="card h-100">
+                        <!--//Post Card item START-->
+                        <div class="card h-100">
 
-                                <!--Card header START-->
-                                <div class="card-header" th:id="'post'+${post.id}">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <!--Avatar-->
-                                            <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3"
-                                                 style="width: 50px;" alt="Avatar"/>
-                                            <!--Info-->
-                                            <!--               <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
-                                            <div>
-                                                <div class="nav nav-divider">
-                                                    <!--INPUT USER PROFILE LINK-->
-                                                    <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${post.getUser().id})}"> <strong
+                            <!--Card header START-->
+                            <div class="card-header" th:id="'post'+${post.id}">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <!--Avatar-->
+                                        <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3"
+                                             style="width: 50px;" alt="Avatar"/>
+                                        <!--Info-->
+                                        <!--               <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
+                                        <div>
+                                            <div class="nav nav-divider">
+                                                <!--INPUT USER PROFILE LINK-->
+                                                <h6 class="nav-item card-title mb-0"><a
+                                                        th:href="@{/userProfile/{id}(id = ${post.getUser().id})}">
+                                                    <strong
 
                                                             th:text="${post.getUser().firstName}"></strong> <strong
-                                                            th:text="${post.getUser().lastName}"></strong>
-                                                        </a>
-                                                    </h6>
-                                                </div>
-                                                <p class="mb-0 small" th:text="${post.user.userTitle}"></p>
+                                                        th:text="${post.getUser().lastName}"></strong>
+                                                </a>
+                                                </h6>
                                             </div>
+                                            <p class="mb-0 small" th:text="${post.user.userTitle}"></p>
                                         </div>
                                     </div>
                                 </div>
-                                <!--Card header END-->
+                            </div>
+                            <!--Card header END-->
 
-                                <!--Card body START-->
-                                <div class="card-body">
-                                    <!--Post Description-->
-                                    <p class="card-text" th:text="${post.description}"></p>
+                            <!--Card body START-->
+                            <div class="card-body">
+                                <!--Post Description-->
+                                <p class="card-text" th:text="${post.description}"></p>
 
-                                    <!--Post image-->
-                                    <div th:if="${post.imgUrl} != 'null'">
-                                        <img th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
-                                    </div>
-                                    <!--video image-->
-                                    <div th:if="${post.videoUrl} != 'null'">
-                                        <video class="card-img-top" controls>
-                                            <source th:src="${post.videoUrl}" type="video/mp4">
-                                        </video>
-                                    </div>
+                                <!--Post image-->
+                                <div th:if="${post.imgUrl} != 'null'">
+                                    <img th:src="${post.imgUrl}" class="card-img-top" alt="logoImage">
+                                </div>
+                                <!--video image-->
+                                <div th:if="${post.videoUrl} != 'null'">
+                                    <video class="card-img-top" controls>
+                                        <source th:src="${post.videoUrl}" type="video/mp4">
+                                    </video>
+                                </div>
 
-                                    <!--Post Reaction Items START-->
-                                    <div class="d-flex align-items-center justify-content-between my-2">
-                                        <form th:action="@{/like/post/user}" th:method="post">
-                                            <input hidden name="postId" th:value="${post.id}">
+                                <!--Post Reaction Items START-->
+                                <div class="d-flex align-items-center justify-content-between my-2">
+                                    <form th:action="@{/like/post/user}" th:method="post">
+                                        <input hidden name="postId" th:value="${post.id}">
 
-                                            <button class="btn" type="submit">
-                                                <i class="fa-solid fa-thumbs-up"></i>
-                                                <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>
-                                            </button>
-
-                                        </form>
-
-                                        <form th:action="@{/dislike/post/user}" th:method="post">
-                                            <input hidden name="postId" th:value="${post.id}">
-                                            <button class="btn" type="submit">
-                                                <i class="fa-solid fa-thumbs-down"></i>
-                                                <span class="badge bg-secondary"
-                                                      th:text="${post.dislikes.size()}">
-                                                </span>
-                                            </button>
-                                        </form>
-
-                                        <button class="btn shareBtn" data-bs-toggle="collapse"
-                                                th:attr="data-bs-target='#collapse'+${post.id}"
-                                                aria-expanded="false" aria-controls="collapseExample">
-                                            Comments
-                                            <span class="badge ms-1"
-                                                  th:text="${post.getComments().size()}">
-                                            </span>
+                                        <button class="btn" type="submit">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                            <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>
                                         </button>
-                                    </div>
-                                    <!--Post Reaction Items END-->
 
-                                    <!--Edit and Delete buttons START-->
-                                    <!--                                    <div sec:authorize="isAuthenticated()">-->
-                                    <!--                                        <div th:if="${#authentication.principal.id} == ${user.id}">-->
-                                    <!--                                            <button class="btn" type="submit">-->
-                                    <!--                                                Edit-->
-                                    <!--                                            </button>-->
-                                    <!--                                            <button class="btn" type="submit">-->
-                                    <!--                                                Delete-->
-                                    <!--                                            </button>-->
-                                    <!--                                        </div>-->
-                                    <!--                                        <form th:action="@{/post/{id}/delete (id = ${post.id})}" method="POST">-->
-                                    <!--                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>-->
-                                    <!--                                        </form>-->
-                                    <!--                                    </div>-->
-                                    <!--Edit and Delete buttons END-->
+                                    </form>
 
+                                    <form th:action="@{/dislike/post/user}" th:method="post">
+                                        <input hidden name="postId" th:value="${post.id}">
+                                        <button class="btn" type="submit">
+                                            <i class="fa-solid fa-thumbs-down"></i>
+                                            <span class="badge bg-secondary"
+                                                  th:text="${post.dislikes.size()}">
+                                                </span>
+                                        </button>
+                                    </form>
 
+                                    <button class="btn shareBtn" data-bs-toggle="collapse"
+                                            th:attr="data-bs-target='#collapse'+${post.id}"
+                                            aria-expanded="false" aria-controls="collapseExample">
+                                        Comments
+                                        <span class="badge ms-1"
+                                              th:text="${post.getComments().size()}">
+                                            </span>
+                                    </button>
                                 </div>
-                                <!--Card body END-->
+                                <!--Post Reaction Items END-->
 
-                                <!--Card footer START-->
-                                <div class="card-footer">
+                                <!--Edit and Delete buttons START-->
+                                <!--                                    <div sec:authorize="isAuthenticated()">-->
+                                <!--                                        <div th:if="${#authentication.principal.id} == ${user.id}">-->
+                                <!--                                            <button class="btn" type="submit">-->
+                                <!--                                                Edit-->
+                                <!--                                            </button>-->
+                                <!--                                            <button class="btn" type="submit">-->
+                                <!--                                                Delete-->
+                                <!--                                            </button>-->
+                                <!--                                        </div>-->
+                                <!--                                        <form th:action="@{/post/{id}/delete (id = ${post.id})}" method="POST">-->
+                                <!--                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>-->
+                                <!--                                        </form>-->
+                                <!--                                    </div>-->
+                                <!--Edit and Delete buttons END-->
 
-                                    <!-- Add comment START-->
-                                    <div class="d-flex mb-3 mt-2">
-                                        <!-- Avatar -->
-                                        <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
-                                        <div class="avatar avatar-xs me-2">
-                                            <a href="#!"> <img class="avatar-img rounded-circle"
-                                                               style="width: 50px;"
-                                                               th:src="${user.profilePicture}" alt=""> </a>
-                                        </div>
-                                        <!-- Comment box  -->
-                                        <form class="w-75 d-flex justify-content-center"
-                                              th:action="@{/posts/{id}/create/comment/user(id=${post.id})}"
-                                              th:method="post"
-                                              th:object="${newComment}">
+
+                            </div>
+                            <!--Card body END-->
+
+                            <!--Card footer START-->
+                            <div class="card-footer">
+
+                                <!-- Add comment START-->
+                                <div class="d-flex mb-3 mt-2">
+                                    <!-- Avatar -->
+                                    <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
+                                    <div class="avatar avatar-xs me-2">
+                                        <a href="#!"> <img class="avatar-img rounded-circle"
+                                                           style="width: 50px;"
+                                                           th:src="${user.profilePicture}" alt=""> </a>
+                                    </div>
+                                    <!-- Comment box  -->
+                                    <form class="w-75 d-flex justify-content-center"
+                                          th:action="@{/posts/{id}/create/comment/user(id=${post.id})}"
+                                          th:method="post"
+                                          th:object="${newComment}">
                                             <textarea th:field="*{message}" name="commentSection" data-autoresize=""
                                                       class="form-control pe-4 bg-light" rows="1"
                                                       placeholder="Add a comment..."></textarea>
-                                            <button class="btn btn-outline-light ms-1" type="submit">comment</button>
-                                        </form>
-                                    </div>
-                                    <!-- Add comment END-->
-
-                                    <!-- Comment wrap START -->
-                                    <div th:each="comment: ${post.getComments()}">
-                                        <div class="collapse" th:id="'collapse'+${post.id}">
-
-
-                                            <!--All Comments for Post START-->
-                                            <ul class="comment-wrap list-unstyled">
-                                                <li class="comment-item">
-                                                    <div class="d-flex position-relative">
-                                                        <!-- Avatar -->
-                                                        <!--GET COMMENT USER IMAGE-->
-                                                        <div class="avatar avatar-xs">
-                                                            <a href=""><img style="width: 50px;"
-                                                                            class="avatar-img rounded-circle"
-                                                                            th:src="${comment.user.profilePicture}"
-                                                                            alt=""></a>
-                                                        </div>
-                                                        <div class="ms-2">
-                                                            <!-- Comment by -->
-                                                            <div class=" rounded-start-top-0 p-3 rounded">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <h6 class="mb-1"><a href="#!"
-                                                                                        th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a>
-                                                                    </h6>
-                                                                </div>
-                                                                <p class="small mb-0" th:text="${comment.message}"></p>
-                                                            </div>
-                                                            <!-- Comment react -->
-                                                            <!-- PUT THIS IF TIME IS ALLOTED-->
-                                                            <!--                            <ul class="nav nav-divider py-2 small">-->
-                                                            <!--                                <li class="nav-item">-->
-                                                            <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
-                                                            <!--                                </li>-->
-                                                            <!--                                <li class="nav-item">-->
-                                                            <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
-                                                            <!--                                </li>-->
-                                                            <!--                                <li class="nav-item">-->
-                                                            <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
-                                                            <!--                                </li>-->
-                                                            <!--                            </ul>-->
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <!--All Comments for Post END-->
-
-                                        </div>
-                                    </div>
-                                    <!-- Comment wrap END -->
-
+                                        <button class="btn btn-outline-light ms-1" type="submit">comment</button>
+                                    </form>
                                 </div>
-                                <!--Card footer END-->
+                                <!-- Add comment END-->
+
+                                <!-- Comment wrap START -->
+                                <div th:each="comment: ${post.getComments()}">
+                                    <div class="collapse" th:id="'collapse'+${post.id}">
+
+
+                                        <!--All Comments for Post START-->
+                                        <ul class="comment-wrap list-unstyled">
+                                            <li class="comment-item">
+                                                <div class="d-flex position-relative">
+                                                    <!-- Avatar -->
+                                                    <!--GET COMMENT USER IMAGE-->
+                                                    <div class="avatar avatar-xs">
+                                                        <a href=""><img style="width: 50px;"
+                                                                        class="avatar-img rounded-circle"
+                                                                        th:src="${comment.user.profilePicture}"
+                                                                        alt=""></a>
+                                                    </div>
+                                                    <div class="ms-2">
+                                                        <!-- Comment by -->
+                                                        <div class=" rounded-start-top-0 p-3 rounded">
+                                                            <div class="d-flex justify-content-between">
+                                                                <h6 class="mb-1"><a href="#!"
+                                                                                    th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a>
+                                                                </h6>
+                                                            </div>
+                                                            <p class="small mb-0" th:text="${comment.message}"></p>
+                                                        </div>
+                                                        <!-- Comment react -->
+                                                        <!-- PUT THIS IF TIME IS ALLOTED-->
+                                                        <!--                            <ul class="nav nav-divider py-2 small">-->
+                                                        <!--                                <li class="nav-item">-->
+                                                        <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
+                                                        <!--                                </li>-->
+                                                        <!--                                <li class="nav-item">-->
+                                                        <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
+                                                        <!--                                </li>-->
+                                                        <!--                                <li class="nav-item">-->
+                                                        <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
+                                                        <!--                                </li>-->
+                                                        <!--                            </ul>-->
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <!--All Comments for Post END-->
+
+                                    </div>
+                                </div>
+                                <!-- Comment wrap END -->
 
                             </div>
-                            <!--//Post Card item END-->
+                            <!--Card footer END-->
 
                         </div>
-                        <!--Column END-->
-<!--                    </div>-->
+                        <!--//Post Card item END-->
+
+                    </div>
+                    <!--Column END-->
+                    <!--                    </div>-->
                     <!--Foreach Loop for each Post for user END-->
 
                 </div>

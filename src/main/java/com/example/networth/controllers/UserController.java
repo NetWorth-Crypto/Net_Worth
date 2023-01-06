@@ -3,6 +3,7 @@ package com.example.networth.controllers;
 import com.example.networth.models.*;
 import com.example.networth.repositories.FollowerRepository;
 import com.example.networth.repositories.UserRepository;
+import com.example.networth.services.FollowerService;
 import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserController {
     private final UserService userService;
 
 
+    private final FollowerService followerService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -39,12 +41,26 @@ public class UserController {
 
 
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowingService followingService) {
+
+
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowerService followerService, FollowingService followingService) {
+
+
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.followerService = followerService;
 
         this.followingService = followingService;
     }
+
+
+
+    public int getFollowerSum(User user){
+      int total =  followerService.getUserFollowers(user).size();
+      return total;
+    }
+
+
 
     User loggedinUser(){
       return   (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -68,7 +84,7 @@ public class UserController {
 
 
     @RequestMapping(value = {"/searchUser", "/searchUser/{user}"})
-    public String searchUser(Model model,  @RequestParam("user") Optional<String> user) {
+    public String search(Model model,  @RequestParam("user") Optional<String> user) {
 
         if (user.isEmpty()){
             return "users/searchUser";
@@ -85,38 +101,32 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = {"/searchFollower", "/searchFollower/{user}"})
-    public String searchFollower(Model model, @RequestParam("user") Optional<String>user) {
-
-        if (user.isEmpty()){
-            return "users/followers";
-        }else {
-
-            String userFollowers = user.get();
-            System.out.println(userFollowers);
-            List<User> lists = userService.getByUser(userFollowers);
-            System.out.println(lists.size());
-            model.addAttribute("lists", lists);
-            System.out.println(lists);
-            return "users/followers";
-        }
+    @GetMapping("/searchFollower")
+    public String searchFollower(Model model, String user) {
+        System.out.println(user);
+        List<User> lists = userService.getByUser(user);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+        return "users/followers";
     }
 
-    @RequestMapping(value = {"/searchFollowing", "/searchFollowing/{user}"})
-    public String searchFollowing(Model model, @RequestParam("user") Optional<String>user) {
+    @GetMapping("/searchFollowing")
+    public String searchFollowing(Model model, String user) {
+        System.out.println(user);
+        List<User> lists = userService.getByUser(user);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+        return "users/following";
+    }
 
-        if (user.isEmpty()){
-            return "users/following";
-        }else {
 
-            String userFollowing = user.get();
-            System.out.println(userFollowing);
-            List<User> lists = userService.getByUser(userFollowing);
-            System.out.println(lists.size());
-            model.addAttribute("lists", lists);
-            System.out.println(lists);
-            return "users/following";
-        }
+
+
+
+    @GetMapping("/followers")
+    public String testFollower(Model model) {
+        model.addAttribute("follower", new Follower());
+        return "users/followers";
     }
 
     @PostMapping("/create/followers")
