@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Follower{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long follower_id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,12 +24,12 @@ public class Follower{
         this.follower_user_id = follower_user_id;
     }
 
-    public long getFollower_id() {
-        return follower_id;
+    public long getId() {
+        return id;
     }
 
-    public void setFollower_id(long follower_id) {
-        this.follower_id = follower_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public User getUser() {
