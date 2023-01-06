@@ -24,36 +24,49 @@
 </head>
 <!--Head tag fragment END-->
 
-<!--Main Nav tag fragment START-->
-<nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
+
+<nav th:fragment="landingNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a href="/" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
-<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"-->
-<!--                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
-
-<!--        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">-->
-<!--            <span> </span>-->
-
-<!--            <ul class="navbar-nav ">-->
-<!--                <li class="nav-item">-->
-<!--                    &lt;!&ndash;                    <form th:action="@{/logout}" method="POST">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        <button class="btn" type="submit">Logout</button>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    </form>&ndash;&gt;-->
-<!--                </li>-->
-<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>&ndash;&gt;-->
-<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>&ndash;&gt;-->
-<!--            </ul>-->
-
-
-<!--        </div>-->
     </div>
 </nav>
-<!--Main Nav tag fragment END-->
 
-<!-- Landing Navbar When Logged in START -->
-<nav th:fragment="loggedInLandingNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
+
+<!-- START Landing Navbar -->
+<nav th:fragment="loginNavbar" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
+    </div>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="mainNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link text-primary" aria-current="page" href="/about">about</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- END Landing Navbar -->
+
+<!-- START Profile Navbar -->
+<nav th:fragment="profileNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a th:href="@{/userProfile}" class="navbar-brand">
+            <img class="navbar-img" src="/images/networth-1.png" alt="">
+        </a>
+        <!-- About Link -->
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="profileNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-primary" aria-current="page" href="/about">about</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END Profile Navbar -->
+
+<!-- START About Us Navbar -->
+<nav th:fragment="aboutUsNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a th:href="@{/userProfile}" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
@@ -61,7 +74,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse d-flex justify-content-center" id="aboutNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link text-primary" aria-current="page" href="/about">about</a>
@@ -72,7 +85,7 @@
 </nav>
 <!-- Landing Navbar When Logged in END -->
 
-<!--Side Nav tag fragment START-->
+<!--Side Navbar tag fragment START-->
 <div th:fragment="sideNavbar" class="col-lg-3">
 
     <!-- Advanced filter responsive toggler START -->
