@@ -23,6 +23,9 @@ public class ProfileController
 
     private final UserService userService;
 
+
+
+
     public ProfileController(PasswordEncoder passwordEncoder, UserRepository userDao, UserService userService)
     {
         this.passwordEncoder = passwordEncoder;
@@ -54,6 +57,11 @@ public class ProfileController
 
         } else {
             //Get logged-in user
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth.getPrincipal() == "anonymousUser")
+            {
+                return "redirect:login";
+            }
             User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userDao.getReferenceById(loggedinUser.getId());
 

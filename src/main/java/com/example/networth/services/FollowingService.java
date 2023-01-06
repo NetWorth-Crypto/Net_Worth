@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 public class FollowingService {
 
+
     private final FollowingRepository followingDao;
 
     private final UserService userDao;
@@ -20,17 +21,17 @@ public class FollowingService {
         this.userDao = userDao;
 
     }
-
-
-
-
-    public void removeFollowing(long userId, long followingId){
-        User user  = userDao.findById(userId);
-        user.getFollowings().removeIf(x -> x.getId()==followingId);
-        userDao.saveUser(user);
-    }
-
-
+//
+//
+//
+//
+//    public void removeFollowing(long userId, long followingId){
+//        User user  = userDao.findById(userId);
+//        user.getFollowings().removeIf(x -> x.getId()==followingId);
+//        userDao.saveUser(user);
+//    }
+//
+//
     public List<Following> getUserFollowings(User user){
         return user.getFollowings();
     }
@@ -41,10 +42,10 @@ public class FollowingService {
         return followingDao.findAll();
     }
 
-    public List<Following> getUserNotFollowings(User user){
-        return followingDao.getUserNotFollowings(user.getId());
-    }
-
+//    public List<Following> getUserNotFollowings(User user){
+//        return followingDao.getUserNotFollowings(user.getId());
+//    }
+//
     public void save(Following following) {
         followingDao.save(following);
     }

@@ -183,7 +183,7 @@ public class UserFinancePortfolioCtl {
         portfolioService.addPortfolio(portfolio1);
 
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 
@@ -203,7 +203,7 @@ public class UserFinancePortfolioCtl {
         portfolioService.delete(portfolio);
 
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 
