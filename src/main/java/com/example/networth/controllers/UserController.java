@@ -6,10 +6,8 @@ import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.FollowerService;
 import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,20 +34,20 @@ public class UserController {
 
     private final FollowingService followingService;
 
-//    @Autowired
     private UserRepository userDao;
+
 
 
 
 
     public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowerService followerService, FollowingService followingService) {
 
+
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.followerService = followerService;
 
         this.followingService = followingService;
-        this.userDao = userDao;
     }
 
 
@@ -83,7 +81,7 @@ public class UserController {
 
 
     @RequestMapping(value = {"/searchUser", "/searchUser/{user}"})
-    public String searchUser(Model model,  @RequestParam("user") Optional<String> user) {
+    public String search(Model model,  @RequestParam("user") Optional<String> user) {
 
         if (user.isEmpty()){
             return "users/searchUser";
@@ -100,38 +98,32 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = {"/searchFollower", "/searchFollower/{user}"})
-    public String searchFollower(Model model, @RequestParam("user") Optional<String>user) {
-
-        if (user.isEmpty()){
-            return "users/followers";
-        }else {
-
-            String userFollowers = user.get();
-            System.out.println(userFollowers);
-            List<User> lists = userService.getByUser(userFollowers);
-            System.out.println(lists.size());
-            model.addAttribute("lists", lists);
-            System.out.println(lists);
-            return "users/followers";
-        }
+    @GetMapping("/searchFollower")
+    public String searchFollower(Model model, String user) {
+        System.out.println(user);
+        List<User> lists = userService.getByUser(user);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+        return "users/followers";
     }
 
-    @RequestMapping(value = {"/searchFollowing", "/searchFollowing/{user}"})
-    public String searchFollowing(Model model, @RequestParam("user") Optional<String>user) {
+    @GetMapping("/searchFollowing")
+    public String searchFollowing(Model model, String user) {
+        System.out.println(user);
+        List<User> lists = userService.getByUser(user);
+        model.addAttribute("lists", lists);
+        System.out.println(lists);
+        return "users/following";
+    }
 
-        if (user.isEmpty()){
-            return "users/following";
-        }else {
 
-            String userFollowing = user.get();
-            System.out.println(userFollowing);
-            List<User> lists = userService.getByUser(userFollowing);
-            System.out.println(lists.size());
-            model.addAttribute("lists", lists);
-            System.out.println(lists);
-            return "users/following";
-        }
+
+
+
+    @GetMapping("/followers")
+    public String testFollower(Model model) {
+        model.addAttribute("follower", new Follower());
+        return "users/followers";
     }
 
     @PostMapping("/create/followers")
@@ -276,29 +268,7 @@ public class UserController {
 
 
 
-    //Upload User Profile Image
-    @GetMapping ("/users/imageUpload/{baseImgUrl}/{extensionUrl}/{returnUrl}")
-    public String profileImageUpload(@PathVariable String baseImgUrl,
-                                     @PathVariable String extensionUrl,
-                                     @PathVariable String returnUrl){
-        System.out.println("Upload image controller hit");
-        System.out.println("base image url: "+baseImgUrl);
-        System.out.println("extension url: "+ extensionUrl);
-        System.out.println("return url: "+ returnUrl);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
-            return "redirect:login";
-        }
-        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getReferenceById(loggedinUser.getId());
 
-        String imgUrl = "https://"+baseImgUrl+"/"+extensionUrl;
-        user.setProfilePicture(imgUrl);
-        userDao.save(user);
-        System.out.println("Save should hit");
-        return "redirect:/"+returnUrl;
-    }
 
 
 
