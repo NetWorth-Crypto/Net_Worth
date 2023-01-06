@@ -5,175 +5,100 @@
 </head>
 <body>
 <!--Main NavBar START-->
-<nav th:replace="partials:: mainNavbar"/>
+<nav th:replace="partials:: loggedInLandingNavbar"/>
 <!--Main NavBar END-->
 
-<!-- Container Start -->
-<div class="container">
-    <div class="row align-items-center">
-        <div class="col-lg-6 col-md-6 order-2 order-md-1 mt-4 pt-2 mt-sm-0 opt-sm-0">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6 col-6">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 mt-4 pt-2">
-                            <!-- Start Flip Card Crypto Roller Coaster Image -->
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <!-- Flip Card Image -->
-                                    <div class="flip-card-front">
-                                        <img th:src="@{images/CryptoLandingCard.jpg}" alt="Avatar" style="width:300px;height:300px;">
-                                    </div>
-                                    <!-- Attribute for Image -->
-                                    <h6>
-                                        <small>Crypto Currency Roller coaster,
-                                            <span onclick="window.location='https://www.vpnsrus.com/'">
-                                                <i>Mike MacKenzie</i>
-                                            </span>
-                                        </small>
-                                    </h6>
-                                    <!-- Flip Card-Back -->
-                                    <div class="flip-card-back d-flex flex-column">
-                                        <h1>Learning Crypto can be overwhelming . . . Until NetWorth</h1>
-                                        <hr>
-                                        <p>Investing doesn't need to be an emotional roller coaster</p>
-                                        <hr>
-                                        <p>NetWorth provides you a non-censored experience during a time when media ought to inform better the inevitable economic turmoil.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Flip Card Crypto Roller Coaster Image -->
-                        <!--End Column-->
-
-                        <!-- Start Read More Button (May Delete; May create a few blogs if time.) -->
-                        <div class="col-12">
-                            <div class="mt-4 pt-2 text-right">
-                                <a hidden href="javascript:void(0)" class="btn btn-info">Read More <i class="mdi mdi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Read More Button (May Delete; May create a few blogs if time.) -->
-                    <!-- End Row -->
-                </div>
-                <!-- End Column -->
-
-                <div class="col-lg-6 col-md-6 col-6">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <!-- Start Flip Card Monkey Rebellion Image (Image NOT APPROVED if app goes commercial) -->
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <!-- Flip Card Image -->
-                                    <div class="flip-card-front">
-                                        <img th:src="@{images/MonkeyRebellion.jpg}" alt="Avatar" style="width:300px;height:300px;">
-                                    </div>
-                                    <!-- Attribute for Image -->
-                                    <h6>
-                                        <small>Monkey Rebellion - Gimme you helmets!,
-                                            <span onclick="window.location='https://www.flickr.com/photos/st3f4n/'">
-                                                <i>DocChewbacca</i>
-                                            </span>
-                                        </small>
-                                    </h6>
-                                    <!-- Flip Card-Back -->
-                                    <div class="flip-card-back d-flex flex-column">
-                                        <h1>Apes Together Strong</h1>
-                                        <hr>
-                                        <p>On January 28, 2021, Retail Investors were victims of market manipulation by not allowing to buy particular stocks, which has never been done before.</p>
-                                        <hr>
-                                        <p>Investors gathered on Reddit's <span onclick="window.location='https://www.reddit.com/r/Superstonk/comments/qig65g/welcome_rall_looking_to_catch_up_on_the_gme_saga/'">r/Superstonk</span>after r/wallstreetbets was clearly infiltrated with bots</p>
-                                        <hr>
-                                        <p>NetWorth provides you a non-censored experience during a time when media ought to inform better the inevitable economic turmoil.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Flip Card Monkey Rebellion Image (Image NOT APPROVED if app goes commercial) -->
-                            <!-- End Column -->
-
-                            <!-- Start Flip Card Joker Eth Image (Image NOT APPROVED if app goes commercial) -->
-                            <div class="flip-card">
-                                <div class="flip-card-inner">
-                                    <!-- Flip Card Image -->
-                                    <div class="flip-card-front">
-                                        <img th:src="@{images/EthereumClassicWallpaperAnonymousCryptocurrencyWallet.jpg}" alt="Avatar" style="width:300px;height:300px;">
-                                    </div>
-                                    <!-- Attribute for Image -->
-                                    <h6>
-                                        <small>Ethereum Classic Wallpaper - Anonymous Cryptocurrency Wallet,
-                                            <span onclick="window.location='https://www.flickr.com/photos/ethereumclassic/'">
-                                                <i>ETC</i>
-                                            </span>
-                                        </small>
-                                    </h6>
-                                    <!-- Flip Card-Back -->
-                                    <div class="flip-card-back d-flex flex-column">
-                                        <h1>Fate Loves Irony</h1>
-                                        <hr>
-                                        <p>Remember hearing about Bitcoin in 2009?</p>
-                                        <hr>
-                                        <p>Remember the crypto craze during/after January 28, 2021, when the Buy button was taken away?</p>
-                                        <hr>
-                                        <p>Soon many will learn how corrupt the U.S. market, elected Congress, et. al, continue enriching Banks and Wall Street while forcing the nation's citizens paying the debt, like the Great Recession in 2008.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Flip Card Joker Eth Image (Image NOT APPROVED if app goes commercial) -->
-                        </div>
-                        <!-- End Column -->
-                    </div>
-                    <<!-- End Row -->
-                </div>
-                    <!-- End Column -->
-            </div>
-                <!-- End Row -->
-        </div>
-            <!-- End Column -->
-
-        <div class="col-lg-6 col-md-6 col-12 order-1 order-md-2">
-            <div class="section-title ml-lg-5">
-                <h5 class="text-custom font-weight-normal mb-3">About Us</h5>
-                <h4 class="title mb-4">
-                    NetWorth <br />
-                    where you can learn, follow, share, and more <br />
-                    with others <br />
-                    about all things cryptocurrency.
-                </h4>
-                <p class="text-muted mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit quod debitis praesentium pariatur temporibus ipsa, cum quidem obcaecati sunt?</p>
-
-                <div class="row">
-                    <div class="col-lg-6 mt-4 pt-2">
-                        <div class="media align-items-center rounded shadow p-3">
-                            <i class="fa fa-play h4 mb-0 text-custom"></i>
-                            <h6 class="ml-3 mb-0"><a href="javascript:void(0)" class="text-dark">Responsive</a></h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4 pt-2">
-                        <div class="media align-items-center rounded shadow p-3">
-                            <i class="fa fa-file-download h4 mb-0 text-custom"></i>
-                            <h6 class="ml-3 mb-0"><a href="javascript:void(0)" class="text-dark">Free Download</a></h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4 pt-2">
-                        <div class="media align-items-center rounded shadow p-3">
-                            <i class="fa fa-user h4 mb-0 text-custom"></i>
-                            <h6 class="ml-3 mb-0"><a href="javascript:void(0)" class="text-dark">Support</a></h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mt-4 pt-2">
-                        <div class="media align-items-center rounded shadow p-3">
-                            <i class="fa fa-image h4 mb-0 text-custom"></i>
-                            <h6 class="ml-3 mb-0"><a href="javascript:void(0)" class="text-dark">Development</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <!-- End Column -->
+<header>
+    <div class="container text-center py-5 mb-4">
+        <h1 class="fw-light text-white">About Us</h1>
+        <hr>
     </div>
-        <!-- End Row -->
+</header>
+<!-- Developer Profiles-->
+<div class="container">
+    <div class="row">
+        <!-- ANTHONY STEVENS -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <!-- Profile Image -->
+            <div class="card rounded border-0 shadow">
+                <img src="/images/Anthony_Stevens.jpg" class="card-img-top" alt="Anthony Stevens">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Anthony Stevens</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                            <!-- Github Link -->
+                            <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/astevens09}" target="_blank"></a>
+                            <!-- LinkedIn Link -->
+                            <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/anthonymstevens/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- YOGESH ADHIKARI -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <div class="card rounded border-0 shadow">
+                <!-- Profile Image -->
+                <img src="/images/Yogesh_Adhikari.jpeg" class="card-img-top" alt="Yogesh Adhikari">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Yogesh Adhikari</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/yogesh-adhikari}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/yogesh-adhikari/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AMIDA FOMBUTU -->
+        <div class="col-xl-3 col-md-6 mb-4 align-items-stretch">
+            <div class="card rounded border-0 shadow">
+                <!-- Profile Image -->
+                <img src="/images/Amida_Fombutu.jpeg" class="card-img-top" alt="Amida Fombutu">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Amida Fombutu</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/midoostar1}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/amida-fombutu/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CASANOVA GEARY -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card rounded border-0 border-primary shadow">
+                <!-- Profile Image -->
+                <img src="/images/Casanova_Geary.jpeg" class="card-img-top" alt="Casanova Geary">
+                <!-- Card Footer -->
+                <div class="card-body text-center">
+                    <h5 class="card-title mb-0">Casanova Geary</h5>
+                    <div class="card-text text-secondary">Full-Stack Web Developer</div>
+                    <!-- Social Icons -->
+                    <div class="d-flex mt-2 justify-content-around">
+                        <!-- Github Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-github l4" th:href="@{https://github.com/5T0P5331N6M3}" target="_blank"></a>
+                        <!-- LinkedIn Link -->
+                        <a style="text-decoration: none" class="fa-brands fa-linkedin-in" th:href="@{https://www.linkedin.com/in/casanova-geary/}" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Row -->
 </div>
-<!-- Container Start -->
-<!--    Javascript files for image upload-->
+<!-- End Container -->
+
+<!-- Javascript files for image upload -->
 <div th:replace="partials::scriptTags"/>
 </body>
 </html>
