@@ -5,6 +5,7 @@ import com.example.networth.repositories.FollowerRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
@@ -33,16 +34,18 @@ public class UserController {
 
     private final FollowingService followingService;
 
-    @Autowired
+//    @Autowired
     private UserRepository userDao;
 
 
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowingService followingService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowingService followingService,
+                          UserRepository userDao) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
 
         this.followingService = followingService;
+        this.userDao = userDao;
     }
 
     User loggedinUser(){

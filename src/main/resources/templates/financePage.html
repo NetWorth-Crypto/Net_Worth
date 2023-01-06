@@ -23,7 +23,12 @@
 
                         <div class="col-5">
                         <h5 class="card-heading " th:text="${selectedPortfolio.name}">Portfolio Name</h5>
-                        <a class="btn shareBtn">Add Asset</a>
+                            <!-- Button trigger for crypto list modal START-->
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#cryptoModal">
+                                <i class="fa-brands fa-bitcoin"></i>
+                                Add Asset
+                            </button>
+                            <!-- Button trigger for crypto list modal END-->
                         </div>
 
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal START-->
@@ -289,6 +294,7 @@
         });
     </script>
     <div th:replace="partials::scriptTags"/>
+    <div th:replace="partials::cryptoScriptTags"/>
 </div>
 
 </body>
@@ -343,4 +349,82 @@
     </div>
 </div>
 <!--Create Portfolio Modal END-->
+
+<!-- Crypto asset Modal START-->
+<div class="modal fade" id="cryptoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+
+            <!--Modal Header START-->
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" ></h1>
+
+                <!--Crypto Search Bar START-->
+                <form class="d-flex">
+                    <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search"
+                           aria-label="Search">
+                    <button id="searchBtn" data-bs-toggle="modal" data-bs-target="#cryptoSearchModal" class="btn btn-outline-success " type="button">Search</button>
+                </form>
+                <!--Crypto Search Bar START-->
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!--Modal Header END-->
+
+            <!--Modal Body Start-->
+            <div class="modal-body">
+                <!-- <section class="crypto-page"> -->
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Current Price</th>
+                            <th scope="col">Market Cap</th>
+                            <th scope="col">24Hr High</th>
+                            <th scope="col">24Hr Low</th>
+                            <th scope="col">24Hr Price Change </th>
+                            <th scope="col">more</th>
+                        </tr>
+                        </thead>
+                        <tbody id="list-crypto"></tbody>
+                    </table>
+                </div>
+                <!-- </section> -->
+            </div>
+            <!--Modal Body Start-->
+
+        </div>
+    </div>
+</div>
+<!-- Crypto asset Modal END-->
+
+<!-- Crypto asset Modal START-->
+<div class="modal fade" id="cryptoSearchModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+
+            <!--Modal Header START-->
+            <div class="modal-header">
+                <!-- <h1 class="modal-title fs-5" id="ModalLabel"></h1> -->
+
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cryptoModal" aria-label="Close"></button>
+                <!-- <button type="button" class="btn-close" data-bs-dismiss="crypto-page" aria-label="Close"></button> -->
+
+            </div>
+            <!--Modal Header END-->
+
+            <!--Modal Body Start-->
+            <div class="modal-body">
+                <section class="crypto-page">
+
+                </section>
+            </div>
+            <!--Modal Body Start-->
+
+        </div>
+    </div>
+</div>
+<!-- Crypto asset Modal END-->
 </html>
