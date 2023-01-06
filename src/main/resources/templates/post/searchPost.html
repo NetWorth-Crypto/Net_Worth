@@ -1,147 +1,183 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Search Post</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="partials::head"/>
 <body>
-<div class="container mt-5">
-    <h2 align="center">Searching Post</h2>
-    <form th:action="@{/searchPost/}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}"  placeholder="find post" size="50" >
-        <button type="submit" class="btn btn-info" >Search</button>
-    </form>
 
-    <div th:each="list : ${lists}" class="card mt-2">
-        <div  class="row row-cols-2 bg-light w-100">
+<!--Main Navbar-->
+<nav th:replace="partials::mainNavbar"/>
 
-            <div class="card-body">
-                <!--Post Description-->
-                <p class="card-text" th:text="${list.description}"></p>
-
-                <!--Post image-->
-                <!--MAKE IMAGE AND VIDEO CONDITIONAL UPON NULL CHECK-->
-                <img src="images/logo.png" class="card-img-top" alt="logoImage">
-
-                <!--Post Reaction Items START-->
-                <div class="d-flex align-items-center justify-content-between">
-                    <form th:action="@{/like/testpost}" th:method="post">
-                        <input hidden th:value="${list.id}">
-
-                        <button class="btn" type="submit">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <span class="badge bg-secondary" th:text="${list.likes.size()}"></span>
-                        </button>
-
-                    </form>
-                    <form th:action="@{/dislike/testpost}" th:method="post">
-                        <input hidden th:value="${list.id}">
-                        <button class="btn" type="submit">
-                            <i class="fa-solid fa-thumbs-down"></i>
-                            <span class="badge bg-secondary" th:text="${list.dislikes.size()}"></span>
-                        </button>
-
-                    </form>
-
-                    <button type="button" class="btn" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <!--PUT total comment data in badge-->
-                        Comment
-                        <span class="badge bg-secondary">14</span>
-                    </button>
-
-                </div>
-                <!--Post Reaction Items END-->
-
-                <!-- Add comment START-->
-                <div class="d-flex mb-3">
-                    <!-- Avatar -->
-                    <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
-                    <div class="avatar avatar-xs me-2">
-                        <a href="#!"> <img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt=""> </a>
-                    </div>
-                    <!-- Comment box  -->
-                    <form class="w-100">
-                        <textarea data-autoresize="" class="form-control pe-4 bg-light" rows="1" placeholder="Add a comment..."></textarea>
-                        <input type="submit" hidden>
-                    </form>
-                </div>
-                <!-- Add comment END-->
-
-                <!-- Comment wrap START -->
-                <div class="collapse" id="collapseExample">
-                    <ul class="comment-wrap list-unstyled">
-                        <li class="comment-item">
-                            <div class="d-flex position-relative">
-                                <!-- Avatar -->
-                                <!--GET COMMENT USER IMAGE-->
-                                <div class="avatar avatar-xs">
-                                    <a href="#!"><img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt=""></a>
-                                </div>
-                                <div class="ms-2">
-                                    <!-- Comment by -->
-                                    <div class="bg-light rounded-start-top-0 p-3 rounded">
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="mb-1"> <a href="#!"> Anthony Stevens </a></h6>
-                                        </div>
-                                        <p class="small mb-0">No more Comment.comment</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Comment wrap END -->
-
-            </div>
-            <!--Card body END-->
-
-        </div>
-        <!--Post Card Item END-->
-    </div>
-
-</div>
-</div>
-</div>
-
-</div>
-</body>
-</html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-
-<!--<head th:replace="partials::head"/>-->
-<!--<body>-->
-
-<!--&lt;!&ndash;Main Navbar&ndash;&gt;-->
-<!--<nav th:replace="partials::mainNavbar"/>-->
-
-<!--&lt;!&ndash;Primary Content&ndash;&gt;-->
-<!--<main>-->
-<!--    &lt;!&ndash; Container START &ndash;&gt;-->
-<!--    <div class="container">-->
-<!--        <div class="row g-4">-->
+<!--Primary Content-->
+<main>
+    <!-- Container START -->
+    <div class="container">
+        <div class="row g-4">
 
 <!--            &lt;!&ndash; Sidenav START &ndash;&gt;-->
 <!--            <div th:replace="partials::sideNavbar"/>-->
 <!--            &lt;!&ndash; Sidenav END &ndash;&gt;-->
 
+            <!--Side Nav tag fragment START-->
+            <div class="col-lg-3">
 
-<!--            &lt;!&ndash; Main content START &ndash;&gt;-->
-<!--            <div class="col-md-8 col-lg-6 vstack gap-4">-->
-<!--                &lt;!&ndash; Top Performing Portfolio START &ndash;&gt;-->
-<!--                &lt;!&ndash;PUT carousel here with top portfolios&ndash;&gt;-->
-<!--                &lt;!&ndash; Top Performing PortfolioEND &ndash;&gt;-->
-<!--                &lt;!&ndash; Search Posts &ndash;&gt;-->
-<!--                <div class="card card-body form-group d-flex justify-content-end">-->
-<!--                    <form class="form-group w-100 col-md-8 col-lg-6" th:action="@{/searchPost}" method="get">-->
-<!--                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">-->
-<!--                        <button type="submit" class="rounded">Search</button>-->
-<!--                    </form>-->
-<!--                </div>-->
+                <!-- Advanced filter responsive toggler START -->
+                <div class="d-flex align-items-center d-lg-none">
+                    <button class="profile-button border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
+                        <i class="fa-brands fa-bitcoin" style="color: gold"></i>
+                        <span class="h6 mb-0 fw-bold d-lg-none ms-2">Profile Menu</span>
+                    </button>
+                </div>
+                <!-- Advanced filter responsive toggler END -->
 
-<!--                &lt;!&ndash; Share feed START &ndash;&gt;-->
+                <!-- Navbar START-->
+                <nav class="navbar navbar-expand-lg ">
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body d-block px-2 px-lg-0">
+                            <!-- Card START -->
+                            <div class="card overflow-hidden">
+                                <!-- Cover image -->
+                                <div class="h-50px"
+                                     style="background-image:url('https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+
+                                <!-- Card body START -->
+                                <div class="card-body pt-0">
+                                    <div class="text-center">
+
+                                        <!-- Avatar / Profile Pic -->
+                                        <div id="userProfilePic" class="avatar avatar-lg mt-n5 mb-3">
+                                            <a href="#">
+                                                <img style="width: 50px;" class="avatar-img  border  border-3 mt-2" th:src="${user.profilePicture}" alt="">
+                                            </a>
+                                        </div>
+
+                                        <!-- User Info -->
+                                        <h5 class="mb-0"><a href="/userProfile" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
+                                        <br>
+                                        <small th:text="${user.userTitle}"></small>
+                                        <br>
+                                        <br>
+
+                                        <!-- User stat START -->
+                                        <div class="hstack gap-2 gap-xl-3 justify-content-center">
+                                            <!-- User stat item -->
+<!--                                            <div>-->
+<!--                                                <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>-->
+<!--                                                <small>Post</small>-->
+<!--                                            </div>-->
+
+                                            <!-- Divider -->
+                                            <div class="vr"></div>
+                                            <!-- User stat item -->
+                                            <div>
+                                                <h6 class="mb-0"></h6>
+                                                <small>Followers</small>
+                                            </div>
+                                            <!-- Divider -->
+                                            <div class="vr"></div>
+                                            <!-- User stat item -->
+                                            <div>
+                                                <h6 class="mb-0" ></h6>
+                                                <small>Following</small>
+                                            </div>
+                                        </div>
+                                        <!-- User stat END -->
+
+                                    </div>
+
+                                    <!-- Divider -->
+                                    <hr>
+                                    <!-- Side Nav START -->
+                                    <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/posts">
+                                                <i class="fa-solid fa-network-wired"></i>
+                                                <span> $tockpile</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/userProfile">
+                                                <i
+                                                        class="fa-solid fa-money-bill-trend-up">
+                                                </i>
+                                                <span> Profile</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/finance">
+                                                <i class="fa-brands fa-bitcoin"></i>
+                                                <span> Dashboard</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/crypto">
+                                                <i class="fa-solid fa-money-bill-trend-up"></i>
+                                                <span> Market</span>
+                                            </a>
+                                        </li>
+
+
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/updateProfile">
+                                                <i class="fa-solid fa-user"></i>
+                                                <span> Update Profile</span>
+                                            </a>
+                                        </li>
+
+
+                                        <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
+                                            <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage Users</a>
+                                        </li>
+
+
+                                    </ul>
+                                    <!-- Side Nav END -->
+                                </div>
+                                <!-- Card body END -->
+                                <!-- Card footer -->
+                                <div class="card-footer text-center py-2">
+                                    <form th:action="@{/logout}" method="POST">
+                                        <button class="btn shareBtn" type="submit">Logout</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Card END -->
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Navbar END-->
+            </div>
+            <!--Side Nav tag fragment END-->
+
+
+
+            <!-- Main content START -->
+            <div class="col-md-8 col-lg-6 vstack gap-4">
+                <!-- Top Performing Portfolio START -->
+                <!--PUT carousel here with top portfolios-->
+                <!-- Top Performing PortfolioEND -->
+                <!-- Search Posts -->
+                <div class="card card-body form-group d-flex justify-content-end">
+                    <form class="form-group w-100 col-md-8 col-lg-6" th:action="@{/searchPost}" method="get">
+                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">
+                        <button type="submit" class="rounded">Search</button>
+                    </form>
+                </div>
+
+                <!-- Share feed START -->
 <!--                <div class="card card-body">-->
 <!--                    <div class="d-flex mb-3">-->
 <!--                        &lt;!&ndash; Avatar &ndash;&gt;-->
@@ -166,199 +202,199 @@
 <!--                        </form>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                &lt;!&ndash; Share feed END &ndash;&gt;-->
+                <!-- Share feed END -->
 
 
 
-<!--                &lt;!&ndash; Card feed item START &ndash;&gt;-->
-<!--                <div th:each="list: ${lists}">-->
+                <!-- Card feed item START -->
+                <div class="col" th:each="list : ${lists}">
+                    <!--//Post Card item START-->
+                    <div class="card ">
 
-<!--                    &lt;!&ndash;//Post Card item START&ndash;&gt;-->
-<!--                    <div class="card ">-->
+                        <!--Card header START-->
+                        <div class="card-header" th:id="'list'+${list.id}">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <!--Avatar-->
+                                    <img th:src="${list.getUser().profilePicture}" class="rounded-circle mb-3"
+                                         style="width: 50px;" alt="Avatar"/>
+                                    <!--Info-->
+                                    <!--                <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
+                                    <div>
+                                        <div class="nav nav-divider">
+                                            <!--INPUT USER PROFILE LINK-->
+                                            <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${list.getUser().id})}"> <strong
+                                                    th:text="${list.getUser().firstName}"></strong> <strong
+                                                    th:text="${list.getUser().lastName}"></strong> </a></h6>
+                                        </div>
+                                        <p class="mb-0 small" th:text="${list.user.userTitle}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Card header END-->
 
-<!--                        &lt;!&ndash;Card header START&ndash;&gt;-->
-<!--                        <div class="card-header" th:id="'post'+${list.id}">-->
-<!--                            <div class="d-flex align-items-center justify-content-between">-->
-<!--                                <div class="d-flex align-items-center">-->
-<!--                                    &lt;!&ndash;Avatar&ndash;&gt;-->
-<!--                                    <img th:src="${list.getUser().profilePicture}" class="rounded-circle mb-3"-->
-<!--                                         style="width: 50px;" alt="Avatar"/>-->
-<!--                                    &lt;!&ndash;Info&ndash;&gt;-->
-<!--                                    &lt;!&ndash;                <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>&ndash;&gt;-->
-<!--                                    <div>-->
-<!--                                        <div class="nav nav-divider">-->
-<!--                                            &lt;!&ndash;INPUT USER PROFILE LINK&ndash;&gt;-->
-<!--                                            <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${list.getUser().id})}"> <strong-->
-<!--                                                    th:text="${list.getUser().firstName}"></strong> <strong-->
-<!--                                                    th:text="${list.getUser().lastName}"></strong> </a></h6>-->
-<!--                                        </div>-->
-<!--                                        <p class="mb-0 small" th:text="${list.user.userTitle}"></p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash;Card header END&ndash;&gt;-->
+                        <!--Card body START-->
+                        <div class="card-body">
+                            <!--Post Description-->
+                            <p class="card-text"  th:text="${list.description}"></p>
 
-<!--                        &lt;!&ndash;Card body START&ndash;&gt;-->
-<!--                        <div class="card-body">-->
-<!--                            &lt;!&ndash;Post Description&ndash;&gt;-->
-<!--                            <p class="card-text"  th:text="${list.description}"></p>-->
+                            <!--Post image-->
+                            <div th:if="${list.imgUrl} != 'null'">
+                                <img th:src="${list.imgUrl}" class="card-img-top" alt="logoImage">
+                            </div>
+                            <!--video image-->
+                            <div th:if="${list.videoUrl} != 'null'">
+                                <video class="card-img-top"  controls>
+                                    <source th:src="${list.videoUrl}" type="video/mp4">
+                                </video>
+                            </div>
 
-<!--                            &lt;!&ndash;Post image&ndash;&gt;-->
-<!--                            <div th:if="${list.imgUrl} != 'null'">-->
-<!--                                <img th:src="${list.imgUrl}" class="card-img-top" alt="logoImage">-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash;video image&ndash;&gt;-->
-<!--                            <div th:if="${list.videoUrl} != 'null'">-->
-<!--                                <video class="card-img-top"  controls>-->
-<!--                                    <source th:src="${list.videoUrl}" type="video/mp4">-->
-<!--                                </video>-->
-<!--                            </div>-->
+                            <!--Post Reaction Items START-->
+                            <div class="d-flex align-items-center justify-content-between">
+                                <form th:action="@{/like/post}" th:method="post">
+                                    <input hidden name="postId" th:value="${list.id}">
 
-<!--                            &lt;!&ndash;Post Reaction Items START&ndash;&gt;-->
-<!--                            <div class="d-flex align-items-center justify-content-between">-->
-<!--                                <form th:action="@{/like/post}" th:method="post">-->
-<!--                                    <input hidden name="postId" th:value="${list.id}">-->
+                                    <button class="btn" type="submit">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <span class="badge bg-secondary" th:text="${list.likes.size()}"></span>
+                                    </button>
 
-<!--                                    <button class="btn" type="submit">-->
-<!--                                        <i class="fa-solid fa-thumbs-up"></i>-->
-<!--                                        <span class="badge bg-secondary" th:text="${list.likes.size()}"></span>-->
-<!--                                    </button>-->
+                                </form>
 
-<!--                                </form>-->
+                                <form th:action="@{/dislike/post}" th:method="post">
+                                    <input hidden name="postId" th:value="${list.id}">
+                                    <button class="btn" type="submit">
+                                        <i class="fa-solid fa-thumbs-down"></i>
+                                        <span class="badge bg-secondary" th:text="${list.dislikes.size()}"></span>
+                                    </button>
 
-<!--                                <form th:action="@{/dislike/post}" th:method="post">-->
-<!--                                    <input hidden name="postId" th:value="${list.id}">-->
-<!--                                    <button class="btn" type="submit">-->
-<!--                                        <i class="fa-solid fa-thumbs-down"></i>-->
-<!--                                        <span class="badge bg-secondary" th:text="${list.dislikes.size()}"></span>-->
-<!--                                    </button>-->
+                                </form>
 
-<!--                                </form>-->
+                                <button class="btn shareBtn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${list.id}"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                    Comments
+                                    <span class="badge ms-1" th:text="${list.getComments().size()}"></span>
+                                </button>
 
-<!--                                <button class="btn shareBtn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${post.id}"-->
-<!--                                        aria-expanded="false" aria-controls="collapseExample">-->
-<!--                                    Comments-->
-<!--                                    <span class="badge ms-1" th:text="${list.getComments().size()}"></span>-->
-<!--                                </button>-->
+                            </div>
+                            <!--Post Reaction Items END-->
 
-<!--                            </div>-->
-<!--                            &lt;!&ndash;Post Reaction Items END&ndash;&gt;-->
+                            <!-- Add comment START-->
+                            <div class="d-flex mb-3 mt-2">
+                                <!-- Avatar -->
+                                <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
+                                <div class="avatar avatar-xs me-2">
+                                    <a href="#!"> <img class="avatar-img rounded-circle"
+                                                       style="width: 50px;"
+                                                       th:src="${list.user.profilePicture}"
+                                                       alt=""> </a>
+                                </div>
+                                <!-- Comment box  -->
+                                <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${list.id})}" th:method="post" th:object="${newComment}">
+                                    <textarea field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
+                                              placeholder="Add a comment..."></textarea>
+                                    <button class="btn shareBtn ms-2" type="submit" >comment</button>
+                                </form>
+                            </div>
+                            <!-- Add comment END-->
 
-<!--                            &lt;!&ndash; Add comment START&ndash;&gt;-->
-<!--                            <div class="d-flex mb-3 mt-2">-->
-<!--                                &lt;!&ndash; Avatar &ndash;&gt;-->
-<!--                                &lt;!&ndash; GET LOGGED-IN USER DATA FOR AVATAR IMAGE&ndash;&gt;-->
-<!--                                <div class="avatar avatar-xs me-2">-->
-<!--                                    <a href="#!"> <img class="avatar-img rounded-circle"-->
-<!--                                                       style="width: 50px;"-->
-<!--                                                       th:src="${user.profilePicture}"-->
-<!--                                                       alt=""> </a>-->
-<!--                                </div>-->
-<!--                                &lt;!&ndash; Comment box  &ndash;&gt;-->
-<!--                                <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${list.id})}" th:method="post" th:object="${newComment}">-->
-<!--                                    <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"-->
-<!--                                              placeholder="Add a comment..."></textarea>-->
-<!--                                    <button class="btn shareBtn ms-2" type="submit" >comment</button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Add comment END&ndash;&gt;-->
+                            <!-- Comment wrap START -->
+                            <div th:each="comment: ${list.getComments()}">
+                                <div class="collapse" th:id="'collapse'+${list.id}">
+                                    <ul class="comment-wrap list-unstyled">
+                                        <li class="comment-item">
+                                            <div class="d-flex position-relative">
+                                                <!-- Avatar -->
+                                                <!--GET COMMENT USER IMAGE-->
+                                                <div class="avatar avatar-xs">
+                                                    <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"
+                                                                                                                    th:src="${comment.user.profilePicture}" alt=""></a>
+                                                </div>
+                                                <div class="ms-2">
+                                                    <!-- Comment by -->
+                                                    <div class=" rounded-start-top-0 p-3 rounded">
+                                                        <div class="d-flex justify-content-between">
+                                                            <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
+                                                        </div>
+                                                        <p class="small mb-0" th:text="${comment.message}"></p>
+                                                    </div>
+                                                    <!-- Comment react -->
+                                                    <!-- PUT THIS IF TIME IS ALLOTED-->
+                                                    <!--                            <ul class="nav nav-divider py-2 small">-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                            </ul>-->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
 
-<!--                            &lt;!&ndash; Comment wrap START &ndash;&gt;-->
-<!--                            <div th:each="comment: ${list.getComments()}">-->
-<!--                                <div class="collapse" th:id="'collapse'+${post.id}">-->
-<!--                                    <ul class="comment-wrap list-unstyled">-->
-<!--                                        <li class="comment-item">-->
-<!--                                            <div class="d-flex position-relative">-->
-<!--                                                &lt;!&ndash; Avatar &ndash;&gt;-->
-<!--                                                &lt;!&ndash;GET COMMENT USER IMAGE&ndash;&gt;-->
-<!--                                                <div class="avatar avatar-xs">-->
-<!--                                                    <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"-->
-<!--                                                                                                                    th:src="${comment.user.profilePicture}" alt=""></a>-->
-<!--                                                </div>-->
-<!--                                                <div class="ms-2">-->
-<!--                                                    &lt;!&ndash; Comment by &ndash;&gt;-->
-<!--                                                    <div class=" rounded-start-top-0 p-3 rounded">-->
-<!--                                                        <div class="d-flex justify-content-between">-->
-<!--                                                            <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>-->
-<!--                                                        </div>-->
-<!--                                                        <p class="small mb-0" th:text="${comment.message}"></p>-->
-<!--                                                    </div>-->
-<!--                                                    &lt;!&ndash; Comment react &ndash;&gt;-->
-<!--                                                    &lt;!&ndash; PUT THIS IF TIME IS ALLOTED&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                            <ul class="nav nav-divider py-2 small">&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> Like (3)</a>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                </li>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> Reply</a>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                </li>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                <li class="nav-item">&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                    <a class="nav-link" href="#!"> View 5 replies</a>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                                </li>&ndash;&gt;-->
-<!--                                                    &lt;!&ndash;                            </ul>&ndash;&gt;-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Comment wrap END &ndash;&gt;-->
+                            </div>
+                            <!-- Comment wrap END -->
 
-<!--                        </div>-->
-<!--                        &lt;!&ndash;Card body END&ndash;&gt;-->
+                        </div>
+                        <!--Card body END-->
 
-<!--                    </div>-->
-<!--                    &lt;!&ndash;//Post Card item START&ndash;&gt;-->
+                    </div>
+                    <!--//Post Card item START-->
 
-<!--                </div>-->
-<!--                &lt;!&ndash; Card feed item END &ndash;&gt;-->
-
-
-<!--            </div>-->
-<!--            &lt;!&ndash; Main content END &ndash;&gt;-->
+                </div>
+                <!-- Card feed item END -->
 
 
-<!--            &lt;!&ndash; Right sidebar START &ndash;&gt;-->
-<!--            <div class="col-lg-3">-->
-<!--                <div class=" card">-->
-<!--                    <div class="table-responsive scrollbar">-->
-<!--                        <h2 class="card-header">24 Hour Trending Crypto</h2>-->
-<!--                        <div class="card-body ">-->
-
-<!--                            <table class="table fs&#45;&#45;1 mb-0 overflow-hidden">-->
-<!--                                <thead>-->
-<!--                                <tr>-->
-<!--                                    <th>Name</th>-->
-<!--                                    <th>Symbol</th>-->
-<!--                                    <th>market cap rank</th>-->
-
-<!--                                </tr>-->
-<!--                                </thead>-->
-<!--                                <tbody id="trending-stock">-->
-
-<!--                                </tbody>-->
-<!--                            </table>-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; Right sidebar END &ndash;&gt;-->
-
-<!--            </div>-->
-<!--            &lt;!&ndash; Right sidebar END &ndash;&gt;-->
-
-<!--        </div>-->
-<!--        &lt;!&ndash; Row END &ndash;&gt;-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Container END &ndash;&gt;-->
-<!--</main>-->
+            </div>
+            <!-- Main content END -->
 
 
-<!--&lt;!&ndash;    Javascript files for image upload&ndash;&gt;-->
-<!--<div th:replace="partials::scriptTags"/>-->
-<!--</body>-->
+            <!-- Right sidebar START -->
+            <div class="col-lg-3">
+                <div class=" card">
+                    <div class="table-responsive scrollbar">
+                        <h2 class="card-header">24 Hour Trending Crypto</h2>
+                        <div class="card-body ">
+
+                            <table class="table fs--1 mb-0 overflow-hidden">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Symbol</th>
+                                    <th>market cap rank</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="trending-stock">
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Right sidebar END -->
+
+            </div>
+            <!-- Right sidebar END -->
+
+        </div>
+        <!-- Row END -->
+    </div>
+    <!-- Container END -->
+</main>
 
 
-<!--</html>-->
+<!--    Javascript files for image upload-->
+<div th:replace="partials::scriptTags"/>
+</body>
+
+
+</html>
 
