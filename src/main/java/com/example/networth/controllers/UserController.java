@@ -3,6 +3,7 @@ package com.example.networth.controllers;
 import com.example.networth.models.*;
 import com.example.networth.repositories.FollowerRepository;
 import com.example.networth.repositories.UserRepository;
+import com.example.networth.services.FollowerService;
 import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserController {
     private final UserService userService;
 
 
+    private final FollowerService followerService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -39,14 +41,25 @@ public class UserController {
 
 
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowingService followingService,
-                          UserRepository userDao) {
+
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowerService followerService, FollowingService followingService) {
+
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.followerService = followerService;
 
         this.followingService = followingService;
         this.userDao = userDao;
     }
+
+
+
+    public int getFollowerSum(User user){
+      int total =  followerService.getUserFollowers(user).size();
+      return total;
+    }
+
+
 
     User loggedinUser(){
       return   (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
