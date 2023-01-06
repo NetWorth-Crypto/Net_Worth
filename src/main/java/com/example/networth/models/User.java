@@ -62,6 +62,7 @@ public class User {
     @ManyToMany(cascade = {CascadeType.PERSIST,
 //            CascadeType.MERGE}, fetch = FetchType.EAGER)
             CascadeType.MERGE})
+
     @JoinTable(
             name = "user_followers",
             joinColumns = {@JoinColumn(name = "user_id")},

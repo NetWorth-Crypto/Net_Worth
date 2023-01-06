@@ -63,6 +63,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(
                         "/following/user",
+                        "/searchPost",
                         "/admin/**",
                         "/super-admin/**",
                         "/addAsset",
