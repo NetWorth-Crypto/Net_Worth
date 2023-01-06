@@ -102,9 +102,9 @@ public class FollowerService {
         return followerDao.findAll();
     }
 
-    public List<Follower> getUserNotFollowers(User user){
-        return followerDao.getUserNotFollowers(user.getId());
-    }
+//    public List<Follower> getUserNotFollowers(User user){
+//        return followerDao.getUserNotFollowers(user.getId());
+//    }
 
     public void save(Follower follower) {
         followerDao.save(follower);
