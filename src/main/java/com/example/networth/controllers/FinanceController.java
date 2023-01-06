@@ -235,7 +235,7 @@ public class FinanceController {
 
         paDao.delete(portfolioAsset);
 
-        return "feed";
+        return "redirect:/finance";
     }
 
 

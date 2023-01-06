@@ -135,7 +135,7 @@ public class CrytoController {
     public String addAsset(@RequestParam("name") String name,
                            @RequestParam("ticker") String ticker,
                            @RequestParam("price") double price,
-                           @RequestParam("quantity") int quantity,
+                           @RequestParam("quantity") double quantity,
                            @RequestParam("portfolio") long portfolio,
                            Model model,
                            RedirectAttributes redirectAttrs) {
