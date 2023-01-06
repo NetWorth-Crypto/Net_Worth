@@ -13,12 +13,12 @@ import java.util.List;
 @Repository
 public interface FollowerRepository extends JpaRepository<Follower, Long> {
 
-    @Query(value = "SELECT user.first_name LIKE %:user%, user.last_name LIKE %:user%\n" +
-            "FROM user\n" +
-            "         JOIN follower f on user.id = f.user_id;",nativeQuery = true)
-
-    List<Follower> findFollowerBy(@RequestParam("user") String username);
-    User findByFollower(String follower);
+//    @Query(value = "SELECT user.first_name LIKE %:user%, user.last_name LIKE %:user%\n" +
+//            "FROM user\n" +
+//            "         JOIN follower f on user.id = f.user_id;",nativeQuery = true)
+//
+//    List<Follower> findFollowerBy(@RequestParam("user") String username);
+//    User findByFollower(String follower);
 
 
 //    @Query(

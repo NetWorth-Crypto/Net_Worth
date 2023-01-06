@@ -40,7 +40,8 @@ public class User {
     private String userTitle;
 
     @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
+          CascadeType.MERGE}, fetch = FetchType.EAGER)
+
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -59,8 +60,8 @@ public class User {
 //            inverseJoinColumns = {@JoinColumn(name = "follower_id")}
 //    )
     @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
-
+//            CascadeType.MERGE}, fetch = FetchType.EAGER)
+            CascadeType.MERGE})
     @JoinTable(
             name = "user_followers",
             joinColumns = {@JoinColumn(name = "user_id")},

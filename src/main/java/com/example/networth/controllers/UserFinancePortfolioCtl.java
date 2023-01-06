@@ -203,7 +203,7 @@ public class UserFinancePortfolioCtl {
         portfolioService.delete(portfolio);
 
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 
