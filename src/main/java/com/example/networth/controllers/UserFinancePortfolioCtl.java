@@ -183,7 +183,7 @@ public class UserFinancePortfolioCtl {
         portfolioService.addPortfolio(portfolio1);
 
 
-        return "redirect:/userFinance";
+        return "redirect:/finance";
     }
 
 
