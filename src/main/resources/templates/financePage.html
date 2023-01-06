@@ -26,7 +26,7 @@
                             <!-- Button trigger for crypto list modal START-->
                             <button type="button" class="btn shareBtn" data-bs-toggle="modal"
                                     data-bs-target="#cryptoModal">
-                                <i class="fa-brands fa-bitcoin"></i>
+                                <i class="fa-brands fa-bitcoin" style="color: gold"></i>
                                 Add Asset
                             </button>
                             <!-- Button trigger for crypto list modal END-->
@@ -164,11 +164,11 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/updateAsset/{id}(id=${portfolioAsset.getId()})}"
-                                       class="btn">Update</a>
+                                       class="btn shareBtn">Update</a>
                                 </td>
                                 <td>
                                     <a th:href="@{/finance/delete/asset/{id}/{portfolioId}(id=${portfolioAsset.getAsset().id}, portfolioId = ${selectedPortfolio.id})}"
-                                       class="btn">Delete</a>
+                                       class="btn shareBtn">Delete</a>
                                 </td>
                                 <!--                                <td>-->
                                 <!--                                    <div class="d-flex align-items-center">-->
