@@ -28,7 +28,7 @@ cryptoList().then(data => {
    <td>${priceChange}</td> 
    
    <td>
-    <a href="addCrypto/${item.current_price}/${item.name}/${item.symbol}" class="btn btn-primary">Add to portfolio</a>
+    <a href="/addCrypto/${item.current_price}/${item.name}/${item.symbol}" class="btn btn-primary">Add to portfolio</a>
   
 </td>
           
@@ -111,7 +111,7 @@ padding: 0 20px 20px 0;" class="s-img"> <img style="width: 10vw; height: 15vh" s
 
 <hr>
 
-<a href="addCrypto/${newData.market_data.current_price.usd}/${newData.name}/${newData.symbol}" class="btn btn-primary">Add to portfolio</a>
+<a href="/addCrypto/${newData.market_data.current_price.usd}/${newData.name}/${newData.symbol}" class="btn btn-primary">Add to portfolio</a>
 
 </div>
 

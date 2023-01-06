@@ -26,7 +26,7 @@
                             <!-- Button trigger for crypto list modal START-->
                             <button type="button" class="btn shareBtn" data-bs-toggle="modal"
                                     data-bs-target="#cryptoModal">
-                                <i class="fa-brands fa-bitcoin"></i>
+                                <i class="fa-brands fa-bitcoin" style="color: gold"></i>
                                 Add Asset
                             </button>
                             <!-- Button trigger for crypto list modal END-->
@@ -164,11 +164,11 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/updateAsset/{id}(id=${portfolioAsset.getId()})}"
-                                       class="btn">Update</a>
+                                       class="btn shareBtn">Update</a>
                                 </td>
                                 <td>
                                     <a th:href="@{/finance/delete/asset/{id}/{portfolioId}(id=${portfolioAsset.getAsset().id}, portfolioId = ${selectedPortfolio.id})}"
-                                       class="btn">Delete</a>
+                                       class="btn shareBtn">Delete</a>
                                 </td>
                                 <!--                                <td>-->
                                 <!--                                    <div class="d-flex align-items-center">-->
@@ -260,17 +260,17 @@
 
         //Days of the week
         // console.log(dates);
-        for (let date of documentDates) {
+        for (let i=0; i<6; i++) {
 
-            dates.push(date.value);
+            dates.push(documentDates[i].value);
         }
-        console.log(dates);
+        console.log(documentDates);
 
-        for (let total of documentTotals) {
+        for (let i=0; i<6; i++) {
 
-            totals.push(total.value);
+            totals.push(documentTotals[i].value);
         }
-        console.log(totals);
+        console.log(documentTotals);
         // for(let i=6; i > -1; i--){
         //     dates.push(date.getDate()-i);
         // }
@@ -407,7 +407,7 @@
 </div>
 <!-- Crypto asset Modal END-->
 
-<!-- Crypto asset Modal START-->
+<!-- Crypto search asset Modal START-->
 <div class="modal fade" id="cryptoSearchModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
