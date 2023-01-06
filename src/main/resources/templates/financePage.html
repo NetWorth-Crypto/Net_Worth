@@ -260,17 +260,17 @@
 
         //Days of the week
         // console.log(dates);
-        for (let date of documentDates) {
+        for (let i=0; i<6; i++) {
 
-            dates.push(date.value);
+            dates.push(documentDates[i].value);
         }
-        console.log(dates);
+        console.log(documentDates);
 
-        for (let total of documentTotals) {
+        for (let i=0; i<6; i++) {
 
-            totals.push(total.value);
+            totals.push(documentTotals[i].value);
         }
-        console.log(totals);
+        console.log(documentTotals);
         // for(let i=6; i > -1; i--){
         //     dates.push(date.getDate()-i);
         // }
