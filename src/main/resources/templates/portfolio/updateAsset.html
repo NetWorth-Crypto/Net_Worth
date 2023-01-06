@@ -2,15 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
-<head>
-    <div th:replace="fragments :: myheader"></div>
+<!--<head>-->
+<!--    <div th:replace="fragments :: myheader"></div>-->
 
-    <div th:replace="fragments :: css"></div>
+<!--    <div th:replace="fragments :: css"></div>-->
 
-    <title>Add asset</title>
-</head>
+<!--    <title>Add asset</title>-->
+<!--</head>-->
+<head th:replace="partials::head"/>
 <body>
-<div th:replace="fragments :: pforms-navbar"></div>
+<nav th:replace="partials::aboutUsNavbar"/>
+<!--<div th:replace="fragments :: pforms-navbar"></div>-->
 
 
 <hr class="mb-4">
