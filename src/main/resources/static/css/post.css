@@ -7,7 +7,6 @@
     --accent-color2:#45a29e;
 }
 
-
 /*Nav Styling*/
 .navbar-img{
     height: 150px;
@@ -127,9 +126,8 @@ tbody{
     z-index: 1020;
 }
 
-
-/******** Flip Card for About Us Page ********/
-
+/***************************** About Us Page ***********************************/
+/******** Flip Card ********/
 .flip-card
 {
     background-color: transparent;
@@ -174,4 +172,15 @@ tbody{
     background-color: #2980b9;
     color: white;
     transform: rotateY(180deg);
+}
+
+/******** About Us Page Styling ********/
+.card-img-top
+{
+    border-radius: 10px;
+    padding: 6px;
+    width: max(100%);
+    height: max(25em);
+    object-fit: cover;
+    object-position: 50% 50%;
 }
