@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <title></title>
@@ -28,26 +29,26 @@
 <nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a href="/" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
-<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"-->
-<!--                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--            <span class="navbar-toggler-icon"></span>-->
-<!--        </button>-->
+        <!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"-->
+        <!--                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+        <!--            <span class="navbar-toggler-icon"></span>-->
+        <!--        </button>-->
 
-<!--        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">-->
-<!--            <span> </span>-->
+        <!--        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">-->
+        <!--            <span> </span>-->
 
-<!--            <ul class="navbar-nav ">-->
-<!--                <li class="nav-item">-->
-<!--                    &lt;!&ndash;                    <form th:action="@{/logout}" method="POST">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                        <button class="btn" type="submit">Logout</button>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    </form>&ndash;&gt;-->
-<!--                </li>-->
-<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>&ndash;&gt;-->
-<!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>&ndash;&gt;-->
-<!--            </ul>-->
+        <!--            <ul class="navbar-nav ">-->
+        <!--                <li class="nav-item">-->
+        <!--                    &lt;!&ndash;                    <form th:action="@{/logout}" method="POST">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                        <button class="btn" type="submit">Logout</button>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                    </form>&ndash;&gt;-->
+        <!--                </li>-->
+        <!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Sign-in</a></li>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>&ndash;&gt;-->
+        <!--            </ul>-->
 
 
-<!--        </div>-->
+        <!--        </div>-->
     </div>
 </nav>
 <!--Main Nav tag fragment END-->
@@ -58,15 +59,39 @@
         <a th:href="@{/userProfile}" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-primary" aria-current="page" href="/about">about</a>
-                </li>
-            </ul>
+            <div sec:authorize="isAuthenticated()">
+                <div th:if="${#authentication.principal.id} == ${user.id}">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn shareBtn me-2" aria-current="page" href="/about">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn shareBtn me-2" th:href="@{/userProfile}">profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <form th:action="@{/logout}" method="POST" class="navbar-form">
+                                <button class="btn btn-danger" type="submit">logout</button>
+                            </form>
+                        </li>
+<!--                        <li class="nav-item">-->
+<!--                            <form class="d-flex">-->
+<!--                                <input id="crypto-search" class="form-control me-2 " type="text" placeholder="Search"-->
+<!--                                       aria-label="Search">-->
+<!--                                <button id="searchButton" class="btn btn-outline-success " type="button">Search</button>-->
+<!--                            </form>-->
+<!--                        </li>-->
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </nav>
@@ -109,12 +134,14 @@
                             <!-- Avatar / Profile Pic -->
                             <div id="userProfilePic" class="avatar avatar-lg mt-n5 mb-3">
                                 <a href="#">
-                                    <img style="width: 50px;" class="avatar-img  border  border-3 mt-2" th:src="${user.profilePicture}" alt="">
+                                    <img style="width: 50px;" class="avatar-img  border  border-3 mt-2"
+                                         th:src="${user.profilePicture}" alt="">
                                 </a>
                             </div>
 
                             <!-- User Info -->
-                            <h5 class="mb-0"><a href="/userProfile" th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
+                            <h5 class="mb-0"><a href="/userProfile"
+                                                th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
                             <br>
                             <small th:text="${user.userTitle}"></small>
                             <br>
@@ -139,7 +166,7 @@
                                 <div class="vr"></div>
                                 <!-- User stat item -->
                                 <div>
-                                    <h6 class="mb-0" ></h6>
+                                    <h6 class="mb-0"></h6>
                                     <small>Following</small>
                                 </div>
                             </div>
@@ -154,14 +181,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/posts">
                                     <i class="fa-solid fa-network-wired"></i>
-                                    <span> $tockpile</span>
+                                    <span>Home</span>
                                 </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="/userProfile">
                                     <i
-                                        class="fa-solid fa-money-bill-trend-up">
+                                            class="fa-solid fa-money-bill-trend-up">
                                     </i>
                                     <span> Profile</span>
                                 </a>
@@ -174,13 +201,12 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="/crypto">
-                                    <i class="fa-solid fa-money-bill-trend-up"></i>
-                                    <span> Market</span>
-                                </a>
-                            </li>
-
+                            <!--                            <li class="nav-item">-->
+                            <!--                                <a class="nav-link" href="/crypto">-->
+                            <!--                                    <i class="fa-solid fa-money-bill-trend-up"></i>-->
+                            <!--                                    <span> Market</span>-->
+                            <!--                                </a>-->
+                            <!--                            </li>-->
 
 
                             <li class="nav-item">
@@ -191,9 +217,10 @@
                             </li>
 
 
-                                        <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
-                                            <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage Users</a>
-                                        </li>
+                            <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
+                                <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage
+                                    Users</a>
+                            </li>
 
 
                         </ul>
@@ -202,9 +229,9 @@
                     <!-- Card body END -->
                     <!-- Card footer -->
                     <div class="card-footer text-center py-2">
-                            <form th:action="@{/logout}" method="POST">
-                                <button class="btn shareBtn" type="submit">Logout</button>
-                            </form>
+                        <form th:action="@{/logout}" method="POST">
+                            <button class="btn shareBtn" type="submit">Logout</button>
+                        </form>
                     </div>
                 </div>
                 <!-- Card END -->
@@ -223,7 +250,8 @@
         <a href="/" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedCryptoContent">
@@ -272,7 +300,7 @@
     <!-- Advanced filter responsive toggler END -->
 
     <!-- Navbar START-->
-    <nav  class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar-admin2">
             <!-- Offcanvas header -->
             <div class="offcanvas-header">
@@ -302,7 +330,6 @@
                             </div>
 
 
-
                             <!-- User stat START -->
                             <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                 <!-- User stat item -->
@@ -324,7 +351,7 @@
                         <!-- Divider -->
                         <hr>
                         <!-- Side Nav START -->
-                        <ul class="nav nav-link-secondary flex-column fw-bold gap-2" >
+                        <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/admin/getUsers}"><i class="fa-solid fa-user"></i><span>Manage Users</span></a>
                             </li>
@@ -364,15 +391,12 @@
                             </li>
 
 
-
                             <li class="nav-item">
                                 <a class="nav-link" href="/updateProfile">
                                     <i class="fa-solid fa-user"></i>
                                     <span> Update Profile</span>
                                 </a>
                             </li>
-
-
 
 
                         </ul>
