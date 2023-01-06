@@ -5,6 +5,7 @@ import com.example.networth.repositories.FollowerRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.FollowingService;
 import com.example.networth.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;

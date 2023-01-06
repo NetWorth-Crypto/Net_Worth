@@ -18,12 +18,12 @@ public interface FollowingRepository extends JpaRepository<Following, Long> {
 
     //Custom query
     //Query to search for other users by logged-in user.
-    @Query(value = "SELECT user.first_name LIKE %:user%, user.last_name LIKE %:user%\n" +
-            "FROM user\n" +
-            "         JOIN following f on user.id = f.user_id;",nativeQuery = true)
-
-    List<Following> findByUser(@Param("user") String username);
-    User findByUsername(String username);
+//    @Query(value = "SELECT user.first_name LIKE %:user%, user.last_name LIKE %:user%\n" +
+//            "FROM user\n" +
+//            "         JOIN following f on user.id = f.user_id;",nativeQuery = true)
+//
+//    List<Following> findByUser(@Param("user") String username);
+//    User findByUsername(String username);
 
 
 }

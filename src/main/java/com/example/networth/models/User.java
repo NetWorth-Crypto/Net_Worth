@@ -59,7 +59,8 @@ public class User {
 //            inverseJoinColumns = {@JoinColumn(name = "follower_id")}
 //    )
     @ManyToMany(cascade = {CascadeType.PERSIST,
-            CascadeType.MERGE}, fetch = FetchType.EAGER)
+//            CascadeType.MERGE}, fetch = FetchType.EAGER)
+            CascadeType.MERGE})
 
     @JoinTable(
             name = "user_follower",

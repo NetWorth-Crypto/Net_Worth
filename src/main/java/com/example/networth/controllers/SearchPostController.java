@@ -16,8 +16,10 @@ public class SearchPostController {
     @Autowired
     private SearchPostService searchPostService;
 
+
+
     @RequestMapping(value = {"/searchPost", "/searchPost/{keyword}"})
-    public String searchPost(Model model, @RequestParam("keyword")
+    public String searchPosts(Model model, @RequestParam("keyword")
     Optional<String> keyword) {
         if (keyword.isEmpty()) {
             return "post/searchPost";
@@ -28,6 +30,21 @@ public class SearchPostController {
             model.addAttribute("lists", lists);
             System.out.println(lists);
             return "post/searchPost";
+        }
+    }
+
+    @RequestMapping(value = {"/searchPost", "/searchPost/{keyword}/user"})
+    public String searchPost(Model model, @RequestParam("keyword")
+    Optional<String> keyword) {
+        if (keyword.isEmpty()) {
+            return "post/searchPost";
+        } else {
+            String postDetail = keyword.get();
+            System.out.println(keyword);
+            List<Post> lists = searchPostService.getByKeyword(postDetail);
+            model.addAttribute("lists", lists);
+            System.out.println(lists);
+            return "redirect:/userProfile";
         }
     }
 }
