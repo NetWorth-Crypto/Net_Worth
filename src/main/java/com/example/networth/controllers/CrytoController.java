@@ -178,7 +178,7 @@ public class CrytoController {
         Date date = new Date();
         pAservice.addpAsset(new PortfolioAsset(portfolio1, asset, quantity, price, date));
         redirectAttrs.addFlashAttribute("added", quantity + " " + name + " has been added to " + portfolio1.getName());
-        return "redirect:/crypto";
+        return "redirect:/finance";
 
     }
 
