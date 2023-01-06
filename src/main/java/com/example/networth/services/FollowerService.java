@@ -3,9 +3,13 @@ package com.example.networth.services;
 import com.example.networth.models.Follower;
 import com.example.networth.models.User;
 import com.example.networth.repositories.FollowerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
+@Service
 public class FollowerService {
     private final FollowerRepository followerDao;
     private final UserService userDao;
