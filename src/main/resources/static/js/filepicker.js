@@ -4,22 +4,31 @@ const client = filestack.init(fileStackApi);
 let imgUrl = document.getElementById("imgurl");
 let videoUrl = document.getElementById("videourl");
 
+let imgPreview = document.getElementById("imgPreview");
+let imgPreviewLabel = document.getElementById("imgPreviewLabel");
+
 let imgButton = document.getElementById("imageButton");
 let videoButton = document.getElementById("videoButton");
+let shareButton = document.getElementById("shareButton");
 let profilePicLink = document.getElementById("userProfilePic");
 
 
 imgButton.addEventListener("click",imgClickHandler);
 videoButton.addEventListener("click", videoClickHandler);
 profilePicLink.addEventListener("click", profileImgClickHandler);
+shareButton.addEventListener("click", )
 
 
-
+/***********Image upload code***********/
 function imgClickHandler(){
+    console.log(imgPreview);
     const imgOptions = {
         accept: ["image/*"],
         onFileUploadFinished:file =>{
             imgUrl.value = file.url;
+            imgPreview.src = file.url;
+            imgPreviewLabel.style.visibility = "visible";
+            imgPreview.style.visibility = 'visible';
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
@@ -28,6 +37,14 @@ function imgClickHandler(){
 
     client.picker(imgOptions).open();
 }
+
+// imgUrl.onchange = evt => {
+//     console.log("image preview event hit");
+//     if (imgUrl) {
+//         imgPreview.src = imgUrl;
+//     }
+// }
+
 
 function videoClickHandler(){
     const videoOptions = {
@@ -58,13 +75,22 @@ function profileImgClickHandler(){
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
+            setTimeout(()=>{
+                location.reload();
+            },500);
+
         }
     };
 
 
     client.picker(imgOptions).open();
     console.log("file picker ran");
+
     // postData(imglink).then(data => console.log(data));
+}
+
+function shareButtonClickHandler(){
+    imgPreview.style.visibility = 'hidden';
 }
 
 async function postData(imgLink){

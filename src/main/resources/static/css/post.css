@@ -12,6 +12,13 @@
     height: 150px;
 }
 
+.avatar-img{
+    object-fit: cover;
+    border-radius:50%;
+    width: 80px;
+    height: 80px;
+}
+
 /*Nav-Link items*/
 .nav-link:hover{
     color: lawngreen;
