@@ -60,7 +60,7 @@ public class ProfileController
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth.getPrincipal() == "anonymousUser")
             {
-                return "redirect:login";
+                return "redirect:/login";
             }
             User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User user = userDao.getReferenceById(loggedinUser.getId());
