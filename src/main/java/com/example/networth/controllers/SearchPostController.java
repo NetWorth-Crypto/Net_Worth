@@ -8,6 +8,7 @@ import com.example.networth.models.User;
 import com.example.networth.repositories.CommentRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.SearchPostService;
+import com.example.networth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,17 +26,23 @@ public class SearchPostController {
 
     @Autowired
     private CommentRepository commentDao;
-
-    User loggedinUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    @Autowired
+    private UserRepository userRepository;
 
 
     @RequestMapping(value = {"/searchPost", "/searchPost/{keyword}"})
     public String searchPosts(Model model, @RequestParam("keyword")
+
     Optional<String> keyword) {
+
+        User loggedinUser= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        long id = loggedinUser.getId();
+        User user = userRepository.getReferenceById(id);
+
+
         if (keyword.isEmpty()) {
-            model.addAttribute("user", loggedinUser());
+            model.addAttribute("user", loggedinUser);
             return "post/searchPost";
         } else {
             String postDetail = keyword.get();
@@ -43,7 +50,9 @@ public class SearchPostController {
             List<Post> lists = searchPostService.getByKeyword(postDetail);
             model.addAttribute("lists", lists);
             System.out.println(lists);
-            model.addAttribute("user", loggedinUser());
+            model.addAttribute("user",user);
+
+
             List<Comment> comments = commentDao.findAll();
             model.addAttribute("comments",comments);
             model.addAttribute("newPost",new Post());
