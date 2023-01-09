@@ -40,9 +40,6 @@ public class UserController {
     private UserRepository userDao;
 
 
-
-
-
     public UserController(UserService userService, PasswordEncoder passwordEncoder, FollowerRepository followerDao, FollowerService followerService, FollowingService followingService) {
 
 
@@ -54,12 +51,39 @@ public class UserController {
     }
 
 
-
-    public int getFollowerSum(User user){
-      int total =  followerService.getUserFollowers(user).size();
-      return total;
+    public int getFollowerSum(User user) {
+        int total = followerService.getUserFollowers(user).size();
+        return total;
     }
 
+    public boolean isValidPassword(String password) {
+       return password.length() >= 8 &&
+                password.contains("!") ||
+                password.contains("#") ||
+                password.contains("$") ||
+                password.contains("%") ||
+                password.contains("&") ||
+                password.contains("*") ||
+                password.contains("-") ||
+                password.contains("_") ||
+                password.contains("(") ||
+                password.contains("+") ||
+                password.contains(")") ||
+                password.contains("=") ||
+                password.contains("{") ||
+                password.contains("}") ||
+                password.contains("[") ||
+                password.contains("]") ||
+                password.contains(":") ||
+                password.contains(";") ||
+                password.contains("\"") ||
+         password.contains("<") ||
+          password.contains(">") ||
+                password.contains(".") ||
+                password.contains("?") ||
+                password.contains("'");
+
+    }
 
 
     User loggedinUser(){
@@ -67,14 +91,33 @@ public class UserController {
     }
 
     @GetMapping("/sign-up")
-    public String showSignupForm(Model model ){
-        model.addAttribute("user", new User());
+    public String showSignupForm(){
+
 
         return "users/sign-up";
     }
 
     @PostMapping("/sign-up")
-    public String saveUser(@ModelAttribute User user, RedirectAttributes attributes){
+    public String saveUser(
+            @RequestParam("firstName")String firstName,
+            @RequestParam("lastName")String lastName,
+            @RequestParam("username")String username,
+            @RequestParam("email")String email,
+            @RequestParam("password")String password,
+           Model model,RedirectAttributes attributes){
+
+        User user = new User(firstName,lastName,email,password,username);
+
+       if(!isValidPassword(user.getPassword())){
+          model.addAttribute("firstname",user.getFirstName());
+           model.addAttribute("lastname",user.getLastName());
+           model.addAttribute("username",user.getUsername());
+           model.addAttribute("email",user.getEmail());
+
+           model.addAttribute("invalid","Password must be 8 characters and above and must contain a special character" );
+           return "users/sign-up";
+       }
+
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userService.saveUser(user);
