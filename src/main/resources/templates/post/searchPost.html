@@ -169,11 +169,13 @@
             <div class="card card-body">
                 <div class="d-flex mb-3">
                     <!-- Search Posts -->
-                    <form class="w=100" th:action="@{/searchPost}" method="get">
-                        <input class="form-control pe-4 border-0 form-group rounded" rows="2"
-                               data-autoresize="" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">
-                        <button class="btn shareBtn mt-2 me-1" type="submit">Search</button>
-                    </form>
+                    <div class="card card-body form-group d-flex justify-content-end">
+                        <form class="wid"
+                              data-autoresize="" th:action="@{/searchPost}" method="get">
+                            <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">
+                            <button class="btn shareBtn mt-2 me-1" type="submit" class="rounded">Search</button>
+                        </form>
+                    </div>
                 </div>
 
 
