@@ -1,4 +1,4 @@
-USE networth_db;
+USE net_worth;
 
 
 
