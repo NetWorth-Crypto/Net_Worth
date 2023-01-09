@@ -81,6 +81,8 @@ public class UserController {
           password.contains(">") ||
                 password.contains(".") ||
                 password.contains("?") ||
+               password.contains("@") ||
+               password.contains("\\") ||
                 password.contains("'");
 
     }
