@@ -6,6 +6,9 @@ let videoUrl = document.getElementById("videourl");
 
 let imgPreview = document.getElementById("imgPreview");
 let imgPreviewLabel = document.getElementById("imgPreviewLabel");
+let videoTag = document.getElementById("videoTag");
+let videoPreview = document.getElementById("videoPreview");
+let videoPreviewLabel = document.getElementById("videoPreviewLabel");
 
 let imgButton = document.getElementById("imageButton");
 let videoButton = document.getElementById("videoButton");
@@ -16,7 +19,7 @@ let profilePicLink = document.getElementById("userProfilePic");
 imgButton.addEventListener("click",imgClickHandler);
 videoButton.addEventListener("click", videoClickHandler);
 profilePicLink.addEventListener("click", profileImgClickHandler);
-shareButton.addEventListener("click", )
+// shareButton.addEventListener("click", )
 
 
 /***********Image upload code***********/
@@ -27,8 +30,8 @@ function imgClickHandler(){
         onFileUploadFinished:file =>{
             imgUrl.value = file.url;
             imgPreview.src = file.url;
-            imgPreviewLabel.style.visibility = "visible";
-            imgPreview.style.visibility = 'visible';
+            imgPreviewLabel.hidden = false;
+            imgPreview.hidden = false
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
@@ -38,22 +41,23 @@ function imgClickHandler(){
     client.picker(imgOptions).open();
 }
 
-// imgUrl.onchange = evt => {
-//     console.log("image preview event hit");
-//     if (imgUrl) {
-//         imgPreview.src = imgUrl;
-//     }
-// }
-
-
 function videoClickHandler(){
+    console.log(videoPreview);
     const videoOptions = {
         accept: ["video/*"],
         disableTransformer: true,
         uploadInBackground: true,
         videoResolution: '1280x720',
         onFileUploadFinished:file =>{
+
             videoUrl.value = file.url;
+            // videoPreview.src = file.url;
+            videoPreviewLabel.hidden = false;
+
+            // refreshDialer(videoTag);
+            setTimeout(()=>{
+                refreshDialer(videoUrl);
+            },500);
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
@@ -111,6 +115,13 @@ async function postData(imgLink){
     await fetch(url);
     console.log("Full url: "+url);
     console.log("img JS ran")
+}
+
+function refreshDialer(url){
+     let html = `<video id="videoTag" width="270" height="160" autoplay="autoplay" controls="">
+                                <source id="videoPreview" src=${url.value} type="video/mp4">
+                            </video>`;
+     document.getElementById("vidDiv").innerHTML = html;
 }
 
 
