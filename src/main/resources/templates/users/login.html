@@ -30,10 +30,10 @@
                     <!-- form card login.html -->
 
                     <div style="flex-direction: row;"  class="card card-outline-secondary">
-                        <img style="width: 30%" th:src="@{/images/oldNetworth-1.png}" class="card-img-top m-2" alt="...">
+                        <img style="width: 35%" th:src="@{/images/oldNetworth-1.png}" class=" m-2" alt="...">
 
                         <div class="card-body">
-                            <div class="card-header">
+                            <div class="card-header ps-0">
                                 <h3 class="mb-0">Login</h3>
                             </div>
                             <form th:action="@{/login}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
@@ -46,7 +46,7 @@
                                     <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
                                 </div>
 
-                                <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
+                                <button class="btn btn-success btn-lg float-right mt-3" type="submit" value="Log In">Login</button>
 
                                 <div class="text-center">
                                     <p>Not a member? <a href="/sign-up">Register</a></p>

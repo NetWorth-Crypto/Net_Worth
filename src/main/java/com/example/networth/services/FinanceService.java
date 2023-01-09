@@ -82,7 +82,38 @@ public class FinanceService {
         return portfolioAssets;
     }
 
+    public String getCoinName(String name) throws ParseException {
 
+
+
+        name = name.toLowerCase();
+
+        //find spaces
+        int spaceIndex = name.indexOf(" ");
+        if(spaceIndex != -1){
+            StringBuilder stringBuilder = new StringBuilder(name);
+            StringBuilder builder = stringBuilder.delete(spaceIndex, name.length());
+            name = builder.toString();
+            System.out.println("new string: "+name);
+        }
+
+        //Search against API
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject("https://api.coingecko.com/api/v3/search?query="+name,String.class);
+
+        //Parse coin id
+        JSONObject resultObj = getJsonObject(result);
+
+        JSONArray coinsArray = getJsonArray(resultObj.get("coins").toString());
+        JSONObject coinObj = (JSONObject) coinsArray.get(0);
+        String coinName = coinObj.get("id").toString();
+        System.out.println("Coin id: "+ coinName);
+
+
+        //return string of coin id
+        return  coinName;
+        /*******/
+    }
     /**************Functions for past data**************/
     public SortedMap<String, Double> getSevenDayPrice(Portfolio portfolio) throws ParseException {
 

@@ -65,12 +65,23 @@ cryptoList().then(data => {
    <td>${priceChange}</td> 
    
    <td>
-    <a href="addCrypto/${item.current_price}/${item.name}/${item.symbol}" class="btn btn-primary">Add to portfolio</a>
+   <form method="get" action="/addcrypto/${item.symbol}">
+        <input hidden name="name" value="${item.name}">
+        <input hidden name="price" value="${item.current_price}">
+        <button type="submit">Add to portfolio</button>
+    </form>
+     
   
 </td>
           
 </tr>`
 
+        //Original Add to portfolio link
+        //     < a
+        // href = "addCrypto/${item.current_price}/${item.name}/${item.symbol}"
+        // className = "btn btn-primary" > Add
+        // to
+        // portfolio < /a>
 
         document.querySelector("#list-crypto").innerHTML = html
 

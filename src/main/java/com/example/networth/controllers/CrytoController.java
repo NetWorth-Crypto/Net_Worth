@@ -8,8 +8,11 @@ import com.example.networth.models.User;
 import com.example.networth.repositories.AssetRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.AssetService;
+import com.example.networth.services.FinanceService;
 import com.example.networth.services.PortfolioAssetService;
 import com.example.networth.services.PortfolioService;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,8 @@ public class CrytoController {
     private final PortfolioAssetService pAservice;
     private final UserRepository userRepository;
 
+    @Autowired
+    FinanceService financeService;
 
     public CrytoController(PortfolioService portfolioService, AssetService assetService, PortfolioAssetService pAservice,
                            AssetRepository assetRepository,
@@ -109,8 +114,46 @@ public class CrytoController {
     }
 
 
-    @GetMapping(path = "/addCrypto/{price}/{name}/{ticker}")
-    public String addCrypto(@PathVariable String name, @PathVariable String ticker, @PathVariable float price, Model model, RedirectAttributes redirectAttrs) {
+//    @GetMapping(path = "/addCrypto/{price}/{name}/{ticker}")
+//    public String addCrypto(@PathVariable String name,
+//                            @PathVariable String ticker,
+//                            @PathVariable float price,
+//                            Model model,
+//                            RedirectAttributes redirectAttrs) {
+//        //Pass name to financeService.getCoinName
+//        //save new name to variable
+//        //change model attribute to new name
+//
+//        model.addAttribute("price", price);
+//        model.addAttribute("name", name);
+//        model.addAttribute("ticker", ticker);
+//
+//
+//        User user = logedinUser();
+//        System.out.println(user);
+//        List<Portfolio> portfolios = portfolioService.findByUser(user);
+//        model.addAttribute("portfolios", portfolios);
+//        if (portfolios.isEmpty()) {
+//            redirectAttrs.addFlashAttribute("needPortfolio", "Creat a portfolio in order to add assets");
+//            return "redirect:/createPortfolio";
+//        }
+//
+//        return "portfolio/addAsset";
+//    }
+
+    @GetMapping(path = "/addCrypto")
+    public String addCrypto(@RequestParam String ticker,
+                            @RequestParam String name,
+                            @RequestParam String price,
+                            Model model,
+                            RedirectAttributes redirectAttrs) throws ParseException {
+
+        System.out.println("Add crypto Controller hit");
+        System.out.println("Crypto name: "+name);
+        System.out.println("Crypto ticker: "+ticker);
+
+        name = financeService.getCoinName(ticker);
+        System.out.println("Searched value: "+name);
 
 
         model.addAttribute("price", price);

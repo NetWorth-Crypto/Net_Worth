@@ -66,7 +66,7 @@ public class FinanceController {
 
         List<Portfolio> portfolios = user.getPortfolios();
         if (portfolios.isEmpty()) {
-            redirectAttributes.addFlashAttribute("needPortfolio", "Creat a portfolio in order to view financial dashboard page");
+            redirectAttributes.addFlashAttribute("needPortfolio", "Create a portfolio in order to view the financial dashboard page");
             return "redirect:/createPortfolio";
         }
         Portfolio selectedPortfolio = portfolios.get(0);

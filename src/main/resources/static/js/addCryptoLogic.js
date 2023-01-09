@@ -28,11 +28,23 @@ cryptoList().then(data => {
    <td>${priceChange}</td> 
    
    <td>
-    <a href="/addCrypto/${item.current_price}/${item.name}/${item.symbol}" class="btn btn-primary">Add to portfolio</a>
+   
+   <form method="get" action="/addCrypto">
+        <input hidden name="name" value="${item.name}">
+        <input hidden name="price" value="${item.current_price}">
+        <input hidden name="ticker" value="${item.symbol}">
+        <button type="submit">Add to portfolio</button>
+    </form>
+    
   
 </td>
           
 </tr>`
+        //     < a
+        // href = "/addCrypto/${item.current_price}/${item.name}/${item.symbol}"
+        // className = "btn btn-primary" > Add
+        // to
+        // portfolio < /a>
 
 
         document.querySelector("#list-crypto").innerHTML = html
@@ -111,7 +123,14 @@ padding: 0 20px 20px 0;" class="s-img"> <img style="width: 10vw; height: 15vh" s
 
 <hr>
 
-<a href="/addCrypto/${newData.market_data.current_price.usd}/${newData.name}/${newData.symbol}" class="btn btn-primary">Add to portfolio</a>
+<form method="get" action="/addCrypto">
+        <input hidden name="name" value="${newData.name}">
+        <input hidden name="price" value="${newData.market_data.current_price.usd}">
+        <input hidden name="ticker" value="${newData.symbol}">
+        <button type="submit">Add to portfolio</button>
+    </form>
+
+
 
 </div>
 
@@ -142,7 +161,11 @@ padding: 0 20px 20px 0;" class="s-img"> <img style="width: 10vw; height: 15vh" s
 </div>
 
 `
-
+    //     < a
+    // href = "/addCrypto/${newData.market_data.current_price.usd}/${newData.name}/${newData.symbol}"
+    // className = "btn btn-primary" > Add
+    // to
+    // portfolio < /a>
     document.querySelector(".crypto-page").innerHTML = html;
 }
 /**********************Render Crypto search result to add to portfolio END**********************/

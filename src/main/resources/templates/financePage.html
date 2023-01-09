@@ -74,40 +74,71 @@
                             <div class=""></div>
                         </div>
                     </div>
+<!--                    <div class="row mb-5">-->
+
+<!--                        &lt;!&ndash;Total Balance Section START&ndash;&gt;-->
+<!--                        <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">-->
+<!--                            <h3 class="subtitle text-gray-500">Total Balance</h3>-->
+<!--                            <div th:text="${#numbers.formatCurrency(totalBalance)}" class="h1 text-primary"></div>-->
+<!--                                                        <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span-->
+<!--                                                                class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span>-->
+<!--                                                        </p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;Total Balance Section END&ndash;&gt;-->
+
+<!--                        &lt;!&ndash;24h Change Section START&ndash;&gt;-->
+<!--                        <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">-->
+<!--                            <div>-->
+<!--                                <h3 class="subtitle text-gray-500 fw-normal">24h Portfolio Change</h3>-->
+<!--                                <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(portfolioChange)}"></div>-->
+<!--                                                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span-->
+<!--                                                                        class="badge badge-success-light"><i-->
+<!--                                                                        class="fas fa-arrow-up me-2"></i>21.3%</span></p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;24h Change Section END&ndash;&gt;-->
+
+<!--                        &lt;!&ndash;Profit/Loss Section START&ndash;&gt;-->
+<!--                                                <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">-->
+<!--                                                    <div>-->
+<!--                                                        <h3 class="subtitle text-gray-500 fw-normal">Portfolio Balance </h3>-->
+<!--                                                        <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(selectedPortfolio.availableBalance)}"></div>-->
+<!--                                                        <p class="mb-0"><span class="text-muted me-2">-$233 </span><span-->
+<!--                                                                class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%           </span>-->
+<!--                                                        </p>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                        &lt;!&ndash;Profit/Loss Section START&ndash;&gt;-->
+
+<!--                    </div>-->
                     <div class="row mb-5">
 
                         <!--Total Balance Section START-->
                         <div class="col-12 col-sm-auto flex-sm-grow-1 py-3">
                             <h3 class="subtitle text-gray-500">Total Balance</h3>
                             <div th:text="${#numbers.formatCurrency(totalBalance)}" class="h1 text-primary"></div>
-                            <!--                            <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span-->
-                            <!--                                    class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span>-->
-                            <!--                            </p>-->
+<!--                            <p class="mb-0"><span class="text-muted me-3">+$2,032 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>19.5%</span></p>-->
                         </div>
                         <!--Total Balance Section END-->
 
                         <!--24h Change Section START-->
                         <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">
                             <div>
-                                <h3 class="subtitle text-gray-500 fw-normal">24h Portfolio Change</h3>
+                                <h3 class="subtitle text-gray-500 fw-normal">24h Change</h3>
                                 <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(portfolioChange)}"></div>
-                                <!--                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span-->
-                                <!--                                        class="badge badge-success-light"><i-->
-                                <!--                                        class="fas fa-arrow-up me-2"></i>21.3%</span></p>-->
+<!--                                <p class="mb-0"><span class="text-muted me-2">+$2,123 </span><span class="badge badge-success-light"><i class="fas fa-arrow-up me-2"></i>21.3%</span></p>-->
                             </div>
                         </div>
                         <!--24h Change Section END-->
 
                         <!--Profit/Loss Section START-->
-                        <!--                        <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">-->
-                        <!--                            <div>-->
-                        <!--                                <h3 class="subtitle text-gray-500 fw-normal">Profit/Loss </h3>-->
-                        <!--                                <div class="h4 fw-normal ">$2,500</div>-->
-                        <!--                                <p class="mb-0"><span class="text-muted me-2">-$233 </span><span-->
-                        <!--                                        class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%           </span>-->
-                        <!--                                </p>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
+                        <div class="col-6 col-sm-auto flex-sm-grow-1 border-start py-3 d-flex align-items-center">
+                            <div>
+                                <h3 class="subtitle text-gray-500 fw-normal">Remaining Capital  </h3>
+                                <div class="h4 fw-normal " th:text="${#numbers.formatCurrency(selectedPortfolio.availableBalance)}"></div>
+<!--                                <p class="mb-0"><span class="text-muted me-2">-$233 </span><span class="badge badge-danger-light"><i class="fas fa-arrow-down me-2"></i>-2.1%           </span></p>-->
+                            </div>
+                        </div>
                         <!--Profit/Loss Section START-->
 
                     </div>

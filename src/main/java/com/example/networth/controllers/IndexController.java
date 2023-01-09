@@ -3,6 +3,8 @@ package com.example.networth.controllers;
 import com.example.networth.SecurityConfiguration;
 import com.example.networth.models.User;
 import com.example.networth.repositories.UserRepository;
+import com.example.networth.services.FinanceService;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,9 +18,12 @@ public class IndexController {
     @Autowired
     UserRepository userDao;
 
+
     @GetMapping("/")
 
-    public String index(Model model){
+    public String index(Model model) throws ParseException {
+
+
 
         //Get logged-in User
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
