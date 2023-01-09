@@ -25,33 +25,50 @@
 </head>
 <!--Head tag fragment END-->
 
-
+<!-- START Landing Navbar -->
 <nav th:fragment="landingNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
-    </div>
-</nav>
-
-<nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a href="/userProfile" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
-    </div>
-</nav>
-
-
-<!-- START Login Navbar -->
-<nav th:fragment="loginNavbar" class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a href="/" class="navbar-brand"><img class="navbar-img" src="/images/networth-1.png" alt=""></a>
-
-    </div>
-    <div class="collapse navbar-collapse d-flex justify-content-end" id="mainNavbar">
-        <ul class="navbar-nav">
+        <a href="/" class="navbar-brand">
+            <img class="navbar-img" src="/images/networth-1.png" alt="">
+        </a>
+        <!-- About Link -->
+        <ul class="navbar-nav d-flex justify-content-end" id="landingNavbar">
             <li class="nav-item">
                 <a class="nav-link text-white" aria-current="page" href="/about">about</a>
             </li>
         </ul>
+    </div>
+</nav>
+<!-- END Landing Navbar -->
 
+<!-- START Main Navbar -->
+<nav th:fragment="mainNavbar" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href="/userProfile" class="navbar-brand">
+            <img class="navbar-img" src="/images/networth-1.png" alt="">
+        </a>
+        <!-- About Link -->
+        <ul class="navbar-nav d-flex justify-content-end" id="mainNavbar">
+            <li class="nav-item">
+                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- END Main Navbar -->
+
+<!-- START Login Navbar -->
+<nav th:fragment="loginNavbar" class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">
+            <img class="navbar-img" src="/images/networth-1.png" alt="">
+        </a>
+        <!-- About Link -->
+        <ul class="navbar-nav d-flex justify-content-end" id="loginNavbar">
+            <li class="nav-item">
+                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+            </li>
+        </ul>
     </div>
 </nav>
 <!-- END Login Navbar -->
@@ -62,15 +79,12 @@
         <a th:href="@{/userProfile}" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
-
         <!-- About Link -->
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="profileNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="/about">about</a>
-                </li>
-            </ul>
-        </div>
+        <ul class="navbar-nav d-flex justify-content-end" id="profileNavbar">
+            <li class="nav-item">
+                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+            </li>
+        </ul>
     </div>
 </nav>
 <!-- END Profile Navbar -->
@@ -81,15 +95,6 @@
         <a th:href="@{/userProfile}" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
-        <div class="collapse navbar-collapse d-flex justify-content-end
-" id="aboutNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-primary" aria-current="page" href="/about">about</a>
-                </li>
-            </ul>
-
-        </div>
     </div>
 </nav>
 <!-- END About Us Navbar -->
@@ -97,7 +102,7 @@
 <!-- START Side Navbar -->
 <div th:fragment="sideNavbar" class="col-lg-3">
 
-    <!-- Advanced filter responsive toggler START -->
+    <!-- START Profile Menu-->
     <div class="d-flex align-items-center d-lg-none">
         <button class="profile-button border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
@@ -105,7 +110,7 @@
             <span class="h6 mb-0 fw-bold d-lg-none ms-2">Profile Menu</span>
         </button>
     </div>
-    <!-- Advanced filter responsive toggler END -->
+    <!-- END Profile Menu-->
 
     <!-- Navbar START-->
     <nav class="navbar navbar-expand-lg ">
@@ -235,7 +240,6 @@
                 </div>
                 <!-- Card END -->
 
-                </ul>
             </div>
         </div>
     </nav>
@@ -246,39 +250,41 @@
 <!--Crypto Navbar tag fragment START-->
 <nav th:fragment="cryptoNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a href="/" class="navbar-brand">
+        <a href="/userProfile" class="navbar-brand">
             <img class="navbar-img" src="/images/networth-1.png" alt="">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedCryptoContent">
-            <ul class="navbar-nav">
-                <!-- About -->
-                <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="/about">about</a>
-                </li>
-                <!-- Profile -->
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/userProfile}">profile</a>
-                </li>
-                <!-- Logout -->
-                <li class="nav-item">
-                    <form th:action="@{/logout}" method="POST" class="navbar-form">
-                        <button class="btn btn primary" type="submit">logout</button>
-                    </form>
-                </li>
-                <!-- Search Crypto -->
-                <li class="nav-item">
-                    <form class="d-flex">
-                        <input id="cryptoearch" class="form-control me-2 " type="text" placeholder="Search"
-                               aria-label="Search">
-                        <button id="searchBtn" class="btn btn-outline-success " type="button">Search</button>
-                    </form>
-                </li>
-            </ul>
-        </div>
+        <!-- About Link -->
+        <ul class="navbar-nav d-flex justify-content-end" id="cryptoNavbar">
+            <li class="nav-item">
+                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+            </li>
+        </ul>
+<!--        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedCryptoContent">-->
+<!--            <ul class="navbar-nav">-->
+<!--                &lt;!&ndash; About &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link text-white" aria-current="page" href="/about">about</a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash; Profile &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/userProfile}">profile</a>-->
+<!--                </li>-->
+<!--                &lt;!&ndash; Logout &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <form th:action="@{/logout}" method="POST" class="navbar-form">-->
+<!--                        <button class="btn btn primary" type="submit">logout</button>-->
+<!--                    </form>-->
+<!--                </li>-->
+<!--                &lt;!&ndash; Search Crypto &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <form class="d-flex">-->
+<!--                        <input id="cryptoearch" class="form-control me-2 " type="text" placeholder="Search"-->
+<!--                               aria-label="Search">-->
+<!--                        <button id="searchBtn" class="btn btn-outline-success " type="button">Search</button>-->
+<!--                    </form>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
     </div>
 </nav>
 <!--Crypto Navbar tag fragment END-->
