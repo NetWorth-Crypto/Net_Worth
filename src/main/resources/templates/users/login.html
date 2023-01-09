@@ -30,34 +30,38 @@
                     <!-- form card login.html -->
 
                     <div style="flex-direction: row;"  class="card card-outline-secondary">
-                        <img style="width: 30%" th:src="@{/images/oldNetworth-1.png}" class="card-img-top m-2" alt="...">
+                        <img style="width: 30%" th:src="@{/images/oldNetworth-1.png}" class="card-img m-2" alt="...">
 
                         <div class="card-body">
                             <div class="card-header">
                                 <h3 class="mb-0">Login</h3>
                             </div>
                             <form th:action="@{/login}" method="post" autocomplete="off" class="form" id="formLogin" name="formLogin" role="form">
+                                <!-- Username Input -->
                                 <div class="form-group">
                                     <label for="uname1">Username</label>
                                     <input class="form-control" id="uname1" name="username" required="" type="text"/>
                                 </div>
+                                <!-- Password Input -->
                                 <div class="form-group">
                                     <label for="pwd1">Password</label>
                                     <input autocomplete="new-password" class="form-control" id="pwd1" required="" type="password" name="password"/>
                                 </div>
+                                <!-- Form Buttons -->
+                                <div class="form-group d-flex justify-content-xl-between mt-2">
+                                    <!-- Login Button -->
+                                    <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
 
-                                <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
-
-                                <div class="text-center">
-                                    <p>Not a member? <a href="/sign-up">Register</a></p>
+                                    <!-- Go Back Button -->
+                                    <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>
                                 </div>
                             </form>
-                        </div><!--/card-block-->
-                    </div><!-- /form card login.html -->
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login.html -->
                 </div>
             </div>
-
-
 <div th:replace="partials :: scriptTags"></div>
 <div th:replace="fragments :: jsFile"></div>
 

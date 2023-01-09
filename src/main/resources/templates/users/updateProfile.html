@@ -59,11 +59,11 @@
                     <!-- Password -->
                     <div class="form-group">
                         <label for="inputPassword3">Password</label>
-                        <input class="form-control" id="inputPassword3" placeholder="Password" name="password" required="" type="password">
+                        <input class="form-control" id="inputPassword3" placeholder="Password" name="password" required="" th:value="user.password" type="password">
                         <small class="form-text text-muted" id="passwordHelpBlock">Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.</small>
                     </div>
                     <!-- Buttons -->
-                    <div class="form-group d-flex justify-content-xl-between">
+                    <div class="form-group d-flex justify-content-xl-between mt-4">
                         <!-- Update Button -->
                         <button class="btn btn-success btn-lg mr-3" type="submit" value="Update">Update</button>
                         <!-- Go Back Button -->
