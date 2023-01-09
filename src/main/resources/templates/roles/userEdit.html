@@ -20,7 +20,7 @@
 
 
 
-        <div class="container mt-3" style="width: 100%">
+        <div class="container mt-3">
 
 
             <div class="row">
@@ -30,13 +30,13 @@
 
 
 
-                <div class="col-8">
+                <div class="col-lg-8">
 
-                    <div class="panel-body">
+
 
                         <div class="row">
 
-                            <div class="col-lg-6 mt-3">
+                            <div class="col-md-6 col-sm-11 mt-3">
                                 <div class="card">
 
                                     <div class="card-header text-center"><h5> User Details</h5></div>
@@ -96,7 +96,7 @@
                             </div>
 
 
-                            <div class="col-lg-6 mt-3">
+                            <div class="col-md-6 col-sm-11 mt-3">
 
 
                                 <div class="card ">
@@ -129,21 +129,23 @@
                             </div>
 
                         </div>
+                </div>
 
+                        <div class="card mt-5" style="width: 100%;">
 
-                        <div class="card mt-5">
-
-                            <div class="card-header">
+                            <div class="card-body">
+                                <div class="card-title text-center">
                            <h5> Roles current user is not assigned to</h5>
+                                    <hr class="w-50 mx-auto">
                             </div>
 
-                            <table class="table  table-advance">
+                            <table class="table table-responsive w-100">
                                 <tbody>
                                 <tr>
-                                    <th></th>
-                                    <th><i class="icon_profile"></i> Description</th>
-                                    <th><i class="icon_calendar"></i> Details</th>
-                                    <th><i class="icon_cogs"></i> Action</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"><i class="icon_profile"></i> Description</th>
+                                    <th scope="col"><i class="icon_calendar"></i> Details</th>
+                                    <th scope="col"><i class="icon_cogs"></i> Action</th>
                                 </tr>
                                 <tr th:each="userNotRole:${userNotRoles}">
                                     <td><i class="fa fa-table"></i></td>
@@ -161,13 +163,13 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
-            </div>
+                </div>
 
 
 
-    </div>
+
+
 
 
 
