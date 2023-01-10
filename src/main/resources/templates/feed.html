@@ -26,7 +26,8 @@
                 <!-- Search Posts -->
                 <div class="card card-body form-group d-flex justify-content-end">
                     <form class="form-group w-100 col-md-8 col-lg-6" th:action="@{/searchPost}" method="get">
-                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">
+                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}"
+                               placeholder="Find Post">
                         <button type="submit" class="rounded">Search</button>
                     </form>
                 </div>
@@ -44,10 +45,12 @@
                                       data-autoresize="" placeholder="Share your thoughts..."></textarea>
                             <input id="imgurl" type="text" name="imgUrl" hidden value="null">
                             <input id="videourl" type="text" name="videoUrl" hidden value="null">
-                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i class="fa-regular fa-image"></i>
+                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i
+                                    class="fa-regular fa-image"></i>
                                 picture
                             </button>
-                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i class="fa-solid fa-video"></i> video
+                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i
+                                    class="fa-solid fa-video"></i> video
                             </button>
                             <button class="btn shareBtn mt-2" type="submit">
                                 <i class="fa-solid fa-square-share-nodes" style="color: white"></i>
@@ -57,7 +60,6 @@
                     </div>
                 </div>
                 <!-- Share feed END -->
-
 
 
                 <!-- Card feed item START -->
@@ -71,14 +73,16 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <!--Avatar-->
-                                    <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3"
-                                         style="width: 50px;" alt="Avatar"/>
+                                    <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3 me-3"
+                                         style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
+                                         alt="Avatar"/>
                                     <!--Info-->
                                     <!--                <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
                                     <div>
                                         <div class="nav nav-divider">
                                             <!--INPUT USER PROFILE LINK-->
-                                            <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${post.getUser().id})}"> <strong
+                                            <h6 class="nav-item card-title mb-0"><a
+                                                    th:href="@{/userProfile/{id}(id = ${post.getUser().id})}"> <strong
                                                     th:text="${post.getUser().firstName}"></strong> <strong
                                                     th:text="${post.getUser().lastName}"></strong> </a></h6>
                                         </div>
@@ -92,7 +96,7 @@
                         <!--Card body START-->
                         <div class="card-body">
                             <!--Post Description-->
-                            <p class="card-text"  th:text="${post.description}"></p>
+                            <p class="card-text" th:text="${post.description}"></p>
 
                             <!--Post image-->
                             <div th:if="${post.imgUrl} != 'null'">
@@ -100,7 +104,7 @@
                             </div>
                             <!--video image-->
                             <div th:if="${post.videoUrl} != 'null'">
-                                <video class="card-img-top"  controls>
+                                <video class="card-img-top" controls>
                                     <source th:src="${post.videoUrl}" type="video/mp4">
                                 </video>
                             </div>
@@ -126,7 +130,8 @@
 
                                 </form>
 
-                                <button class="btn shareBtn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${post.id}"
+                                <button class="btn shareBtn" data-bs-toggle="collapse"
+                                        th:attr="data-bs-target='#collapse'+${post.id}"
                                         aria-expanded="false" aria-controls="collapseExample">
                                     Comments
                                     <span class="badge ms-1" th:text="${post.getComments().size()}"></span>
@@ -140,58 +145,66 @@
                                 <!-- Avatar -->
                                 <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
                                 <div class="avatar avatar-xs me-2">
-                                    <a href="#!"> <img class="avatar-img rounded-circle"
-                                                       style="width: 50px;"
+                                    <a href="#!"> <img class="avatar-img rounded-circle mb-3 me-3"
+                                                       style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
                                                        th:src="${user.profilePicture}"
-                                                        alt=""> </a>
+                                                       alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
-                                <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post" th:object="${newComment}">
-                                    <textarea th:field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
+                                <form class="w-75 d-flex justify-content-center"
+                                      th:action="@{/posts/{id}/create/comment(id=${post.id})}" th:method="post"
+                                      th:object="${newComment}">
+                                    <textarea th:field="*{message}" name="commentSection" data-autoresize=""
+                                              class="form-control pe-4 bg-light" rows="1"
                                               placeholder="Add a comment..."></textarea>
-                                    <button class="btn shareBtn ms-2" type="submit" >comment</button>
+                                    <button class="btn shareBtn ms-2" type="submit">comment</button>
                                 </form>
                             </div>
                             <!-- Add comment END-->
 
                             <!-- Comment wrap START -->
                             <div th:each="comment: ${post.getComments()}">
-                            <div class="collapse" th:id="'collapse'+${post.id}">
-                                <ul class="comment-wrap list-unstyled">
-                                    <li class="comment-item">
-                                        <div class="d-flex position-relative">
-                                            <!-- Avatar -->
-                                            <!--GET COMMENT USER IMAGE-->
-                                            <div class="avatar avatar-xs">
-                                                <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"
-                                                                  th:src="${comment.user.profilePicture}" alt=""></a>
-                                            </div>
-                                            <div class="ms-2">
-                                                <!-- Comment by -->
-                                                <div class=" rounded-start-top-0 p-3 rounded">
-                                                    <div class="d-flex justify-content-between">
-                                                        <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
-                                                    </div>
-                                                    <p class="small mb-0" th:text="${comment.message}"></p>
+                                <div class="collapse" th:id="'collapse'+${post.id}">
+                                    <ul class="comment-wrap list-unstyled">
+                                        <li class="comment-item">
+                                            <div class="d-flex position-relative">
+                                                <!-- Avatar -->
+                                                <!--GET COMMENT USER IMAGE-->
+                                                <div class="avatar avatar-xs">
+                                                    <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img
+                                                            style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
+                                                            class="avatar-img rounded-circle mb-3 me-3"
+                                                            th:src="${comment.user.profilePicture}" alt=""></a>
                                                 </div>
-                                                <!-- Comment react -->
-                                                <!-- PUT THIS IF TIME IS ALLOTED-->
-                                                <!--                            <ul class="nav nav-divider py-2 small">-->
-                                                <!--                                <li class="nav-item">-->
-                                                <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
-                                                <!--                                </li>-->
-                                                <!--                                <li class="nav-item">-->
-                                                <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
-                                                <!--                                </li>-->
-                                                <!--                                <li class="nav-item">-->
-                                                <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
-                                                <!--                                </li>-->
-                                                <!--                            </ul>-->
+                                                <div class="ms-2">
+                                                    <!-- Comment by -->
+                                                    <div class=" rounded-start-top-0 p-3 rounded">
+                                                        <div class="d-flex justify-content-between">
+                                                            <h6 class="mb-1"><a
+                                                                    th:href="@{/userProfile/{id}(id = ${comment.user.id})}"
+                                                                    th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a>
+                                                            </h6>
+                                                        </div>
+                                                        <p class="small mb-0" th:text="${comment.message}"></p>
+                                                    </div>
+                                                    <!-- Comment react -->
+                                                    <!-- PUT THIS IF TIME IS ALLOTED-->
+                                                    <!--                            <ul class="nav nav-divider py-2 small">-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> Like (3)</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> Reply</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                                <li class="nav-item">-->
+                                                    <!--                                    <a class="nav-link" href="#!"> View 5 replies</a>-->
+                                                    <!--                                </li>-->
+                                                    <!--                            </ul>-->
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <!-- Comment wrap END -->
 
