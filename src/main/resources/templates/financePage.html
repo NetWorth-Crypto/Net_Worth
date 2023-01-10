@@ -50,12 +50,15 @@
                                     data-bs-target="#editPortfolioModal">
                                 Edit
                             </button>
-                            <a th:href="@{/deletePortfolio/{id}(id=${selectedPortfolio.id})}"
-                               class="btn btn-danger mt-2 me-1">delete</a>
-                            <button type="button" class="btn  btn-success mt-2" data-bs-toggle="modal"
+                            <button type="button" class="btn  btn-success mt-2 me-1" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
-                                Create Portfolio
+                                Create
                             </button>
+                            <a th:href="@{/deletePortfolio/{id}(id=${selectedPortfolio.id})}"
+                               class="btn btn-danger mt-2"
+                               onclick="return confirm('Are you sure you want to delete this portfolio?')"
+                            >delete</a>
+
 
                         </form>
                         <!--Select, Edit, Create, and Delete Portfolio Form and Modal END-->
@@ -168,7 +171,9 @@
                                 </td>
                                 <td>
                                     <a th:href="@{/finance/delete/asset/{id}/{portfolioId}(id=${portfolioAsset.getAsset().id}, portfolioId = ${selectedPortfolio.id})}"
-                                       class="btn shareBtn">Delete</a>
+                                       class="btn shareBtn"
+                                       onclick="return confirm('Are you sure you want to delete this asset?')"
+                                    >Delete</a>
                                 </td>
                                 <!--                                <td>-->
                                 <!--                                    <div class="d-flex align-items-center">-->
