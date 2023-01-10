@@ -78,8 +78,9 @@
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <!--Avatar-->
-                                        <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3"
-                                             style="width: 50px;" alt="Avatar"/>
+                                        <img th:src="${post.getUser().profilePicture}" class="rounded-circle mb-3 me-3"
+                                             style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
+                                             alt="Avatar"/>
                                         <!--Info-->
                                         <!--               <h5 class="mb-2"><strong th:text="${post.getUser().firstName}"></strong> <strong th:text="${post.getUser().lastName}"></strong></h5>-->
                                         <div>
@@ -178,8 +179,8 @@
                                     <!-- Avatar -->
                                     <!-- GET LOGGED-IN USER DATA FOR AVATAR IMAGE-->
                                     <div class="avatar avatar-xs me-2">
-                                        <a href="#!"> <img class="avatar-img rounded-circle"
-                                                           style="width: 50px;"
+                                        <a href="#!"> <img class="avatar-img rounded-circle mb-3 me-3"
+                                                           style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
                                                            th:src="${user.profilePicture}" alt=""> </a>
                                     </div>
                                     <!-- Comment box  -->
@@ -207,8 +208,9 @@
                                                     <!-- Avatar -->
                                                     <!--GET COMMENT USER IMAGE-->
                                                     <div class="avatar avatar-xs">
-                                                        <a href=""><img style="width: 50px;"
-                                                                        class="avatar-img rounded-circle"
+                                                        <a href=""><img
+                                                                        style="width: 60px; height:60px; border-radius: 10px; object-fit: cover;"
+                                                                        class="avatar-img rounded-circle mb-3 me-3"
                                                                         th:src="${comment.user.profilePicture}"
                                                                         alt=""></a>
                                                     </div>
