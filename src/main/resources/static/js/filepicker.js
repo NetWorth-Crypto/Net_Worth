@@ -77,6 +77,10 @@ function profileImgClickHandler(){
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
+            setTimeout(()=>{
+                location.reload();
+            },500);
+
         }
     };
 
