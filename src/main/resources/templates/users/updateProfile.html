@@ -7,7 +7,7 @@
 <!--    <title>posts</title>-->
 <!--</head>-->
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Update Profile')"/>
 <body>
 <!--<div th:replace="fragments :: pforms-navbar"></div>-->
 <nav th:replace="partials::profileNavbar"/>
@@ -61,10 +61,10 @@
                     </div>
                     <!-- Buttons -->
                     <div class="form-group d-flex justify-content-xl-between mt-4">
-                        <!-- Update Button -->
-                        <button class="btn btn-success btn-lg mr-3" type="submit" value="Update">Update</button>
                         <!-- Go Back Button -->
                         <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>
+                        <!-- Update Button -->
+                        <button class="btn btn-success btn-lg mr-3" type="submit" value="Update">Update</button>
                     </div>
                 </form>
             </div>

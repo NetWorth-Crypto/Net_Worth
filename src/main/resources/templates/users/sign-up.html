@@ -7,7 +7,7 @@
 <!--    <title>posts</title>-->
 <!--</head>-->
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Sign Up')"/>
 <body>
 <!--<div th:replace="fragments :: pforms-navbar"></div>-->
 <nav th:replace="partials::mainNavbar"/>
@@ -55,14 +55,13 @@
                         <small class="form-text text-muted" id="passwordHelpBlock">Your password must be 8-20 characters long, contain letters and special characters, and must not contain spaces, or emoji.</small>
                     </div>
 
-                    <div class="form-group">
-                        <button class="btn btn-success btn-lg float-right" type="submit">Register</button>
+                    <div class="form-group d-flex justify-content-end mt-4">
+                        <button class="btn btn-success btn-lg float-right" type="submit" onclick="alert('Welcome to NetWorth!\n\n\'Whoever controls the media controls the mind . . . .\'')">Register</button>
                     </div>
                 </form>
             </div>
         </div><!-- /form card register -->
     </div>
 </div>
-
 </body>
 </html>

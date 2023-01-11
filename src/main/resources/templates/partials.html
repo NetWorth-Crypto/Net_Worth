@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
-<body>
+
+
 <!--Head tag fragment START-->
-<head th:fragment="head">
+<head th:fragment="head(title)">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/role.css}" rel="stylesheet">
     <!--BootStrap Link-->
@@ -15,16 +12,17 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!--FontAwesome script-->
     <script src="https://kit.fontawesome.com/27b1eac4bf.js" crossorigin="anonymous"></script>
-
-
     <!--Custom style sheet-->
     <link href="/css/post.css" rel="stylesheet">
+    <!-- Favicon Icon Style -->
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/faviconNetWorth.png}">
 
     <meta charset="UTF-8"/>
-    <title>Your Feed</title>
+    <title th:text="${'NetWorth | ' + title}"></title>
 </head>
 <!--Head tag fragment END-->
 
+<body>
 <!-- START Landing Navbar -->
 <nav th:fragment="landingNavbar" class="navbar navbar-expand-lg">
     <div class="container-fluid">
@@ -34,7 +32,7 @@
         <!-- About Link -->
         <ul class="navbar-nav d-flex justify-content-end" id="landingNavbar">
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+                <a class="nav-link text-white" aria-current="page" href="/about">About</a>
             </li>
         </ul>
     </div>
@@ -50,7 +48,7 @@
         <!-- About Link -->
         <ul class="navbar-nav d-flex justify-content-end" id="mainNavbar">
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+                <a class="nav-link text-white" aria-current="page" href="/about">About</a>
             </li>
         </ul>
     </div>
@@ -66,7 +64,7 @@
         <!-- About Link -->
         <ul class="navbar-nav d-flex justify-content-end" id="loginNavbar">
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+                <a class="nav-link text-white" aria-current="page" href="/about">About</a>
             </li>
         </ul>
     </div>
@@ -82,7 +80,7 @@
         <!-- About Link -->
         <ul class="navbar-nav d-flex justify-content-end" id="profileNavbar">
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+                <a class="nav-link text-white" aria-current="page" href="/about">About</a>
             </li>
         </ul>
     </div>
@@ -160,19 +158,19 @@
                                 </div>
 
                                 <!-- Divider -->
-                                <div class="vr"></div>
+<!--                                <div class="vr"></div>-->
                                 <!-- User stat item -->
-                                <div>
-                                    <h6 class="mb-0"></h6>
-                                    <small>Followers</small>
-                                </div>
+<!--                                <div>-->
+<!--                                    <h6 class="mb-0"></h6>-->
+<!--                                    <small>Followers</small>-->
+<!--                                </div>-->
                                 <!-- Divider -->
-                                <div class="vr"></div>
+<!--                                <div class="vr"></div>-->
                                 <!-- User stat item -->
-                                <div>
-                                    <h6 class="mb-0"></h6>
-                                    <small>Following</small>
-                                </div>
+<!--                                <div>-->
+<!--                                    <h6 class="mb-0"></h6>-->
+<!--                                    <small>Following</small>-->
+<!--                                </div>-->
                             </div>
                             <!-- User stat END -->
 
@@ -256,7 +254,7 @@
         <!-- About Link -->
         <ul class="navbar-nav d-flex justify-content-end" id="cryptoNavbar">
             <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="/about">about</a>
+                <a class="nav-link text-white" aria-current="page" href="/about">About</a>
             </li>
         </ul>
 <!--        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedCryptoContent">-->
