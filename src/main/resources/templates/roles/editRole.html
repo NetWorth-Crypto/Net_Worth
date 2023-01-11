@@ -2,15 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
-<head>
-    <div th:replace="fragments :: myheader"></div>
 
-    <div th:replace="fragments :: css"></div>
+<head th:replace="partials::head(title='roles')"/>
 
-    <title>Add asset</title>
-</head>
+
 <body>
-<div th:replace="fragments :: pforms-navbar"></div>
+
+<div th:replace="partials :: mainNavbar"></div>
 
 
 <hr class="mb-4">
