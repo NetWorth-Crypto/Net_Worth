@@ -10,7 +10,7 @@
 <!--    <title>Add asset</title>-->
 <!--</head>-->
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Add Asset')"/>
 <body>
 <nav th:replace="partials::mainNavbar"/>
 <!--<div th:replace="fragments :: pforms-navbar "></div>-->
@@ -60,7 +60,7 @@
                     <!-- Buttons -->
                     <div class="form-group d-flex justify-content-xl-between mt-2">
                         <!-- Submit Button -->
-                        <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">submit</button>
+                        <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Submit</button>
                         <!-- Go Back Button -->
                         <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>
                     </div>

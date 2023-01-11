@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials::head"/>
+
+<head th:replace="partials::head(title='Home')"/>
+
 <body>
 
 <!--Main NavBar START-->
@@ -50,7 +52,7 @@
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
             <div class="card h-100 text-center">
-                <img src="/images/multiCoins.png" class="card-img-top p-2" alt="Hollywood Sign on The Hill" style="width: 100%;
+                <img src="/images/multiCoins.png" class="card-img-top p-2" alt="Crypto-like icons" style="width: 100%;
             object-fit: cover;"/>
                 <div class="card-body">
                     <h5 class="card-title">Portfolio Tracking</h5>
@@ -62,9 +64,9 @@
         </div>
         <div class="col">
             <div class="card h-100 text-center">
-                <img src="/images/dogecoin.png" class="card-img-top mx-auto" alt="Palm Springs Road" style="width: 50%;
+                <img src="/images/dogecoin.png" class="card-img mx-auto" alt="Dogecoin" style="width: 50%;
             object-fit: cover;"/>
-                <div class="card-body">
+                <div class="card-body" style="padding-top: 80px;">
                     <h5 class="card-title">Connect</h5>
                     <p class="card-text">
                         Connect with friends and community members. Share financial experience and insight.

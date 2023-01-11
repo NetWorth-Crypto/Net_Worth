@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Create Portfolio')"/>
 <body>
 <!--<div th:replace="fragments ::pforms-navbar"></div>-->
 <nav th:replace="partials::mainNavbar"/>
@@ -33,13 +33,13 @@
                         <input name="dollarLimit" class="form-control" id="dollar" placeholder="$" required="" type="text">
                     </div>
                     <!-- Portfolio Type (Private/Default) Input -->
-                    <div class="form-group">
-                        <label for="type">choose Portfolio type</label>
-                        <select  id="type" name="type" class="form-select">
-                            <option>Private</option>
-                            <option>Default</option>
-                        </select>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="type">choose Portfolio type</label>-->
+<!--                        <select  id="type" name="type" class="form-select">-->
+<!--                            <option>Private</option>-->
+<!--                            <option>Default</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
                     <!-- Buttons -->
                     <div class="form-group d-flex justify-content-xl-between mt-4">
                         <!-- Submit Button -->

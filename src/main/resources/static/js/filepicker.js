@@ -4,9 +4,17 @@ const client = filestack.init(fileStackApi);
 let imgUrl = document.getElementById("imgurl");
 let videoUrl = document.getElementById("videourl");
 
+let imgPreview = document.getElementById("imgPreview");
+let imgPreviewLabel = document.getElementById("imgPreviewLabel");
 let imgButton = document.getElementById("imageButton");
+
+let videoTag = document.getElementById("videoTag");
+let videoPreview = document.getElementById("videoPreview");
+let videoPreviewLabel = document.getElementById("videoPreviewLabel");
 let videoButton = document.getElementById("videoButton");
+
 let profilePicLink = document.getElementById("userProfilePic");
+let shareButton = document.getElementById("shareButton");
 
 
 imgButton.addEventListener("click",imgClickHandler);
@@ -16,10 +24,14 @@ profilePicLink.addEventListener("click", profileImgClickHandler);
 
 
 function imgClickHandler(){
+    console.log(imgPreview);
     const imgOptions = {
         accept: ["image/*"],
         onFileUploadFinished:file =>{
             imgUrl.value = file.url;
+            imgPreview.src = file.url;
+            imgPreviewLabel.hidden = false;
+            imgPreview.hidden = false;
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
@@ -30,6 +42,7 @@ function imgClickHandler(){
 }
 
 function videoClickHandler(){
+    console.log(videoPreview);
     const videoOptions = {
         accept: ["video/*"],
         disableTransformer: true,
@@ -37,6 +50,12 @@ function videoClickHandler(){
         videoResolution: '1280x720',
         onFileUploadFinished:file =>{
             videoUrl.value = file.url;
+            videoPreviewLabel.hidden = false;
+
+            setTimeout(()=>{
+                refreshDialer(videoUrl);
+            },500);
+
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
 
@@ -57,6 +76,10 @@ function profileImgClickHandler(){
             postData(imglink).then(data => console.log(data));
             console.log("FileUpload file url:"+file.url);
             console.log("FileUpload file size:"+file.size);
+
+            setTimeout(()=>{
+                location.reload();
+            },500);
 
         }
     };
@@ -87,5 +110,10 @@ async function postData(imgLink){
     console.log("img JS ran")
 }
 
-
+function refreshDialer(url){
+    let html = `<video id="videoTag" width="270" height="160" autoplay="autoplay" controls="">
+                                <source id="videoPreview" src=${url.value} type="video/mp4">
+                            </video>`;
+    document.getElementById("vidDiv").innerHTML = html;
+}
 

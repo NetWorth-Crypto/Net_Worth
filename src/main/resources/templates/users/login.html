@@ -6,8 +6,7 @@
 
 <!--    <title>posts</title>-->
 <!--</head>-->
-<head th:replace="partials::head"></head>
-
+<head th:replace="partials::head(title='Login')"/>
 <body>
 <!--<div th:replace="fragments :: pforms-navbar"></div>-->
 <nav th:replace="partials::loginNavbar"></nav>
@@ -49,11 +48,10 @@
                                 </div>
                                 <!-- Form Buttons -->
                                 <div class="form-group d-flex justify-content-xl-between mt-2">
+                                    <!-- Go Back Button (Button Removed due to sending back to profile page albeit previously logging out.-->
+                                    <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>
                                     <!-- Login Button -->
                                     <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Login</button>
-
-                                    <!-- Go Back Button (Button Removed due to sending back to profile page albeit previously logging out.-->
-<!--                                    <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>-->
                                 </div>
                             </form>
                         </div>
