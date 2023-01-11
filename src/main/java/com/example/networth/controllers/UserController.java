@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,8 +108,10 @@ public class UserController {
             @RequestParam("email")String email,
             @RequestParam("password")String password,
            Model model,RedirectAttributes attributes){
-
-        User user = new User(firstName,lastName,email,password,username);
+ List<Role>roles = new ArrayList<>();
+ Role role = new Role("create portfolio, create posts, manage personal profile","user");
+ roles.add(role);
+        User user = new User(firstName,lastName,email,password,username,roles);
 
        if(!isValidPassword(user.getPassword())){
           model.addAttribute("firstname",user.getFirstName());

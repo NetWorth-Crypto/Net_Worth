@@ -2,7 +2,7 @@
 USE net_worth;
 
 
-insert into user(email,user_name, first_name, last_name, password,  profile_picture, user_title)
+insert into user(email,user_name, first_name, last_name, password,  profile_picture, user_title, r)
 values ('aastevens1126@gmail.com', 'astevens09','Anthony','Stevens','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://cdn.filestackcontent.com/2HFPxlUsQxu6uhgAoVNp','web-dev'),
        ('casanovageary@gmail.com', 'dogeking','Cas','Geary','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QXQ9L54L-bf7b21a56847-512', 'gamestop'),
        ('amida@gmail.com', 'midostar','Amida','Fombutu','$2a$10$GsOi9SscCwtgCSgf0D1AVeIlEORlgr8AEsUHoeFLkvv2qg849ZdIy','https://ca.slack-edge.com/T029BRGN0-U03QNP4B8RL-6f9c5581b866-512','web-dev'),
@@ -50,4 +50,10 @@ values  (1,'admin','edit user\'s info or delete other users'),
         (2,'super-admin','assign and revoke roles, edit user\'s info or delete other users');
 
 insert into user_role(user_id,role_id)
-values (124,2),(124,1)
+values (124,2),(124,1),
+       (1,3),
+       (2,3),
+       (3,3),
+       (4,2),
+       (124,3),
+       (125,3)

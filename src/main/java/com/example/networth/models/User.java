@@ -47,6 +47,8 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
+
+            @Column
     List<Role> roles = new ArrayList<>();
 
 
@@ -127,13 +129,14 @@ public class User {
     }
 
 
-    public User( String firstName, String lastName, String email, String password,String username) {
+    public User( String firstName, String lastName, String email, String password,String username,List<Role>roles) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.roles = roles;
     }
 
 
@@ -207,4 +210,6 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+
 }
