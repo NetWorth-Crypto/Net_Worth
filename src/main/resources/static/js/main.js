@@ -157,5 +157,5 @@ searchBtn.addEventListener("click", function () {
 
 })
 
-/****************************** Popup Confirm for Welcoming New User **********************************/
+
 

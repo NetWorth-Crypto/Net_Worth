@@ -23,7 +23,7 @@
 
                 <div sec:authorize="isAuthenticated()">
                     <div th:if="${#authentication.principal.id} == ${user.id}">
-
+                        <!-- Start Create Post-->
                         <div class="card card-body">
                             <form class="form-group w-100" th:action="@{/posts/create/user}" th:method="post"
                                   th:object="${newPost}">
@@ -44,11 +44,10 @@
                                 <button id="shareButton"
                                         class="btn shareBtn mt-2 " type="submit"><i
                                         class="fa-solid fa-square-share-nodes"
-                                        style="color: white"></i> Share
+                                        style="color: white"></i> Post
                                 </button>
                             </form>
-                            <hr>
-
+                            <!-- End Create Post-->
                             <!--Image/Video Preview START-->
                             <h4 hidden id="imgPreviewLabel" class="mb-3">Image Preview:</h4>
                             <img hidden style="width: 150px;" id="imgPreview" src="#">
@@ -65,8 +64,6 @@
 <!--                                </form>-->
 <!--                            </div>-->
                         </div>
-
-
                     </div>
                 </div>
 
@@ -136,7 +133,6 @@
                                             <i class="fa-solid fa-thumbs-up"></i>
                                             <span class="badge bg-secondary" th:text="${post.likes.size()}"></span>
                                         </button>
-
                                     </form>
 
                                     <form th:action="@{/dislike/post/user}" th:method="post">

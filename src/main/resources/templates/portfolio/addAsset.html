@@ -55,14 +55,13 @@
                             <select id="portfolio" name="portfolio" class="form-select">
                                 <option th:each="portfolio : ${portfolios}" th:value="${portfolio.id}" th:text="${portfolio.name}"></option>
                             </select>
-
                     </div>
                     <!-- Buttons -->
                     <div class="form-group d-flex justify-content-xl-between mt-2">
-                        <!-- Submit Button -->
-                        <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Submit</button>
                         <!-- Go Back Button -->
                         <button class="btn btn-danger btn-lg" type="submit" value="Go back!" onclick="history.back()">Go Back</button>
+                        <!-- Submit Button -->
+                        <button class="btn btn-success btn-lg float-right" type="submit" value="Log In">Submit</button>
                     </div>
                 </form>
             </div><!--/card-block-->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Search Results')"/>
 <body>
 
 <!--Main Navbar-->
@@ -13,9 +13,9 @@
     <div class="container">
         <div class="row g-4">
 
-<!--            &lt;!&ndash; Sidenav START &ndash;&gt;-->
-<!--            <div th:replace="partials::sideNavbar"/>-->
-<!--            &lt;!&ndash; Sidenav END &ndash;&gt;-->
+            <!--            &lt;!&ndash; Sidenav START &ndash;&gt;-->
+            <!--            <div th:replace="partials::sideNavbar"/>-->
+            <!--            &lt;!&ndash; Sidenav END &ndash;&gt;-->
 
             <!--Side Nav tag fragment START-->
             <div class="col-lg-3">
@@ -23,153 +23,126 @@
                 <!-- Advanced filter responsive toggler START -->
 
 
-                    <!-- START Profile Menu-->
-                    <div class="d-flex align-items-center d-lg-none">
-                        <button class="profile-button border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
-                            <i class="fa-brands fa-bitcoin" style="color: gold"></i>
-                            <span class="h6 mb-0 fw-bold d-lg-none ms-2">Profile Menu</span>
-                        </button>
-                    </div>
-                    <!-- END Profile Menu-->
+                <!-- START Profile Menu-->
+                <div class="d-flex align-items-center d-lg-none">
+                    <button class="profile-button border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasSideNavbar" aria-controls="offcanvasSideNavbar">
+                        <i class="fa-brands fa-bitcoin" style="color: gold"></i>
+                        <span class="h6 mb-0 fw-bold d-lg-none ms-2">Profile Menu</span>
+                    </button>
+                </div>
+                <!-- END Profile Menu-->
 
-                    <!-- Navbar START-->
-                    <nav class="navbar navbar-expand-lg ">
-                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
-                            <!-- Offcanvas header -->
-                            <div class="offcanvas-header">
-                                <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas"
-                                        aria-label="Close"></button>
-                            </div>
+                <!-- Navbar START-->
+                <nav class="navbar navbar-expand-lg" style="padding-top: 0px;">
+                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSideNavbar">
+                        <!-- Offcanvas header -->
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close text-reset ms-auto" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
 
-                            <!-- Offcanvas body -->
-                            <div class="offcanvas-body d-block px-2 px-lg-0">
-                                <!-- Card START -->
-                                <div class="card overflow-hidden">
-                                    <!-- Cover image -->
-                                    <div class="h-50px"
-                                         style="background-image:url('https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
+                        <!-- Offcanvas body -->
+                        <div class="offcanvas-body d-block px-2 px-lg-0">
+                            <!-- Card START -->
+                            <div class="card overflow-hidden">
+                                <!-- Cover image -->
+                                <div class="h-50px"
+                                     style="background-image:url('https://cdn.filestackcontent.com/svmsGOZIQxOdQmL06LHM'); background-position: center; background-size: cover; background-repeat: no-repeat;"></div>
 
-                                    <!-- Card body START -->
-                                    <div class="card-body pt-0">
-                                        <div class="text-center">
+                                <!-- Card body START -->
+                                <div class="card-body pt-0">
+                                    <div class="text-center">
 
-                                            <!-- Avatar / Profile Pic -->
-                                            <div id="userProfilePic" class="avatar avatar-lg mt-n5 mb-3">
-                                                <a href="#">
-
-                                                    <img style="width: 50px;" class="avatar-img  border  border-3 mt-2"
-                                                         th:src="${user.profilePicture}" alt="">
-
-                                                </a>
-                                            </div>
-
-                                            <!-- User Info -->
-                                            <h5 class="mb-0"><a href="/userProfile"
-                                                                th:text="${user.firstName}+' '+${user.lastName}"></a></h5>
-                                            <br>
-                                            <small th:text="${user.userTitle}"></small>
-                                            <br>
-                                            <br>
-
-                                            <!-- User stat START -->
-                                            <div class="hstack gap-2 gap-xl-3 justify-content-center">
-                                                <!-- User stat item -->
-                                                <div>
-                                                    <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>
-                                                    <small>Post</small>
-                                                </div>
-
-                                                <!-- Divider -->
-                                                <div class="vr"></div>
-                                                <!-- User stat item -->
-                                                <div>
-                                                    <h6 class="mb-0"></h6>
-                                                    <small>Followers</small>
-                                                </div>
-                                                <!-- Divider -->
-                                                <div class="vr"></div>
-                                                <!-- User stat item -->
-                                                <div>
-                                                    <h6 class="mb-0"></h6>
-                                                    <small>Following</small>
-                                                </div>
-                                            </div>
-                                            <!-- User stat END -->
-
+                                        <!-- Avatar / Profile Pic -->
+                                        <div id="userProfilePic" class="avatar avatar-lg mt-n5 mb-3">
+                                            <a href="#">
+                                                <img style="width: 50px;" class="avatar-img  border  border-3 mt-2"
+                                                     th:src="${user.profilePicture}" alt="">
+                                            </a>
                                         </div>
 
-                                        <!-- Divider -->
-                                        <hr>
-                                        <!-- Side Nav START -->
-                                        <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/posts">
-                                                    <i class="fa-solid fa-network-wired"></i>
-                                                    <span>Home</span>
-                                                </a>
-                                            </li>
+                                        <!-- User Info -->
+                                        <h5 class="mb-0"><a href="/userProfile"
+                                                            th:text="${user.firstName}+' '+${user.lastName}"></a>
+                                        </h5>
+                                        <br>
+                                        <small th:text="${user.userTitle}"></small>
+                                        <br>
+                                        <br>
 
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/userProfile">
-                                                    <i
-                                                            class="fa-solid fa-money-bill-trend-up">
-                                                    </i>
-                                                    <span> Profile</span>
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/finance">
-                                                    <i class="fa-brands fa-bitcoin"></i>
-                                                    <span> Dashboard</span>
-                                                </a>
-                                            </li>
-
-                                            <!--                            <li class="nav-item">-->
-                                            <!--                                <a class="nav-link" href="/crypto">-->
-                                            <!--                                    <i class="fa-solid fa-money-bill-trend-up"></i>-->
-                                            <!--                                    <span> Market</span>-->
-                                            <!--                                </a>-->
-                                            <!--                            </li>-->
-
-
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="/updateProfile">
-                                                    <i class="fa-solid fa-user"></i>
-                                                    <span> Update Profile</span>
-                                                </a>
-                                            </li>
-
-
-                                            <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
-                                                <a class="nav-link btn btn-outline-secondary p-2" th:href="@{/admin/getUsers}">Manage
-                                                    Users</a>
-                                            </li>
-
-
-                                        </ul>
-                                        <!-- Side Nav END -->
+                                        <!-- User stat START -->
+                                        <div class="hstack gap-2 gap-xl-3 justify-content-center">
+                                            <!-- User stat item -->
+                                            <div>
+                                                <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>
+                                                <small>Post</small>
+                                            </div>
+                                        </div>
+                                        <!-- User stat END -->
                                     </div>
-                                    <!-- Card body END -->
-                                    <!-- Card footer -->
-                                    <div class="card-footer text-center py-2">
-                                        <form th:action="@{/logout}" method="POST">
-                                            <button class="btn shareBtn" type="submit">Logout</button>
-                                        </form>
-                                    </div>
+
+                                    <!-- Divider -->
+                                    <hr>
+                                    <!-- Side Nav START -->
+                                    <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/posts">
+                                                <i class="fa-solid fa-network-wired"></i>
+                                                <span> Timeline</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/userProfile">
+                                                <i
+                                                        class="fa-solid fa-money-bill-trend-up">
+                                                </i>
+                                                <span> Profile</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/finance">
+                                                <i class="fa-brands fa-bitcoin"></i>
+                                                <span> Dashboard</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/updateProfile">
+                                                <i class="fa-solid fa-user"></i>
+                                                <span> Update Profile</span>
+                                            </a>
+                                        </li>
+
+                                        <li sec:authorize="hasAnyAuthority('admin','super-admin')" class="nav-item">
+                                            <a class="nav-link btn btn-outline-secondary p-2"
+                                               th:href="@{/admin/getUsers}">Manage
+                                                Users</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Side Nav END -->
                                 </div>
-                                <!-- Card END -->
-
+                                <!-- Card body END -->
+                                <!-- START Card footer -->
+                                <div class="card-footer text-center py-2">
+                                    <form th:action="@{/logout}" method="POST">
+                                        <button class="btn shareBtn" type="submit">Logout</button>
+                                    </form>
+                                </div>
+                                <!-- END Card footer -->
                             </div>
+                            <!-- Card END -->
+
                         </div>
-                    </nav>
-                    <!-- Navbar END-->
-                </div>
+                    </div>
+                </nav>
+                <!-- Navbar END-->
+            </div>
 
 
             <!--Side Nav tag fragment END-->
-
 
 
             <!-- Main content START -->
@@ -180,43 +153,15 @@
                 <!-- Search Posts -->
                 <div class="card card-body form-group d-flex justify-content-end">
                     <form class="form-group w-100 col-md-8 col-lg-6" th:action="@{/searchPost}" method="get">
-                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}" placeholder="Find Post">
+                        <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}"
+                               placeholder="Find Post">
                         <button type="submit" class="rounded">Search</button>
                     </form>
                 </div>
 
-                <!-- Share feed START -->
-<!--                <div class="card card-body">-->
-<!--                    <div class="d-flex mb-3">-->
-<!--                        &lt;!&ndash; Avatar &ndash;&gt;-->
-<!--                        <div class="avatar avatar-xs me-2">-->
-<!--                            <a href="#"> <img class="avatar-img " src="images/AS_31.jpg" alt=""> </a>-->
-<!--                        </div>-->
-<!--                        &lt;!&ndash; Post input &ndash;&gt;-->
-<!--                        <form class="w-100" th:action="@{/posts/create}" th:method="post" th:object="${newPost}">-->
-<!--                            <textarea th:field="*{description}" class="form-control pe-4 border-0" rows="2"-->
-<!--                                      data-autoresize="" placeholder="Share your thoughts..."></textarea>-->
-<!--                            <input id="imgurl" type="text" name="imgUrl" hidden value="null">-->
-<!--                            <input id="videourl" type="text" name="videoUrl" hidden value="null">-->
-<!--                            <button class="btn shareBtn mt-2 me-1" id="imageButton" type="button"><i class="fa-regular fa-image"></i>-->
-<!--                                picture-->
-<!--                            </button>-->
-<!--                            <button class="btn shareBtn mt-2 me-1" id="videoButton" type="button"><i class="fa-solid fa-video"></i> video-->
-<!--                            </button>-->
-<!--                            <button class="btn shareBtn mt-2" type="submit">-->
-<!--                                <i class="fa-solid fa-square-share-nodes" style="color: white"></i>-->
-<!--                                share-->
-<!--                            </button>-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
-                <!-- Share feed END -->
-
-
-
                 <!-- Card feed item START -->
                 <div class="col" th:each="list : ${lists}">
-                    <!--//Post Card item START-->
+                    <!-- Post Card item START -->
                     <div class="card ">
 
                         <!--Card header START-->
@@ -231,7 +176,8 @@
                                     <div>
                                         <div class="nav nav-divider">
                                             <!--INPUT USER PROFILE LINK-->
-                                            <h6 class="nav-item card-title mb-0"><a th:href="@{/userProfile/{id}(id = ${list.getUser().id})}"> <strong
+                                            <h6 class="nav-item card-title mb-0"><a
+                                                    th:href="@{/userProfile/{id}(id = ${list.getUser().id})}"> <strong
                                                     th:text="${list.getUser().firstName}"></strong> <strong
                                                     th:text="${list.getUser().lastName}"></strong> </a></h6>
                                         </div>
@@ -245,7 +191,7 @@
                         <!--Card body START-->
                         <div class="card-body">
                             <!--Post Description-->
-                            <p class="card-text"  th:text="${list.description}"></p>
+                            <p class="card-text" th:text="${list.description}"></p>
 
                             <!--Post image-->
                             <div th:if="${list.imgUrl} != 'null'">
@@ -253,7 +199,7 @@
                             </div>
                             <!--video image-->
                             <div th:if="${list.videoUrl} != 'null'">
-                                <video class="card-img-top"  controls>
+                                <video class="card-img-top" controls>
                                     <source th:src="${list.videoUrl}" type="video/mp4">
                                 </video>
                             </div>
@@ -279,7 +225,8 @@
 
                                 </form>
 
-                                <button class="btn shareBtn" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${list.id}"
+                                <button class="btn shareBtn" data-bs-toggle="collapse"
+                                        th:attr="data-bs-target='#collapse'+${list.id}"
                                         aria-expanded="false" aria-controls="collapseExample">
                                     Comments
                                     <span class="badge ms-1" th:text="${list.getComments().size()}"></span>
@@ -299,10 +246,13 @@
                                                        alt=""> </a>
                                 </div>
                                 <!-- Comment box  -->
-                                <form class="w-75 d-flex justify-content-center" th:action="@{/posts/{id}/create/comment(id=${list.id})}" th:method="post" th:object="${newComment}">
-                                    <textarea field="*{message}" name="commentSection" data-autoresize="" class="form-control pe-4 bg-light" rows="1"
+                                <form class="w-75 d-flex justify-content-center"
+                                      th:action="@{/posts/{id}/create/comment(id=${list.id})}" th:method="post"
+                                      th:object="${newComment}">
+                                    <textarea field="*{message}" name="commentSection" data-autoresize=""
+                                              class="form-control pe-4 bg-light" rows="1"
                                               placeholder="Add a comment..."></textarea>
-                                    <button class="btn shareBtn ms-2" type="submit" >comment</button>
+                                    <button class="btn shareBtn ms-2" type="submit">comment</button>
                                 </form>
                             </div>
                             <!-- Add comment END-->
@@ -316,14 +266,18 @@
                                                 <!-- Avatar -->
                                                 <!--GET COMMENT USER IMAGE-->
                                                 <div class="avatar avatar-xs">
-                                                    <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img style="width: 50px;" class="avatar-img rounded-circle"
-                                                                                                                    th:src="${comment.user.profilePicture}" alt=""></a>
+                                                    <a th:href="@{/userProfile/{id}(id = ${comment.user.id})}"><img
+                                                            style="width: 50px;" class="avatar-img rounded-circle"
+                                                            th:src="${comment.user.profilePicture}" alt=""></a>
                                                 </div>
                                                 <div class="ms-2">
                                                     <!-- Comment by -->
                                                     <div class=" rounded-start-top-0 p-3 rounded">
                                                         <div class="d-flex justify-content-between">
-                                                            <h6 class="mb-1"><a th:href="@{/userProfile/{id}(id = ${comment.user.id})}" th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a></h6>
+                                                            <h6 class="mb-1"><a
+                                                                    th:href="@{/userProfile/{id}(id = ${comment.user.id})}"
+                                                                    th:text="${comment.user.firstName}+' '+${comment.user.lastName}"></a>
+                                                            </h6>
                                                         </div>
                                                         <p class="small mb-0" th:text="${comment.message}"></p>
                                                     </div>
