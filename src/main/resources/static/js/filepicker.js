@@ -42,7 +42,6 @@ function imgClickHandler(){
 }
 
 function videoClickHandler(){
-    console.log(videoPreview);
     const videoOptions = {
         accept: ["video/*"],
         disableTransformer: true,
