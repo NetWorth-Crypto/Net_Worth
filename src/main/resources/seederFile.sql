@@ -1,5 +1,5 @@
-USE networth_db;
-
+# USE networth_db;
+USE net_worth;
 
 
 insert into user(email,user_name, first_name, last_name, password,  profile_picture, user_title)

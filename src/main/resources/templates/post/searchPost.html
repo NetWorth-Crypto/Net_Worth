@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="partials::head"/>
+<head th:replace="partials::head(title='Search Results')"/>
 <body>
 
 <!--Main Navbar-->
@@ -78,21 +78,6 @@
                                                 <div>
                                                     <h6 class="mb-0" th:text="${user.getPosts().size()}"></h6>
                                                     <small>Post</small>
-                                                </div>
-
-                                                <!-- Divider -->
-                                                <div class="vr"></div>
-                                                <!-- User stat item -->
-                                                <div>
-                                                    <h6 class="mb-0"></h6>
-                                                    <small>Followers</small>
-                                                </div>
-                                                <!-- Divider -->
-                                                <div class="vr"></div>
-                                                <!-- User stat item -->
-                                                <div>
-                                                    <h6 class="mb-0"></h6>
-                                                    <small>Following</small>
                                                 </div>
                                             </div>
                                             <!-- User stat END -->

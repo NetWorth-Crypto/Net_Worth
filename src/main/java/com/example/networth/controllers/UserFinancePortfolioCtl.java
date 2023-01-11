@@ -118,12 +118,12 @@ public class UserFinancePortfolioCtl {
     @PostMapping("/addPortfolio")
     public String addPortfolio(@RequestParam("name") String name,
                                @RequestParam("dollarLimit") int dollarLimit,
-                               @RequestParam("type") String type,
                                Model model,
                                RedirectAttributes attributes
     ) {
-        boolean isDefault = type.equals("Default");
-        boolean isPrivate = type.equals("Private");
+//        boolean isDefault = type.equals("Default");
+//        boolean isPrivate = type.equals("Private");
+
 
         List<Portfolio> portfolios = getAlluserPortfolios(logedinUser());
         for (Portfolio portfolio : portfolios) {
@@ -132,7 +132,8 @@ public class UserFinancePortfolioCtl {
                 return "redirect:/createPortfolio";
             }
         }
-        Portfolio portfolio = new Portfolio(logedinUser(), name, isDefault, dollarLimit, isPrivate, dollarLimit);
+
+        Portfolio portfolio = new Portfolio(logedinUser(), name, true, dollarLimit, false, dollarLimit);
         portfolioService.addPortfolio(portfolio);
 
         return "redirect:/finance";
@@ -154,7 +155,7 @@ public class UserFinancePortfolioCtl {
     public String saveEdit(@RequestParam("name") String name,
                            @RequestParam("dollarLimit") double dollarLimit,
                            @RequestParam("id") long id,
-                           @RequestParam("type") String type,
+//                           @RequestParam("type") String type,
                            Model model,
                            RedirectAttributes attributes) {
 
@@ -168,11 +169,13 @@ public class UserFinancePortfolioCtl {
 
             return "portfolio/editPortfolio";
         }
-        if (type.equals("Private")) {
-            portfolio.setPrivate(true);
-        } else {
-            portfolio.setDefault(true);
-        }
+//        if (type.equals("Private")) {
+//            portfolio.setPrivate(true);
+//        } else {
+//            portfolio.setDefault(true);
+//        }
+        portfolio.setPrivate(false);
+        portfolio.setDefault(true);
         portfolio.setName(name);
         portfolio.setDollarLimit(dollarLimit);
         portfolioService.addPortfolio(portfolio);
