@@ -33,7 +33,7 @@ cryptoList().then(data => {
         <input hidden name="name" value="${item.name}">
         <input hidden name="price" value="${item.current_price}">
         <input hidden name="ticker" value="${item.symbol}">
-        <button type="submit">Add to portfolio</button>
+        <button class="btn shareBtn" type="submit">Add to portfolio</button>
     </form>
     
     
@@ -128,7 +128,7 @@ padding: 0 20px 20px 0;" class="s-img"> <img style="width: 10vw; height: 15vh" s
         <input hidden name="name" value="${newData.name}">
         <input hidden name="price" value="${newData.market_data.current_price.usd}">
         <input hidden name="ticker" value="${newData.symbol}">
-        <button type="submit">Add to portfolio</button>
+        <button class="btn shareBtn" type="submit">Add to portfolio</button>
     </form>
     
 
