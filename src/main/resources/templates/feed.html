@@ -3,7 +3,7 @@
 
 <head th:replace="partials::head(title='Timeline')"/>
 <body>
-
+<a id="top"></a>
 <!--Main Navbar-->
 <nav th:replace="partials::profileNavbar"/>
 
@@ -28,7 +28,7 @@
                     <form class="form-group w-100 col-md-8 col-lg-6" th:action="@{/searchPost}" method="get">
                         <input size="50" class="form-group rounded" type="text" name="keyword" th:value="${keyword}"
                                placeholder="Find Post">
-                        <button type="submit" class="rounded">Search</button>
+                        <button type="submit" class="shareBtn">Search</button>
                     </form>
                 </div>
 
@@ -257,6 +257,8 @@
     <!-- Container END -->
 </main>
 
+<!-- Back to Top Button -->
+<a href="#top">Back to top of page</a>
 
 <!--    Javascript files for image upload-->
 <div th:replace="partials::scriptTags"/>

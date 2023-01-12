@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--<head>-->
-<!--    <div th:replace="fragments :: myheader"></div>-->
-<!--    <div th:replace="fragments :: css"></div>-->
-
-<!--    <title>posts</title>-->
-<!--</head>-->
 
 <head th:replace="partials::head(title='Edit Portfolio')"/>
 <body>
@@ -42,14 +36,13 @@
                         <input name="dollarLimit" class="form-control" id="dollar" placeholder="$" required="" type="text" th:value="${dollarLimit}">
                     </div>
 
-                    <div class="form-group">
-                        <label for="type">choose Portfolio type</label>
-                        <select  id="type" name="type" class="form-select">
-                            <option>Private</option>
-                            <option>Default</option>
-
-                        </select>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="type">choose Portfolio type</label>-->
+<!--                        <select  id="type" name="type" class="">-->
+<!--                            <option>Private</option>-->
+<!--                            <option>Default</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
                     <div class="form-group invisible">
                         <label for="id">Dollar limit</label>

@@ -123,7 +123,7 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userService.saveUser(user);
-        attributes.addFlashAttribute("success","You successfully registered! You can now login");
+        attributes.addFlashAttribute("success","Welcome to NetWorth! You successfully registered! You can now login.");
         return "redirect:/login";
     }
 

@@ -1,15 +1,9 @@
     <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<!--<head>-->
-<!--    <div th:replace="fragments :: myheader"></div>-->
-<!--    <div th:replace="fragments :: css"></div>-->
-
-<!--    <title>posts</title>-->
-<!--</head>-->
 
 <head th:replace="partials::head(title='Sign Up')"/>
 <body>
-<!--<div th:replace="fragments :: pforms-navbar"></div>-->
+
 <nav th:replace="partials::mainNavbar"/>
 
 <div class="text-center mb-3">
@@ -23,9 +17,6 @@
         <hr class="mb-5">
         <!-- form card register -->
         <div class="card card-outline-secondary">
-            <div class="card-header">
-                <h3 class="mb-0">Sign Up</h3>
-            </div>
             <div class="card-body">
                 <form th:action="@{/sign-up}" method="POST"  autocomplete="off" class="form" role="form">
 
@@ -56,7 +47,8 @@
                     </div>
 
                     <div class="form-group d-flex justify-content-end mt-4">
-                        <button class="btn btn-success btn-lg float-right" type="submit" onclick="alert('Welcome to NetWorth!\n\n\'Whoever controls the media controls the mind . . . .\'')">Register</button>
+                        <button class="btn btn-success btn-lg float-right" type="submit">Register</button>
+<!--                        onclick="alert('Welcome to NetWorth!\n\n\'Whoever controls the media controls the mind . . . .\'')"-->
                     </div>
                 </form>
             </div>
