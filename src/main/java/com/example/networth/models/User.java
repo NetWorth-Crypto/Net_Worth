@@ -139,6 +139,16 @@ public class User {
         this.roles = roles;
     }
 
+    public User( String firstName, String lastName, String email, String password,String username,Role role) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.roles.add(role);
+    }
+
 
 
 

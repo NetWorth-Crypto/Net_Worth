@@ -2,6 +2,7 @@ package com.example.networth.controllers;
 
 import com.example.networth.models.*;
 import com.example.networth.repositories.FollowerRepository;
+import com.example.networth.repositories.RoleRepository;
 import com.example.networth.repositories.UserRepository;
 import com.example.networth.services.FollowerService;
 import com.example.networth.services.FollowingService;
@@ -34,6 +35,9 @@ public class UserController {
 
     private FollowerRepository followerDao;
 
+    @Autowired
+    private RoleRepository roleDao;
+
 
     private final FollowingService followingService;
 
@@ -58,7 +62,7 @@ public class UserController {
     }
 
     public boolean isValidPassword(String password) {
-       return password.length() >= 8 &&
+        return password.length() >= 8 &&
                 password.contains("!") ||
                 password.contains("#") ||
                 password.contains("$") ||
@@ -78,23 +82,23 @@ public class UserController {
                 password.contains(":") ||
                 password.contains(";") ||
                 password.contains("\"") ||
-         password.contains("<") ||
-          password.contains(">") ||
+                password.contains("<") ||
+                password.contains(">") ||
                 password.contains(".") ||
                 password.contains("?") ||
-               password.contains("@") ||
-               password.contains("\\") ||
+                password.contains("@") ||
+                password.contains("\\") ||
                 password.contains("'");
 
     }
 
 
-    User loggedinUser(){
-      return   (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    User loggedinUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     @GetMapping("/sign-up")
-    public String showSignupForm(){
+    public String showSignupForm() {
 
 
         return "users/sign-up";
@@ -102,41 +106,46 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public String saveUser(
-            @RequestParam("firstName")String firstName,
-            @RequestParam("lastName")String lastName,
-            @RequestParam("username")String username,
-            @RequestParam("email")String email,
-            @RequestParam("password")String password,
-           Model model,RedirectAttributes attributes){
- List<Role>roles = new ArrayList<>();
- Role role = new Role("create portfolio, create posts, manage personal profile","user");
- roles.add(role);
-        User user = new User(firstName,lastName,email,password,username,roles);
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("username") String username,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            Model model, RedirectAttributes attributes) {
 
-       if(!isValidPassword(user.getPassword())){
-          model.addAttribute("firstname",user.getFirstName());
-           model.addAttribute("lastname",user.getLastName());
-           model.addAttribute("username",user.getUsername());
-           model.addAttribute("email",user.getEmail());
+        //New user Role object
+        Role role = roleDao.getReferenceById(3l);
+//        role.setId(3);
 
-           model.addAttribute("invalid","Password must be 8 characters and above and must contain a special character" );
-           return "users/sign-up";
-       }
+        //New User object
+        User user = new User(firstName, lastName, email, password, username,role);
+
+
+
+        if (!isValidPassword(user.getPassword())) {
+            model.addAttribute("firstname", user.getFirstName());
+            model.addAttribute("lastname", user.getLastName());
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("email", user.getEmail());
+
+            model.addAttribute("invalid", "Password must be 8 characters and above and must contain a special character");
+            return "users/sign-up";
+        }
 
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         userService.saveUser(user);
-        attributes.addFlashAttribute("success","You successfully registered! You can now login");
+        attributes.addFlashAttribute("success", "You successfully registered! You can now login");
         return "redirect:/login";
     }
 
 
     @RequestMapping(value = {"/searchUser", "/searchUser/{user}"})
-    public String search(Model model,  @RequestParam("user") Optional<String> user) {
+    public String search(Model model, @RequestParam("user") Optional<String> user) {
 
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             return "users/searchUser";
-        }else {
+        } else {
 
             String userName = user.get();
             System.out.println(userName);
@@ -168,9 +177,6 @@ public class UserController {
     }
 
 
-
-
-
     @GetMapping("/followers")
     public String testFollower(Model model) {
         model.addAttribute("follower", new Follower());
@@ -193,14 +199,13 @@ public class UserController {
     }
 
     @PostMapping("/following/user")
-    public String likePost(@RequestParam("userId") long userId,Model model){
+    public String likePost(@RequestParam("userId") long userId, Model model) {
 
         System.out.println(userId);
 
         /*Change this to the actual logged in user*/
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
+        if (auth.getPrincipal() == "anonymousUser") {
             return "redirect:/login";
         }
 
@@ -213,12 +218,12 @@ public class UserController {
         List<Following> userFollowing = user.getFollowings();
 
         //Check user already like the post
-        for(Following following1: userFollowing){
-            if(following1.getFollowing_user_id() == following.getFollowing_user_id()){
+        for (Following following1 : userFollowing) {
+            if (following1.getFollowing_user_id() == following.getFollowing_user_id()) {
 
                 //remove from PostLike table
                 user.removeFollowing(following1);
-               followingService.delete(following1);
+                followingService.delete(following1);
                 System.out.println("not following anymore");
                 //return to page
 
@@ -226,12 +231,12 @@ public class UserController {
             }
         }
 
-        Following postFollowing = new Following(user,following);
+        Following postFollowing = new Following(user, following);
         user.addFollowing(postFollowing);
-       followingService.save(postFollowing);
+        followingService.save(postFollowing);
         System.out.println("followers added");
 
-        model.addAttribute("user",loggedinUser());
+        model.addAttribute("user", loggedinUser());
         return "users/userProfile";
     }
 
@@ -260,8 +265,6 @@ public class UserController {
         }
         return "users/followers";
     }
-
-
 
 
     @GetMapping("/follow")
@@ -297,7 +300,6 @@ public class UserController {
 //    }
 
 
-
     @GetMapping("/following")
     public String testFollowing(Model model) {
         return "users/following";
@@ -318,32 +320,28 @@ public class UserController {
     }
 
 
-
     //Upload User Profile Image
-    @GetMapping ("/users/imageUpload/{baseImgUrl}/{extensionUrl}/{returnUrl}")
+    @GetMapping("/users/imageUpload/{baseImgUrl}/{extensionUrl}/{returnUrl}")
     public String profileImageUpload(@PathVariable String baseImgUrl,
                                      @PathVariable String extensionUrl,
-                                     @PathVariable String returnUrl){
+                                     @PathVariable String returnUrl) {
         System.out.println("Upload image controller hit");
-        System.out.println("base image url: "+baseImgUrl);
-        System.out.println("extension url: "+ extensionUrl);
-        System.out.println("return url: "+ returnUrl);
+        System.out.println("base image url: " + baseImgUrl);
+        System.out.println("extension url: " + extensionUrl);
+        System.out.println("return url: " + returnUrl);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() == "anonymousUser")
-        {
+        if (auth.getPrincipal() == "anonymousUser") {
             return "redirect:login";
         }
-        User loggedinUser =(User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedinUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getReferenceById(loggedinUser.getId());
 
-        String imgUrl = "https://"+baseImgUrl+"/"+extensionUrl;
+        String imgUrl = "https://" + baseImgUrl + "/" + extensionUrl;
         user.setProfilePicture(imgUrl);
         userDao.save(user);
         System.out.println("Save should hit");
-        return "redirect:/"+returnUrl;
+        return "redirect:/" + returnUrl;
     }
-
-
 
 
 }

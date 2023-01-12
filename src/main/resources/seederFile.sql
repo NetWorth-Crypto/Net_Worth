@@ -47,7 +47,8 @@ values (2,1), (2,2);
 
 insert into role(id,type,details)
 values  (1,'admin','edit user\'s info or delete other users'),
-        (2,'super-admin','assign and revoke roles, edit user\'s info or delete other users');
+        (2,'super-admin','assign and revoke roles, edit user\'s info or delete other users'),
+        (3,'user','create portfolio, create posts, manage personal profile',);
 
 insert into user_role(user_id,role_id)
 values (124,2),(124,1),
